@@ -31,6 +31,9 @@
     <Filter Include="system">
       <UniqueIdentifier>{48b58c60-bbe2-40d8-9d2f-e81d065b6820}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{6dedfc0f-0df9-4caf-afd3-4f9ef2bba766}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -105,9 +108,18 @@
     <ClCompile Include="level\MapChip.cpp">
       <Filter>level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="IGameObject.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMove.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -191,14 +203,26 @@
     <ClInclude Include="level\MapChip.h">
       <Filter>level</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMove.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\ship.fbx">
+    <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stage\stage_test.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

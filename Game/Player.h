@@ -1,14 +1,21 @@
 #pragma once
-#include "character/CharacterController.h"
+#include "GameObjectManager.h"
+#include "PlayerMove.h"
 
-class Player
+class PlayerMove;
+class Player : public IGameObject
 {
 public:
 	Player();
 	~Player();
 	void Update();
-	void Draw();
+	void Render();
 private:
 	SkinModel m_model;									//スキンモデル。
+	//PlayerMove* m_pmove = nullptr;
+//	PlayerMove* p = new PlayerMove();
+	CVector3 m_position = CVector3::Zero();
+	PlayerMove playerMove;
+	
 };
 
