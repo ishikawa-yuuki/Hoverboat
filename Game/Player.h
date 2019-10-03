@@ -10,11 +10,24 @@ public:
 	~Player();
 	void Update();
 	void Render();
+	/*!
+	 *@brief	PlayerのPositionを取得。
+	 */
+	const CVector3& GetPosition()const
+	{
+		return m_position;
+	}
+	/*!
+	 *@brief	PlayerのCQuaternionを取得。
+	 */
+	const CQuaternion& GetPlayerRotation()const
+	{
+		return m_rot;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
-	//PlayerMove* m_pmove = nullptr;
-//	PlayerMove* p = new PlayerMove();
 	CVector3 m_position = CVector3::Zero();
+	CQuaternion m_rot = CQuaternion::Identity();
 	PlayerMove playerMove;
 	
 };

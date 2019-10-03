@@ -4,7 +4,7 @@
 
 BackGround::BackGround()
 {
-	m_model.Init(L"Assets/modelData/Stage/stage_test.cmo");
+	m_model.Init(L"Assets/modelData/Stage/Stage_defult.cmo");
 }
 
 

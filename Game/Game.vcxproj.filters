@@ -34,6 +34,15 @@
     <Filter Include="Player">
       <UniqueIdentifier>{6dedfc0f-0df9-4caf-afd3-4f9ef2bba766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\sprite">
+      <UniqueIdentifier>{2e00f5b1-130a-45d2-9a66-12de6ce1a49c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\modelData\Player">
+      <UniqueIdentifier>{1b605505-4d16-42b0-95c0-57ac0ae983d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\modelData\Stage">
+      <UniqueIdentifier>{81688c4d-fccc-4be5-a0bb-86bcc4a542dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -120,6 +129,10 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Sprite.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -214,16 +227,31 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Sprite.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stage\Stage_Defult.fbx">
+      <Filter>Assets\modelData\Stage</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Stage\stage_test.fbx">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\Stage</Filter>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\all_pc.jpg">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\title.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

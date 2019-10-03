@@ -10,10 +10,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
-	//カメラを初期化。
-	g_camera3D.SetPosition({ 0.0f, 100.0f, 300.0f });
-	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D.SetFar(10000.0f);
+	
 	
 	
 	g_goMgr.NewGameObject<Game>();
@@ -32,8 +29,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		
 		//毎フレーム呼び出す。
 		g_goMgr.Update();
-		//カメラの更新。
-		g_camera3D.Update();
+		
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}

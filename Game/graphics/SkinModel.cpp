@@ -17,6 +17,7 @@ SkinModel::~SkinModel()
 		m_lightCb->Release();
 	}
 }
+
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 {
 	//スケルトンのデータを読み込む。
@@ -59,13 +60,14 @@ void SkinModel::InitSkeleton(const wchar_t* filePath)
 }
 void SkinModel::InitDirectionLight()
 {
-	m_dirLight.direction[0] = {1.0f,0.0f,0.0f,1.0f};
-	m_dirLight.direction[1] = { -1.0f,0.0f,0.0f,1.0f };
-	m_dirLight.direction[2] = { 0.0f,0.0f,1.0f,1.0f };
-	m_dirLight.direction[3] = { 0.0f,0.0f,-1.0f,1.0f };
+	m_light.dirLight.direction[0] = {  1.0f,-0.5f, 0.0f,1.0f };
+	m_light.dirLight.direction[1] = { -1.0f,-0.5f, 0.0f,1.0f };
+	m_light.dirLight.direction[2] = {  0.0f, 0.0f,-1.0f,1.0f };
+	m_light.dirLight.direction[3] = {  0.0f, 0.0f, 1.0f,1.0f };
 	for (int i = 0; i < LIGHT; i++) {
-		m_dirLight.color[i] = { 1.0f,1.0f,1.0f,1.0f };
+		m_light.dirLight.color[i] = { 1.0f,1.0f,1.0f,1.0f };
 	}
+	m_light.specPow = 10.0f;
 }
 void SkinModel::InitConstantBuffer()
 {
@@ -84,7 +86,7 @@ void SkinModel::InitConstantBuffer()
 	//作成。
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_cb);
     //続いてライトの定数バッファ作成
-	bufferDesc.ByteWidth = sizeof(SDirectionLight);
+	bufferDesc.ByteWidth =R( sizeof(LightCb));
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_lightCb);
 
 }
@@ -127,15 +129,19 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 //テスト
 void SkinModel::Update()
 {
-	//ライトを回す。
-	CQuaternion qRot;
-	CQuaternion r;
-	qRot.SetRotationDeg(CVector3::AxisY(), 2.0f);
-	r.SetRotationDeg(CVector3::AxisZ(), 2.0f);
-	qRot.Multiply(r);
-	for (int i = 0; i < LIGHT; i++) {
-		qRot.Multiply(m_dirLight.direction[i]);
-	}
+	////ライトを回す。
+	//CQuaternion qRot;
+	//CQuaternion r;
+	//CQuaternion rx;
+	//qRot.SetRotationDeg(CVector3::AxisY(), 2.0f);
+	//r.SetRotationDeg(CVector3::AxisZ(), 2.0f);
+	//rx.SetRotationDeg(CVector3::AxisX(), 2.0f);
+	//rx.Multiply(r);
+	//qRot.Multiply(rx);
+	//for (int i = 0; i < LIGHT; i++) {
+	//	
+	//	qRot.Multiply(m_dirLight.direction[i]);
+	//}
 }
 void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 {
@@ -143,16 +149,18 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 
 	ID3D11DeviceContext* d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 
+
 	//定数バッファの内容を更新。
 	SVSConstantBuffer vsCb;
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
-	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
+	m_light.eyePos = g_camera3D.GetPosition();
+	m_light.ambientLight = { 0.4f,0.4f,0.4f };
+	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
-	//d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_cb);
 	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_lightCb);
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
