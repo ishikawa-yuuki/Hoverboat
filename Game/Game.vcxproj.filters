@@ -133,6 +133,8 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="Pass.cpp" />
+    <ClCompile Include="Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -231,6 +233,8 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="Pass.h" />
+    <ClInclude Include="Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

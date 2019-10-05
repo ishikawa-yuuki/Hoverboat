@@ -5,7 +5,7 @@
 Player::Player()
 {
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	m_model.Init(L"Assets/modelData/Player/Player_Defult.cmo");
 }
 
 
@@ -24,7 +24,7 @@ void Player::Update()
 void Player::Render()
 {
 	//テスト(ライトを回す）
-	m_model.Update();
+	//m_model.Update();
 
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(), 

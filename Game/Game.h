@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObjectManager.h"
 #include "Sprite.h"
+#include "Pass.h"
 #include "level/Level.h"
+class Enemy;
 class GameCamera;
 class Player;
 class BackGround;
@@ -16,7 +18,9 @@ private:
 	Player* m_player = nullptr;
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
+	Enemy* m_enemy   = nullptr;
 	Sprite m_sprite;
 	Level m_level;
+	std::vector<Pass*> m_passList;
 };
 
