@@ -13,7 +13,7 @@ BackGround::~BackGround()
 }
 void BackGround::Update()
 {
-	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
+	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
 }
 void BackGround::Render()
 {

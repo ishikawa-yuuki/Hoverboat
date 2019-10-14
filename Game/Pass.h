@@ -2,12 +2,15 @@
 #include "GameObjectManager.h"
 class Pass : public IGameObject
 {
+private:
+	CVector3 m_position = CVector3::Zero();
+	bool over = false;
 public:
 	Pass();
 	~Pass();
 	void Update() {};
 	void Render() {};
-	void SetPosition(CVector3 pos)
+	void SetPosition(const CVector3& pos)
 	{
 		m_position = pos;
 	}
@@ -15,17 +18,20 @@ public:
 	{
 		return m_position;
 	}
-	bool OverOK()
+	bool InitPass()
+	{
+		over = false;
+		return over;
+	}
+	bool OverPass()
 	{
 		over = true;
 		return over;
 	}
-	bool GetOver()
+	bool GetPass()const
 	{
 		return over;
 	}
-private:
-	CVector3 m_position = CVector3::Zero();
-	bool over = false;
+
 };
 

@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObjectManager.h"
 #include "Sprite.h"
-#include "Pass.h"
 #include "level/Level.h"
+class Pass;
 class Enemy;
 class GameCamera;
 class Player;

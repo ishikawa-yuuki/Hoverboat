@@ -37,6 +37,9 @@ Game::~Game()
 	g_goMgr.DeleteGameObject(m_player);
 	g_goMgr.DeleteGameObject(m_bg);
 	g_goMgr.DeleteGameObject(m_gc);
+	for (auto& pass : m_passList) {
+		g_goMgr.DeleteGameObject(pass);
+	}
 }
 void Game::Update()
 {

@@ -10,7 +10,7 @@ public:
 	void Move();
 	void Update();
 	void Render();
-	const std::vector<Pass*>& GetPassObjectList(std::vector<Pass*> List)
+	const std::vector<Pass*>& GetPassObjectList(const std::vector<Pass*>& List)
 	{
 		m_passList = List;
 		return m_passList;
@@ -21,7 +21,7 @@ private:
 	std::vector<Pass*> m_passList;
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
-	int i = 0;
 	CVector3 m_diff = CVector3::Zero();
+	int i = 0;
 };
 

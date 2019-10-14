@@ -9,6 +9,5 @@ public:
 	void Render();
 private:
 	SkinModel m_model;									//スキンモデル。
-	CVector3 m_position = {0.0f,0.0f,0.0f};
 };
 

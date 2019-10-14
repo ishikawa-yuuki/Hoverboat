@@ -18,23 +18,27 @@ Enemy::~Enemy()
 }
 void Enemy::Move()
 {
-	//if (i==3) {
-	//	i = 0;
-	//}
-		m_diff = m_passList[i]->GetPosition() - m_position;
-		m_diff.y = 0.0f;
+	if (i==m_passList.size()) {
+		i = 0;
+		for (int j = 0; j < m_passList.size(); j++) {
+			m_passList[j]->InitPass();
+		}
+	}
+	m_diff = m_passList[i]->GetPosition() - m_position;
+	m_diff.y = 0.0f;
 		
-		 if (m_diff.LengthSq() < 5.0f * 5.0f && m_passList[i]->GetOver() ==false) {
-			m_passList[i]->OverOK();
-		}
-		else if (m_passList[i]->GetOver() )
-		{
-			i++;
-		}
-		m_moveSpeed = m_diff;
-		m_moveSpeed.Normalize();
-		m_moveSpeed += m_moveSpeed * 2000.0f;
-		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+    if (m_diff.LengthSq() < 15.0f * 15.0f && !m_passList[i]->GetPass()) {
+		m_passList[i]->OverPass();
+	}
+	else if (m_passList[i]->GetPass())
+	{
+		
+		i++;
+	}
+	m_moveSpeed = m_diff;
+	m_moveSpeed.Normalize();
+	m_moveSpeed += m_moveSpeed * 2000.0f;
+	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
 void Enemy::Update()
 {
