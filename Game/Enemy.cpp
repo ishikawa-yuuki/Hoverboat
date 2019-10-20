@@ -44,7 +44,7 @@ void Enemy::Update()
 {
 
 
-	Move();
+	//Move();
 	m_charaCon.SetPosition(m_position);
 	m_model.UpdateWorldMatrix(m_position,CQuaternion::Identity(),CVector3::One());
 }
@@ -52,7 +52,8 @@ void Enemy::Render()
 {
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D.GetProjectionMatrix(),
+		0
 	);
 
 }

@@ -180,3 +180,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 	finalColor.xyz = albedoColor.xyz * lig;
 	return finalColor;
 }
+float4 PSMain_Silhouette(PSInput In) : SV_Target0
+{
+	return float4(0.5f, 0.5f, 0.5f, 1.0f);
+}

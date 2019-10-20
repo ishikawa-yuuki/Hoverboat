@@ -6,6 +6,7 @@ Player::Player()
 {
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/Player/Player_Defult.cmo");
+	//m_model.Init(L"Assets/modelData/unityChan.cmo");
 }
 
 
@@ -25,9 +26,16 @@ void Player::Render()
 {
 	//テスト(ライトを回す）
 	//m_model.Update();
-
+	//シルエット描画
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(), 
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D.GetProjectionMatrix(),
+		1
+	);
+	//通常描画
+	m_model.Draw(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		0
 	);
 }

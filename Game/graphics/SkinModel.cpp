@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
-
+#include "SkinModelEffect.h"
 
 SkinModel::~SkinModel()
 {
@@ -143,7 +143,7 @@ void SkinModel::Update()
 	//	qRot.Multiply(m_dirLight.direction[i]);
 	//}
 }
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
+void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, int renderMode)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
@@ -166,7 +166,11 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
 	m_skeleton.SendBoneMatrixArrayToGPU();
-
+	//マテリアルにクエリを行う。
+	m_modelDx->UpdateEffects([&](DirectX::IEffect * material) {
+		auto modelMaterial = reinterpret_cast<SkinModelEffect*>(material);
+		modelMaterial->SetRenderMode(renderMode);
+	});
 	//描画。
 	m_modelDx->Draw(
 		d3dDeviceContext,
