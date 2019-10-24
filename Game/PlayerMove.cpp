@@ -13,6 +13,7 @@ bool PlayerMove::Start()
 	m_first = true;
 	return true;
 }
+
 void PlayerMove::Rotation()
 {
 	CVector3 stick;
@@ -26,7 +27,7 @@ void PlayerMove::Rotation()
 }
 void PlayerMove::Move()
 {
-	float lStick_y = g_pad[0].GetRStickYF();
+	
 	//カメラの前方方向を取得。
 	CVector3 cameraForward = g_camera3D.GetForward();
 	//XZ平面での前方方向、右方向に変換する。
@@ -38,8 +39,26 @@ void PlayerMove::Move()
 	
 	if (g_pad->IsPress(enButtonRB1))
 	{
-		m_moveSpeed += cameraForward * 2000.0f;	//奥方向への移動速度を代入。
+		
+		if (m_movePress < 2.0f) {
+			m_movePress += 0.5f;
+		}
+		else {
+			m_movePress = 2.0f;
+		}
 	}
+	else {
+		if (m_movePress > 0.0f) {
+			m_movePress -= 0.04f;
+		}
+		else
+		{
+			m_movePress = 0.0f;
+		}
+		/*m_moveVector = m_moveSpeed;*/
+	}
+	m_moveSpeed = cameraForward * m_movePower * m_movePress;	//奥方向への移動速度を代入。
+	/*m_moveSpeed = (m_moveSpeed-m_moveVector)*m_moveForceMultiplier;*/
 	m_position = m_charaCon.Execute(1.0f/60.0f,m_moveSpeed);
 }
 void PlayerMove::Update()

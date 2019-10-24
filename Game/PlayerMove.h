@@ -29,8 +29,12 @@ public:
 	}
 private:
 	CharacterController m_charaCon;
+	float m_movePower = 1000.0f;// ˆÚ“®‘¬“x
+	float m_moveForceMultiplier = 2.0f; // ˆÚ“®‘¬“x‚Ì“ü—Í‚É‘Î‚·‚é’Ç]“x
+	float m_movePress = 0.0f;
 	bool m_first = false;
 	CVector3 m_moveSpeed = CVector3::Zero();
+	CVector3 m_moveVector = CVector3::Zero();
 	CVector3 m_position  = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();
 };
