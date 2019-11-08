@@ -13,6 +13,10 @@ public:
 	 /// 移動処理
 	 /// </summary>
 	 void Move();
+	 /// <summary>
+	 /// ジャンプ処理
+	 /// </summary>
+	 void Jump();
 	 /*!
 	  *@brief	PlayerのPositionを取得。
 	  */
@@ -31,11 +35,14 @@ private:
 	CharacterController m_charaCon;
 	float m_movePower = 1000.0f;// 移動速度
 	float m_moveForceMultiplier = 2.0f; // 移動速度の入力に対する追従度
-	float m_movePress = 0.0f;
+	float m_movePress = 0.0f; //加速度
+	float m_jumpPress = 0.0f;
 	bool m_first = false;
+	bool m_over = true;
 	CVector3 m_moveSpeed = CVector3::Zero();
-	CVector3 m_moveVector = CVector3::Zero();
-	CVector3 m_position  = CVector3::Zero();
+	CVector3 m_position = {10.0f,20.0f,0.0f};
+	CVector3 m_moveDirection = g_camera3D.GetForward();//移動時の奥方向
+	CVector3 m_cameraForward = g_camera3D.GetForward();//カメラの前方方向を取得。
 	CQuaternion m_rot = CQuaternion::Identity();
 };
 

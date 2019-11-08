@@ -23,7 +23,7 @@ void GameCamera::Update()
 		m_target.y += 55.0f;	                           //注視点はプレイヤーのちょっと上にする。                                    
 		float x = g_pad[0].GetLStickXF();                 //パッドの入力を使ってカメラを回す。
 		CQuaternion qRot;                                //Y軸周りの回転
-		qRot.SetRotationDeg(CVector3::AxisY(), 1.0f * x);
+		qRot.SetRotationDeg(CVector3::AxisY(), 1.4f * x);
 		qRot.Multiply(m_toCameraPos);
 	    m_position = m_target + m_toCameraPos;
 		g_camera3D.SetTarget(m_target);                  

@@ -29,6 +29,5 @@ private:
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();
 	PlayerMove playerMove;
-	
 };
 

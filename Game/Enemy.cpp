@@ -26,8 +26,8 @@ void Enemy::Move()
 	}
 	m_diff = m_passList[i]->GetPosition() - m_position;
 	m_diff.y = 0.0f;
-		
-    if (m_diff.LengthSq() < 15.0f * 15.0f && !m_passList[i]->GetPass()) {
+	//”ÍˆÍ‚ª‹·‚¢‚ç‚µ‚¢
+    if (m_diff.LengthSq() < 30.0f * 30.0f && !m_passList[i]->GetPass()) {
 		m_passList[i]->OverPass();
 	}
 	else if (m_passList[i]->GetPass())
@@ -44,7 +44,7 @@ void Enemy::Update()
 {
 
 
-	//Move();
+	/*Move();*/
 	m_charaCon.SetPosition(m_position);
 	m_model.UpdateWorldMatrix(m_position,CQuaternion::Identity(),CVector3::One());
 }

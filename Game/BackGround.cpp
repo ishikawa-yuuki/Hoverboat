@@ -5,6 +5,8 @@
 BackGround::BackGround()
 {
 	m_model.Init(L"Assets/modelData/Stage/Stage_defult.cmo");
+	m_static.CreateMeshObject(m_model, CVector3::Zero(), CQuaternion::Identity());
+	
 }
 
 

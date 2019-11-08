@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObjectManager.h"
+#include "physics/PhysicsStaticObject.h"
 class BackGround : public IGameObject
 {
 public:
@@ -9,5 +10,6 @@ public:
 	void Render();
 private:
 	SkinModel m_model;									//スキンモデル。
+	PhysicsStaticObject m_static;
 };
 
