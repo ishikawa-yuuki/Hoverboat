@@ -32,14 +32,30 @@ void PlayerMove::Move()
 	//XZ平面での前方方向に変換する。
 	m_cameraForward.y = 0.0f;
 	m_cameraForward.Normalize();
+	//XZ成分の移動速度をクリア。
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
 	
 	if (g_pad->IsPress(enButtonRB1))
 	{
+		
+		if (m_movePress < 2.5f) {
+			m_movePress += 0.5f;
+		}
+		else {
+			m_movePress = 2.5f;
+		}
+		
 		m_moveDirection = m_cameraForward;
-		m_accel = m_moveDirection * 100.0f;
 	}
 	else {
-		m_accel = CVector3::Zero();
+		if (m_movePress > 0.1f) {
+			m_movePress -= 0.08f;
+		}
+		else
+		{
+			m_movePress = 0.1f;
+		}
 	}
 	/*float angle = m_moveDirection.x * cameraForward.z - m_moveDirection.z * cameraForward.x;
 	if (angle < 0.1f) {
@@ -56,18 +72,23 @@ void PlayerMove::Move()
 		m_moveDirection = cameraForward;
 	}*/
 	
-	 m_moveSpeed += m_accel;	//奥方向への移動速度を代入。
-	 m_moveSpeed *= 0.98f;		//摩擦
+	 m_moveSpeed = m_moveDirection*m_movePress * m_movePower;	//奥方向への移動速度を代入。
 }
 void PlayerMove::Jump()
 {
 	
 	if (g_pad->IsPress(enButtonA) && m_over)
 	{
-		m_jump.y = 10.0f;
+		
+		if (m_jumpPress < 10.0f) {
+			m_jumpPress += 1.0f;
+		}
+		else {
+			m_jumpPress = 10.0f;
+			m_over = false;
+		}
 	}
 	else {
-		m_jump = CVector3::Zero();
 		if (m_charaCon.IsOnGround()) {
 			m_moveSpeed.y = 0.0f;
 			m_over = true;
@@ -76,8 +97,16 @@ void PlayerMove::Jump()
 		{
 			m_moveSpeed.y -= 100.0f;
 		}
+	
+		m_jumpPress -= 0.6f;
+		if (m_jumpPress < 0.0f) {
+			m_jumpPress = 0.0f;
+		}
+		
 	}
-	m_moveSpeed += m_jump * 50.0f;
+	
+	m_moveSpeed.y += m_jumpPress * 50.0f;
+
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
 void PlayerMove::Update()
