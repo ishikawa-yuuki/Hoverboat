@@ -122,19 +122,19 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMove.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Sprite.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Pass.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Player\PlayerMove.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -222,19 +222,19 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMove.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Sprite.h">
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Pass.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\PlayerMove.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
