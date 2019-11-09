@@ -35,10 +35,10 @@ private:
 	CharacterController m_charaCon;
 	float m_movePower = 1000.0f;// 移動速度
 	float m_moveForceMultiplier = 2.0f; // 移動速度の入力に対する追従度
-	float m_movePress = 0.0f; //加速度
-	float m_jumpPress = 0.0f;
 	bool m_first = false;
 	bool m_over = true;
+	CVector3 m_accel = CVector3::Zero();	//加速度。
+	CVector3 m_jump = CVector3::Zero();     //ジャンプの加速度
 	CVector3 m_moveSpeed = CVector3::Zero();
 	CVector3 m_position = {10.0f,20.0f,0.0f};
 	CVector3 m_moveDirection = g_camera3D.GetForward();//移動時の奥方向
