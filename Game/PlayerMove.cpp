@@ -23,7 +23,16 @@ void PlayerMove::Rotation()
 	stick.x = g_pad[0].GetLStickXF();
 	qRot.SetRotationDeg(CVector3::AxisY(), stick.x * 1.4f);
 	m_rot.Multiply(qRot);
-	
+	if (fabsf(stick.x) >= 0.8f)
+	{
+		m_friction *= 0.999f;
+	}
+	else {
+		m_friction *= 1.01f;
+		if (m_friction >= 0.98f) {
+			m_friction = 0.98f;
+		}
+	}
 
 }
 void PlayerMove::Move()
@@ -36,7 +45,7 @@ void PlayerMove::Move()
 	if (g_pad->IsPress(enButtonRB1))
 	{
 		m_moveDirection = m_cameraForward;
-		m_accel = m_moveDirection * 100.0f;
+		m_accel = m_moveDirection * m_movePower;
 	}
 	else {
 		m_accel = CVector3::Zero();
@@ -57,7 +66,7 @@ void PlayerMove::Move()
 	}*/
 
 	m_moveSpeed += m_accel;	//‰œ•ûŒü‚Ö‚ÌˆÚ“®‘¬“x‚ğ‘ã“üB
-	m_moveSpeed *= 0.98f;		//–€C
+	m_moveSpeed *= m_friction;		//–€C
 }
 void PlayerMove::Jump()
 {
@@ -78,7 +87,7 @@ void PlayerMove::Jump()
 			m_moveSpeed.y -= 100.0f;
 		}
 	}
-	m_moveSpeed += m_jump * 50.0f;
+	m_moveSpeed += m_jump * 5.0f;
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
 void PlayerMove::Update()

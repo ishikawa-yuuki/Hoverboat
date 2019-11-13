@@ -135,6 +135,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Pass.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -235,6 +236,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Pass.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="RenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

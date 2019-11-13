@@ -33,8 +33,9 @@ public:
 	}
 private:
 	CharacterController m_charaCon;
-	float m_movePower = 1000.0f;// 移動速度
+	float m_movePower = 100.0f;// 移動速度
 	float m_moveForceMultiplier = 2.0f; // 移動速度の入力に対する追従度
+	float m_friction = 0.98f;   //摩擦度
 	bool m_first = false;
 	bool m_over = true;
 	CVector3 m_accel = CVector3::Zero();	//加速度。
