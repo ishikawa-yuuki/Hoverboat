@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "IGameObject.h"
-
+#include "ShadowMap.h"
 class GameObjectManager
 {
 public:
@@ -38,8 +38,17 @@ public:
 			}
 		}
 	}
+	/// <summary>
+/// シャドウマップを取得。
+/// </summary>
+/// <returns></returns>
+	ShadowMap* GetShadowMap()
+	{
+		return &m_shadowMap;
+	}
 private:
+	ShadowMap m_shadowMap;					//シャドウマップ。
 	std::vector< IGameObject* > m_goList;		//ゲームオブジェクトのリスト。
 };
 //外部からアクセスするので、extern宣言も必要。
-extern GameObjectManager g_goMgr;
+extern GameObjectManager* g_goMgr;

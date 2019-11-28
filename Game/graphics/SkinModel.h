@@ -52,7 +52,7 @@ public:
 	*@param[in]	projMatrix		プロジェクション行列。
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
-	void Draw( CMatrix viewMatrix, CMatrix projMatrix ,int renderMode);
+	void Draw( CMatrix viewMatrix, CMatrix projMatrix ,EnRenderMode renderMode);
 	//テスト
 	void Update();
 	/*!
@@ -81,6 +81,21 @@ public:
 		enSkinModelSRVReg_DiffuseTexture = 0,		//!<ディフューズテクスチャ。
 		enSkinModelSRVReg_BoneMatrix,				//!<ボーン行列。
 	};
+	/// <summary>
+/// シャドウレシーバーのフラグを設定する。
+/// </summary>
+/// <param name="flag">trueを渡すとシャドウレシーバーになる</param>
+/// <remarks>
+/// シャドウレシーバーとは影を落とされるオブジェクトのことです。
+/// シャドウキャスターによって生成された、シャドウマップを利用して
+/// 自身に影を落とします。
+/// オブジェクトがシャドウレシーバーかつシャドウキャスターになっている場合は
+/// セルフシャドウ(自分の影が自分に落ちる)を行うことができます。
+/// </remarks>
+	void SetShadowReciever(bool flag)
+	{
+		m_isShadowReciever = flag;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -108,7 +123,11 @@ private:
 		CMatrix mWorld;
 		CMatrix mView;
 		CMatrix mProj;
+		CMatrix mLightView;		//todo ライトビュー行列。
+		CMatrix mLightProj;		//todo ライトプロジェクション行列。
+		int isShadowReciever;	//todo シャドウレシーバーのフラグ。
 	};
+	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
 /*!
  * @brief ディレクションライト
  */
@@ -134,4 +153,6 @@ private:
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	LightCb				m_light;						//!<ライト構造体
+	SVSConstantBuffer  m_vsCb;
+
 };

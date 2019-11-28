@@ -10,10 +10,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
-	
-	
-	
-	g_goMgr.NewGameObject<Game>();
+	g_goMgr->NewGameObject<Game>();
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -28,7 +25,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_physics.Update();
 		
 		//毎フレーム呼び出す。
-		g_goMgr.Update();
+		g_goMgr->Update();
 		
 		//描画終了。
 		g_graphicsEngine->EndRender();

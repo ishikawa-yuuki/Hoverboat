@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
 #include "Pass.h"
-
 Enemy::Enemy()
 {
 	m_model.Init(L"Assets/modelData/Player/Player_Defult.cmo");
@@ -46,14 +45,15 @@ void Enemy::Update()
 
 	/*Move();*/
 	m_charaCon.SetPosition(m_position);
-	m_model.UpdateWorldMatrix(m_position,CQuaternion::Identity(),CVector3::One());
+	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), {2.0f,2.0f,5.0f});
+	g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Enemy::Render()
 {
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		0
+		enRenderMode_Normal
 	);
 
 }

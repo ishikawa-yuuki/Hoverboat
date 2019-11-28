@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "Sprite.h"
 #include "level/Level.h"
+#include "RenderTarget.h"
 class Pass;
 class Enemy;
 class GameCamera;
@@ -19,8 +20,9 @@ private:
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
 	Enemy* m_enemy   = nullptr;
-	Sprite m_sprite;
+	//Sprite m_sprite;
 	Level m_level;
 	std::vector<Pass*> m_passList;
+	RenderTarget m_renderTarget;			//レンダリングターゲット。
 };
 

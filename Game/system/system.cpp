@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "system.h"
+#include "GameObjectManager.h"
 
 HWND			g_hWnd = NULL;				//ウィンドウハンドル。
 GraphicsEngine* g_graphicsEngine = NULL;	//グラフィックスエンジン。
@@ -89,6 +90,7 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 	g_graphicsEngine = new GraphicsEngine();
 	g_graphicsEngine->Init(g_hWnd);
 
+	g_goMgr = new GameObjectManager();
 	//ゲームパッドの初期化。
 	//最大４つのコントローラーを接続できるようにしましょう。
 	g_pad[0].Init(0);

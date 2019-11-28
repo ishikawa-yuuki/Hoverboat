@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "PlayerMove.h"
-
 Player::Player()
 {
 	//cmoファイルの読み込み。
@@ -21,6 +20,7 @@ void Player::Update()
 	m_rot = playerMove.GetPlayerRotation();
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
+	g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Player::Render()
 {
@@ -30,12 +30,12 @@ void Player::Render()
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(), 
 		g_camera3D.GetProjectionMatrix(),
-		1
+		enRenderMode_Silhouette
 	);
 	//通常描画
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		0
+		enRenderMode_Normal
 	);
 }

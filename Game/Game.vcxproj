@@ -133,6 +133,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -177,6 +178,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />

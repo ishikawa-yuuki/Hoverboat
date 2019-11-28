@@ -1,7 +1,6 @@
 #pragma once
 
 #include "graphics/Shader.h"
-
 /*!
 *@brief	モデルエフェクト。
 */
@@ -14,15 +13,21 @@ protected:
 	Shader m_vsShader;
 	Shader m_psShader;
 	Shader m_psSilhouette;		//シルエット描画用のピクセルシェーダー。
+	Shader m_vsShadowMap;		//シャドウマップ生成用の頂点シェーダー。
+	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー。
 	bool isSkining;
-	bool m_renderMode = 0;     //レンダーの切り替え
-	ID3D11ShaderResourceView* m_albedoTex = nullptr;
+	EnRenderMode  m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
+	ID3D11ShaderResourceView* m_albedoTexture = nullptr;
 	ID3D11DepthStencilState* m_depthState = nullptr;//シルエット描画用のデプスステンシルステート。
+	SkinModel m_model;
 public:
 	ModelEffect()
 	{
 		m_psShader.Load("Assets/shader/model.fx", "PSMain", Shader::EnType::PS);
 		m_psSilhouette.Load("Assets/shader/model.fx", "PSMain_Silhouette", Shader::EnType::PS); 
+		//todo シャドウマップ用のシェーダーをロード。
+		m_psShadowMap.Load("Assets/shader/model.fx", "PSMain_ShadowMap", Shader::EnType::PS);
+		
 		m_pPSShader = &m_psShader;
 		m_pSSilhouette = &m_psSilhouette;
 		//デプスステンシルの初期化。
@@ -30,8 +35,8 @@ public:
 	}
 	virtual ~ModelEffect()
 	{
-		if (m_albedoTex) {
-			m_albedoTex->Release();
+		if (m_albedoTexture) {
+			m_albedoTexture->Release();
 		}
 		if (m_depthState != nullptr) {
 			m_depthState->Release();
@@ -46,7 +51,13 @@ public:
 	}
 	void SetAlbedoTexture(ID3D11ShaderResourceView* tex)
 	{
-		m_albedoTex = tex;
+		if (m_albedoTexture != nullptr) {
+			//参照カウンタを下げる。
+			m_albedoTexture->Release();
+		}
+		m_albedoTexture = tex;
+		//参照カウンタを上げる。
+		m_albedoTexture->AddRef();
 	}
 	void SetMatrialName(const wchar_t* matName)
 	{
@@ -57,7 +68,7 @@ public:
 	{
 		return wcscmp(name, m_materialName.c_str()) == 0;
 	}
-	void SetRenderMode(int renderMode)
+	void SetRenderMode(EnRenderMode renderMode)
 	{
 		m_renderMode = renderMode;
 	}
@@ -76,6 +87,7 @@ public:
 	NonSkinModelEffect()
 	{
 		m_vsShader.Load("Assets/shader/model.fx", "VSMain", Shader::EnType::VS);
+		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
 		m_pVSShader = &m_vsShader;
 		isSkining = false;
 	}
@@ -91,6 +103,7 @@ public:
 		wchar_t hoge[256];
 		GetCurrentDirectoryW(256, hoge);
 		m_vsShader.Load("Assets/shader/model.fx", "VSMainSkin", Shader::EnType::VS);
+		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
 		
 		m_pVSShader = &m_vsShader;
 		isSkining = true;

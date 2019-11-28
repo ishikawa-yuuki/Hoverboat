@@ -2,7 +2,8 @@
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
 #include "SkinModelEffect.h"
-
+#include "ShadowMap.h"
+#include "GameObjectManager.h"
 SkinModel::~SkinModel()
 {
 	if (m_cb != nullptr) {
@@ -143,25 +144,32 @@ void SkinModel::Update()
 	//	qRot.Multiply(m_dirLight.direction[i]);
 	//}
 }
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, int renderMode)
+void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode renderMode)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
 	ID3D11DeviceContext* d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-
-
 	//定数バッファの内容を更新。
-	SVSConstantBuffer vsCb;
-	vsCb.mWorld = m_worldMatrix;
-	vsCb.mProj = projMatrix;
-	vsCb.mView = viewMatrix;
-	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
+	m_vsCb.mWorld = m_worldMatrix;
+	m_vsCb.mProj = projMatrix;
+	m_vsCb.mView = viewMatrix;
+	m_vsCb.mLightProj = g_goMgr->GetShadowMap()->GetLightProjMatrix();
+	m_vsCb.mLightView = g_goMgr->GetShadowMap()->GetLighViewMatrix();
+	if (m_isShadowReciever == true) {
+		m_vsCb.isShadowReciever = 1;
+	}
+	else {
+		m_vsCb.isShadowReciever = 0;
+	}
+	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &m_vsCb, 0, 0);
 	m_light.eyePos = g_camera3D.GetPosition();
 	m_light.ambientLight = { 0.4f,0.4f,0.4f };
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
-	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_lightCb);
+	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_cb);
+	d3dDeviceContext->VSSetConstantBuffers(1, 1, &m_lightCb);
+	d3dDeviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。

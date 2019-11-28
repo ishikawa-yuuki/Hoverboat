@@ -5,6 +5,8 @@
 #include "Enemy.h"
 #include "Pass.h"
 #include "BackGround.h"
+#include "RenderTarget.h"
+#include "ShadowMap.h"
 Game::Game()
 {	
 	
@@ -12,11 +14,11 @@ Game::Game()
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
-			m_bg = g_goMgr.NewGameObject<BackGround>();
+			m_bg = g_goMgr->NewGameObject<BackGround>();
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"Pass")) {
-			Pass* pass = g_goMgr.NewGameObject<Pass>();
+			Pass* pass = g_goMgr->NewGameObject<Pass>();
 			pass->SetPosition(objdata.position);
 			m_passList.push_back(pass);
 			return true;
@@ -24,32 +26,36 @@ Game::Game()
 
 		return false;
 	});
-	m_gc = g_goMgr.NewGameObject<GameCamera>();
-	m_enemy = g_goMgr.NewGameObject<Enemy>();
-	m_player = g_goMgr.NewGameObject<Player>();
+	m_gc = g_goMgr->NewGameObject<GameCamera>();
+	m_enemy = g_goMgr->NewGameObject<Enemy>();
+	m_player = g_goMgr->NewGameObject<Player>();
 	m_gc->GetInfoPlayer(m_player);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	m_enemy->GetPassObjectList(m_passList);
+	////レンダリングターゲットの作成。
+	//m_renderTarget.Create(1280, 720, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
 
 
 Game::~Game()
 {
-	g_goMgr.DeleteGameObject(m_player);
-	g_goMgr.DeleteGameObject(m_bg);
-	g_goMgr.DeleteGameObject(m_gc);
+	g_goMgr->DeleteGameObject(m_player);
+	g_goMgr->DeleteGameObject(m_bg);
+	g_goMgr->DeleteGameObject(m_gc);
 	for (auto& pass : m_passList) {
-		g_goMgr.DeleteGameObject(pass);
+		g_goMgr->DeleteGameObject(pass);
 	}
 }
 void Game::Update()
 {
-	CQuaternion rot;
-	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+	/*CQuaternion rot;
+	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);*/
 	//m_sprite.UpdateWorldMatrix(CVector3::Zero(),rot,CVector3::One());
+	
 }
 void Game::Render()
 {
+	
 	/*CMatrix mView;
 	CMatrix mProj;
 	mView.MakeLookAt(

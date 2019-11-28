@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "graphics/SkinModelEffect.h"
 #include "graphics/SkinModelShaderConst.h"
-
+#include "ShadowMap.h"
+#include "GameObjectManager.h"
 void ModelEffect::InitSilhouettoDepthStepsilState()
 {
 	//D3Dデバイスを取得。
@@ -16,20 +17,33 @@ void ModelEffect::InitSilhouettoDepthStepsilState()
 }
 void __cdecl ModelEffect::Apply(ID3D11DeviceContext* deviceContext)
 {
-	deviceContext->VSSetShader((ID3D11VertexShader*)m_pVSShader->GetBody(), NULL, 0);
+	
 	
 	switch (m_renderMode) {
-	case 0:
+	case enRenderMode_Normal: {
 		//通常描画
+		deviceContext->VSSetShader((ID3D11VertexShader*)m_pVSShader->GetBody(), NULL, 0);
 		deviceContext->PSSetShader((ID3D11PixelShader*)m_pPSShader->GetBody(), NULL, 0);
-		deviceContext->PSSetShaderResources(enSkinModelSRVReg_AlbedoTexture, 1, &m_albedoTex);
-
-		break;
-	case 1:
+		//todo シェーダーリソースビューを一気に設定する。
+		ID3D11ShaderResourceView* srvArray[] = {
+			m_albedoTexture,							//アルベドテクスチャ。
+			//g_goMgr->GetShadowMap()->GetShadowMapSRV()	//シャドウマップ。
+		};
+		deviceContext->PSSetShaderResources(0, 1, srvArray);
+		srvArray[0] = g_goMgr->GetShadowMap()->GetShadowMapSRV();
+		deviceContext->PSSetShaderResources(2, 1, srvArray);
+	}break;
+	case enRenderMode_Silhouette:
 		//シルエット描画
+		deviceContext->VSSetShader((ID3D11VertexShader*)m_pVSShader->GetBody(), NULL, 0);
 		deviceContext->PSSetShader((ID3D11PixelShader*)m_pSSilhouette->GetBody(), NULL, 0);
 	    //デプスステンシルステートを切り替える。
 		deviceContext->OMSetDepthStencilState(m_depthState, 0);
+		break;
+	case enRenderMode_CreateShadowMap:
+		//シャドー
+		deviceContext->VSSetShader((ID3D11VertexShader*)m_vsShadowMap.GetBody(), NULL, 0);
+		deviceContext->PSSetShader((ID3D11PixelShader*)m_psShadowMap.GetBody(), NULL, 0);
 		break;
 	}
 }

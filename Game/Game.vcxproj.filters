@@ -43,6 +43,9 @@
     <Filter Include="Assets\modelData\Stage">
       <UniqueIdentifier>{81688c4d-fccc-4be5-a0bb-86bcc4a542dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{3ae8b0f5-7319-4a2f-b3fb-6a61cfcb68f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -119,8 +122,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="GameObjectManager.cpp" />
-    <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
@@ -136,6 +137,13 @@
     <ClCompile Include="Pass.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -220,8 +228,6 @@
       <Filter>level</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="GameObjectManager.h" />
-    <ClInclude Include="IGameObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
@@ -237,6 +243,13 @@
     <ClInclude Include="Pass.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
