@@ -2,9 +2,12 @@
 #include <vector>
 #include "IGameObject.h"
 #include "ShadowMap.h"
+#include "RenderTarget.h"
+#include "Sprite.h"
 class GameObjectManager
 {
 public:
+	bool Start();
 	/// <summary>
 	/// 更新。
 	/// </summary>
@@ -46,9 +49,35 @@ public:
 	{
 		return &m_shadowMap;
 	}
+	/// <summary>
+	/// プリレンダリング。
+	/// </summary>
+	void PreRender();
+	/// <summary>
+	/// フォワードレンダリング(通常の描画だと考えてOK)
+	/// </summary>
+	void ForwordRender();
+	/// <summary>
+	/// ポストレンダリング
+	/// </summary>
+	void PostRender();
+	/// <summary>
+	/// レンダリングターゲットの切り替え。
+	/// </summary>
+	/// <param name="d3dDeviceContext">D3Dデバイスコンテキスト</param>
+	/// <param name="renderTarget">レンダリングターゲット</param>
+	/// <param name="viewport">ビューポート</param>
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 private:
+	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	RenderTarget m_mainRenderTarget;        //メインレンダリングターゲット
 	ShadowMap m_shadowMap;					//シャドウマップ。
+	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
+	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
+	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
 	std::vector< IGameObject* > m_goList;		//ゲームオブジェクトのリスト。
+	bool m_first = false;
 };
 //外部からアクセスするので、extern宣言も必要。
 extern GameObjectManager* g_goMgr;

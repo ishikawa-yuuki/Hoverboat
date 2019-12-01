@@ -32,8 +32,12 @@ Game::Game()
 	m_gc->GetInfoPlayer(m_player);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	m_enemy->GetPassObjectList(m_passList);
-	////レンダリングターゲットの作成。
-	//m_renderTarget.Create(1280, 720, DXGI_FORMAT_R8G8B8A8_UNORM);
+	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
+	g_camera2D.SetWidth(FRAME_BUFFER_W);
+	g_camera2D.SetHeight(FRAME_BUFFER_H);
+	g_camera2D.SetPosition({ 0.0f, 0.0f, -10.0f });
+	g_camera2D.SetTarget(CVector3::Zero());
+	g_camera2D.Update();
 }
 
 
