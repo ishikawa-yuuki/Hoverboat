@@ -2,6 +2,7 @@
 #include "system/system.h"
 #include "GameObjectManager.h"
 #include "Game.h"
+#include "Title.h"
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -10,7 +11,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
-	g_goMgr->NewGameObject<Game>();
+	/*g_goMgr->NewGameObject<Game>();*/
+	g_goMgr->NewGameObject<Title>();
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{

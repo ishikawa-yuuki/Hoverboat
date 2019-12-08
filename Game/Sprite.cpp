@@ -33,7 +33,6 @@ Sprite::~Sprite()
 
 void Sprite::InitVertexBuffer(float w, float h)
 {
-	//上で定義した頂点を使用して頂点バッファを作成する。
 	//頂点バッファを作成するためにはD3D11_BUFFER_DESCとD3D11_SUBRESOURCE_DATAを設定する必要がある。
 	float halfW = w * 0.5f;
 	float halfH = h * 0.5f;

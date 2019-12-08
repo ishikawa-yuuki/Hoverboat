@@ -144,6 +144,7 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -250,6 +251,7 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
