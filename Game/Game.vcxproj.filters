@@ -46,6 +46,9 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{3ae8b0f5-7319-4a2f-b3fb-6a61cfcb68f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PostEffect">
+      <UniqueIdentifier>{9c089c88-889c-4d25-87b6-1ae914a09873}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -145,6 +148,16 @@
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="ConstantBufferGPU.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GaussianBlur.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffect.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -252,6 +265,16 @@
     </ClInclude>
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="ConstantBufferGPU.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianBlur.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PostEffect.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePad.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

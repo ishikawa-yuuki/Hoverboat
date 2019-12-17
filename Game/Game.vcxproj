@@ -101,10 +101,13 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
+    <ClCompile Include="ConstantBufferGPU.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="GaussianBlur.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
     <ClCompile Include="graphics\animation\AnimationPlayController.cpp" />
@@ -132,6 +135,7 @@
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMove.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -145,10 +149,13 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="character\CharacterController.h" />
+    <ClInclude Include="ConstantBufferGPU.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GamePad.h" />
+    <ClInclude Include="GaussianBlur.h" />
     <ClInclude Include="graphics\animation\Animation.h" />
     <ClInclude Include="graphics\animation\AnimationClip.h" />
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
@@ -178,6 +185,7 @@
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMove.h" />
+    <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Sprite.h" />
