@@ -158,6 +158,9 @@
       <Filter>PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="PhysicsGhostObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -275,6 +278,9 @@
       <Filter>PostEffect</Filter>
     </ClInclude>
     <ClInclude Include="GamePad.h" />
+    <ClInclude Include="PhysicsGhostObject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -69,7 +69,10 @@ public:
 		vec = _v.vec;
 		return *this;
 	}
-	CVector3() {}
+	CVector3() 
+	{
+		x = y = z = 0.0f;
+	}
 	/*!
 	* @brief	コンストラクタ。
 	*/
@@ -96,6 +99,13 @@ public:
 		dst.x = x;
 		dst.y = y;
 		dst.z = z;
+	}
+	template<>
+	void CopyTo(btVector3& dst) const
+	{
+		dst.setX(x);
+		dst.setY(y);
+		dst.setZ(z);
 	}
 	/*!
 	* @brief	ベクトルの各要素を設定。
@@ -341,7 +351,26 @@ public:
 	{
 		return DirectX::XMLoadFloat4(&vec);
 	}
-	CVector4(){}
+	CVector4()
+	{
+		x = y = z = w = 0.0f;
+	}
+	template<class TVector4>
+		void CopyTo(TVector4& dst) const
+		{
+			dst.x = x;
+			dst.y = y;
+			dst.z = z;
+			dst.w = w;
+		}
+		template<>
+		void CopyTo(btQuaternion& dst) const
+		{
+			dst.setX(x);
+			dst.setY(y);
+			dst.setZ(z);
+			dst.setW(w);
+		}
 	/*!
 	*@brief	代入演算子。
 	*/
