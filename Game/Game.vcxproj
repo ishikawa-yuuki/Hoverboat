@@ -100,8 +100,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBufferGPU.cpp" />
+    <ClCompile Include="DebugWireframe.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="math\Vector.cpp" />
     <ClCompile Include="Pass.cpp" />
     <ClCompile Include="PhysicsGhostObject.cpp" />
+    <ClCompile Include="PhysicsObjectBase.cpp" />
     <ClCompile Include="physics\MeshCollider.cpp" />
     <ClCompile Include="physics\Physics.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
@@ -149,8 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBufferGPU.h" />
+    <ClInclude Include="DebugWireframe.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
@@ -178,6 +183,7 @@
     <ClInclude Include="math\Vector.h" />
     <ClInclude Include="Pass.h" />
     <ClInclude Include="PhysicsGhostObject.h" />
+    <ClInclude Include="PhysicsObjectBase.h" />
     <ClInclude Include="physics\ICollider.h" />
     <ClInclude Include="physics\MeshCollider.h" />
     <ClInclude Include="physics\Physics.h" />

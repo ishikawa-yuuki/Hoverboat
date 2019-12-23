@@ -46,6 +46,10 @@ public:
 	{
 		dynamicWorld->removeCollisionObject(&colliObj);
 	}
+	/// <summary>
+	/// デバックフレーム
+	/// </summary>
+	/*void DebugDraw();*/
 	void ConvexSweepTest(
 		const btConvexShape* castShape,
 		const btTransform& convexFromWorld,

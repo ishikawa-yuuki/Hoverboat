@@ -512,7 +512,11 @@ public:
 
 class CQuaternion : public CVector4{
 public:
-	CQuaternion() {}
+	CQuaternion() 
+	{
+		x = y = z = 0.0f;
+		w = 1.0f;
+	}
 	CQuaternion(float x, float y, float z, float w) :
 		CVector4(x, y, z, w)
 	{
@@ -540,6 +544,13 @@ public:
 		x = axis.x * s;
 		y = axis.y * s;
 		z = axis.z * s;
+	}
+	void Set(const btQuaternion& rot)
+	{
+		x = rot.x();
+		y = rot.y();
+		z = rot.z();
+		w = rot.w();
 	}
 	/*!
 	*@brief	行列からクォータニオンを作成。

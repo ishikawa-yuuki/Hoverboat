@@ -4,11 +4,17 @@
 Enemy::Enemy()
 {
 	m_model.Init(L"Assets/modelData/Player/Player_Defult.cmo");
-	m_charaCon.Init(
+	/*m_charaCon.Init(
 		20.0f,
 		20.0f,
 		m_position
+	);*/
+	m_ghost.CreateBox(
+		m_position,
+		CQuaternion::Identity(),
+		{ 40.0f,20.0f,40.0f }
 	);
+
 }
 
 
@@ -37,15 +43,16 @@ void Enemy::Move()
 	m_moveSpeed = m_diff;
 	m_moveSpeed.Normalize();
 	m_moveSpeed += m_moveSpeed * 2000.0f;
-	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+	/*m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);*/
 }
 void Enemy::Update()
 {
 
 
 	/*Move();*/
-	m_charaCon.SetPosition(m_position);
-	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), {2.0f,2.0f,5.0f});
+	/*m_charaCon.SetPosition(m_position);*/
+	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
+	m_ghost.SetPosition(m_position);
 	g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Enemy::Render()

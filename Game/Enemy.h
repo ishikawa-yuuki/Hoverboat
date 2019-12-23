@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObjectManager.h"
-#include "character/CharacterController.h"
+//#include "character/CharacterController.h"
+#include "PhysicsGhostObject.h"
 class Pass;
 class Enemy : public IGameObject
 {
@@ -17,7 +18,8 @@ public:
 	}
 private:
 	SkinModel m_model;
-	CharacterController m_charaCon;
+	/*CharacterController m_charaCon;*/
+	PhysicsGhostObject m_ghost;
 	std::vector<Pass*> m_passList;
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();

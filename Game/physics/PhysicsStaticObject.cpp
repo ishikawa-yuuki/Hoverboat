@@ -5,16 +5,21 @@
 
 #include "stdafx.h"
 #include "physics/PhysicsStaticObject.h"
-
-
-PhysicsStaticObject::PhysicsStaticObject()
-{
-}
-PhysicsStaticObject::~PhysicsStaticObject()
+#include "BoxCollider.h"
+void PhysicsStaticObject::Release()
 {
 	g_physics.RemoveRigidBody(m_rigidBody);
 }
-
+void PhysicsStaticObject::CreateCommon(CVector3 pos, CQuaternion rot)
+{
+	RigidBodyInfo rbInfo;
+	rbInfo.collider = m_collider.get();
+	rbInfo.mass = 0.0f;
+	rbInfo.pos = pos;
+	rbInfo.rot = rot;
+	m_rigidBody.Create(rbInfo);
+	g_physics.AddRigidBody(m_rigidBody);
+}
 void PhysicsStaticObject::CreateMeshObject(SkinModel& skinModel, CVector3 pos, CQuaternion rot)
 {
 	//メッシュコライダーを作成。

@@ -1,19 +1,23 @@
 #pragma once
-#include "Physics/CapsuleCollider.h"
-class PhysicsGhostObject
+#include "PhysicsObjectBase.h"
+#include "physics/MeshCollider.h"
+class PhysicsGhostObject : public PhysicsObjectBase
 {
 public:
-	~PhysicsGhostObject()
-	{
-		Release();
-	};
+	/*!
+	 * @brief	デストラクタ。
+	 */
+	~PhysicsGhostObject() { Release(); };
 	/*!
 		* @brief	ゴーストオブジェクトを解放。
 		*@detail
 		* 明示的なタイミングでゴーストオブジェクトを削除したい場合に呼び出してください。
 		*/
-	void Release();
+	void Release() override final;
 	
+	/*!
+	* @brief 座標を設定
+	*/
 	void SetPosition(const CVector3& pos)
 	{
 		auto& btTrans = m_ghostObject.getWorldTransform();
@@ -21,6 +25,9 @@ public:
 		pos.CopyTo(btPos);
 		btTrans.setOrigin(btPos);
 	}
+	/*!
+	* @brief 回転を設定
+	*/
 	void SetRotation(const CQuaternion& rot)
 	{
 		auto& btTrans = m_ghostObject.getWorldTransform();
@@ -28,17 +35,13 @@ public:
 		rot.CopyTo(btRot);
 		btTrans.setRotation(btRot);
 	}
+private:
 	/*!
-		* @brief	メッシュの静的オブジェクトを作成。
-		*@param[in]	skinModel	スキンモデル。
-		*@param[in]	pos			座標。
-		*@param[in]	rot			回転。
-		*/
-	void CreateMeshObject(SkinModel& skinModel, CVector3 pos, CQuaternion rot);
-	void CreateCapsule(float radius, float height, const CVector3& position);
+		* @brief	ゴースト作成処理の共通処理。
+	*/
+	void CreateCommon(CVector3 pos, CQuaternion rot) override;
 private:
 	bool				m_isRegistPhysicsWorld = false; //!<物理ワールドに登録しているかどうかのフラグ。
 	btGhostObject		m_ghostObject;//!<ゴースト
-	CapsuleCollider m_collider;
 };
 

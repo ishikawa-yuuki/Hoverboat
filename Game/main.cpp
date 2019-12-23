@@ -13,6 +13,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	/*g_goMgr->NewGameObject<Game>();*/
 	g_goMgr->NewGameObject<Title>();
+	//デバッグモードのオンオフ
+	bool m_isDebug = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -28,7 +30,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		
 		//毎フレーム呼び出す。
 		g_goMgr->Update();
-		
+		if (g_pad[0].IsTrigger(enButtonSelect))
+		{
+			m_isDebug = !m_isDebug;
+		}
+		if (m_isDebug)
+		{
+			//デバッグモード
+			/*g_physics.DebugDraw();*/
+		}
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}
