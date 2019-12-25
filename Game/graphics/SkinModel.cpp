@@ -163,7 +163,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &m_vsCb, 0, 0);
 	m_light.eyePos = g_camera3D.GetPosition();
-	m_light.ambientLight = { 0.4f,0.4f,0.4f };
+	m_light.ambientLight = CVector3{ 0.4f,0.4f,0.4f };
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);

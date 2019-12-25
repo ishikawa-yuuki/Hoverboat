@@ -12,7 +12,7 @@ Enemy::Enemy()
 	m_ghost.CreateBox(
 		m_position,
 		CQuaternion::Identity(),
-		{ 40.0f,20.0f,40.0f }
+		{ 60.0f,40.0f,60.0f }
 	);
 
 }

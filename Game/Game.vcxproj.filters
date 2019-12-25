@@ -161,11 +161,13 @@
     <ClCompile Include="PhysicsGhostObject.cpp">
       <Filter>physics</Filter>
     </ClCompile>
-    <ClCompile Include="DebugWireframe.cpp" />
     <ClCompile Include="BoxCollider.cpp">
       <Filter>physics</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsObjectBase.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugWireframe.cpp">
       <Filter>physics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,11 +290,13 @@
     <ClInclude Include="PhysicsGhostObject.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="DebugWireframe.h" />
     <ClInclude Include="BoxCollider.h">
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsObjectBase.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugWireframe.h">
       <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>

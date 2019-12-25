@@ -152,6 +152,4 @@ void GraphicsEngine::Init(HWND hWnd)
 	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
 	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
 
-	////各種レンダリングステートを初期化する。
-	//DepthStencilState::Init(*this);
 }

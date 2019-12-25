@@ -1,5 +1,7 @@
 #pragma once
 #include "character/CharacterController.h"
+#include "PhysicsGhostObject.h"
+class Enemy;
 class PlayerMove 
 {
 public:
@@ -17,6 +19,10 @@ public:
 	 /// ジャンプ処理
 	 /// </summary>
 	 void Jump();
+	 /// <summary>
+	 /// 周回判定処理
+	 /// </summary>
+	 void Check();
 	 /*!
 	  *@brief	PlayerのPositionを取得。
 	  */
@@ -31,7 +37,13 @@ public:
 	{
 		return m_rot;
 	}
+	Enemy* GetInfoEnemy(Enemy* en)
+	{
+		m_enemy = en;
+		return m_enemy;
+	}
 private:
+	Enemy* m_enemy = nullptr;
 	CharacterController m_charaCon;
 	float m_movePower = 100.0f;// 移動速度
 	float m_moveForceMultiplier = 2.0f; // 移動速度の入力に対する追従度

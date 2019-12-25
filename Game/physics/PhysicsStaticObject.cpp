@@ -5,7 +5,6 @@
 
 #include "stdafx.h"
 #include "physics/PhysicsStaticObject.h"
-#include "BoxCollider.h"
 void PhysicsStaticObject::Release()
 {
 	g_physics.RemoveRigidBody(m_rigidBody);

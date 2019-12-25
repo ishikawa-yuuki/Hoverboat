@@ -24,6 +24,10 @@ public:
 	{
 		return m_rot;
 	}
+	PlayerMove* GetPlayerMove()
+	{
+		return &playerMove;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();

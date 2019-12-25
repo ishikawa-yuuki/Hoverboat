@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		if (m_isDebug)
 		{
 			//デバッグモード
-			/*g_physics.DebugDraw();*/
+			g_physics.DebugDraw();
 		}
 		//描画終了。
 		g_graphicsEngine->EndRender();

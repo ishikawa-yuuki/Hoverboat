@@ -16,6 +16,10 @@ public:
 		m_passList = List;
 		return m_passList;
 	}
+	PhysicsGhostObject* GetGhost()
+	{
+		return &m_ghost;
+	}
 private:
 	SkinModel m_model;
 	/*CharacterController m_charaCon;*/

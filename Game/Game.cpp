@@ -30,6 +30,7 @@ Game::Game()
 	m_enemy = g_goMgr->NewGameObject<Enemy>();
 	m_player = g_goMgr->NewGameObject<Player>();
 	m_gc->GetInfoPlayer(m_player);
+	m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	m_enemy->GetPassObjectList(m_passList);
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
@@ -55,7 +56,7 @@ void Game::Update()
 	/*CQuaternion rot;
 	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);*/
 	//m_sprite.UpdateWorldMatrix(CVector3::Zero(),rot,CVector3::One());
-	
+	m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
 }
 void Game::Render()
 {

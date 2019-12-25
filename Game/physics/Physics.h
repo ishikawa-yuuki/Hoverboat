@@ -1,8 +1,8 @@
 #pragma once
 
-
+#include "DebugWireframe.h"
 class RigidBody;
-
+class CharacterController;
 class PhysicsWorld
 {
 	btDefaultCollisionConfiguration*		collisionConfig = nullptr;
@@ -10,6 +10,7 @@ class PhysicsWorld
 	btBroadphaseInterface*					overlappingPairCache = nullptr;	//!<ブロードフェーズ。衝突判定の枝切り。
 	btSequentialImpulseConstraintSolver*	constraintSolver = nullptr;		//!<コンストレイントソルバー。拘束条件の解決処理。
 	btDiscreteDynamicsWorld*				dynamicWorld = nullptr;			//!<ワールド。
+	DebugWireframe							m_degugframe;
 public:
 	~PhysicsWorld();
 	void Init();
@@ -49,7 +50,7 @@ public:
 	/// <summary>
 	/// デバックフレーム
 	/// </summary>
-	/*void DebugDraw();*/
+	void DebugDraw();
 	void ConvexSweepTest(
 		const btConvexShape* castShape,
 		const btTransform& convexFromWorld,
@@ -67,6 +68,18 @@ public:
 	{
 		dynamicWorld->contactTest(colObj, resultCallback);
 	}
+	void ContactTest(
+		btCollisionObject* colObj,
+		std::function<void(const btCollisionObject& contactCollisionObject)> cb
+	);
+	void ContactTest(
+		RigidBody& rb,
+		std::function<void(const btCollisionObject& contactCollisionObject)> cb
+	);
+	void ContactTest(
+		CharacterController& charaCon,
+		std::function<void(const btCollisionObject& contactCollisionObject)> cb
+	);
 };
 
 extern PhysicsWorld g_physics;

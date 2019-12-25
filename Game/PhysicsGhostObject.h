@@ -14,7 +14,13 @@ public:
 		* 明示的なタイミングでゴーストオブジェクトを削除したい場合に呼び出してください。
 		*/
 	void Release() override final;
-	
+	/*!
+		* @brief	引数で渡されたゴーストオブジェクトが自分自身かどうか判定。
+		*/
+	bool IsSelf(const btCollisionObject& ghost) const
+	{
+		return &ghost == &m_ghostObject;
+	}
 	/*!
 	* @brief 座標を設定
 	*/

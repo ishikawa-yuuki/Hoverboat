@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PlayerMove.h"
-
+#include "Enemy.h"
 
 bool PlayerMove::Start()
 {
@@ -90,12 +90,25 @@ void PlayerMove::Jump()
 	m_moveSpeed += m_jump * 5.0f;
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
+void PlayerMove::Check()
+{
+	 
+		PhysicsGhostObject* ghostObj = m_enemy->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//ü‰ñ”»’è‚·‚éêŠ
+				m_position.y += 5;
+			}
+		});
+	
+}
 void PlayerMove::Update()
 {
 	if (!m_first) {
 		Start();
 	}
 	Rotation();
+	Check();
 	Move();
 	Jump();
 	m_charaCon.SetPosition(m_position);
