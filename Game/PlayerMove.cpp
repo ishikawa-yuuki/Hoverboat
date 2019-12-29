@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PlayerMove.h"
 #include "Enemy.h"
-
+#include "GamePad.h"
 bool PlayerMove::Start()
 {
 	m_charaCon.Init(
@@ -20,7 +20,7 @@ void PlayerMove::Rotation()
 {
 	CVector3 stick;
 	CQuaternion qRot = CQuaternion::Identity();
-	stick.x = g_pad[0].GetLStickXF();
+	stick.x = m_gamePad->GetLstickXF();
 	qRot.SetRotationDeg(CVector3::AxisY(), stick.x * 1.4f);
 	m_rot.Multiply(qRot);
 	if (fabsf(stick.x) >= 0.8f)
@@ -42,7 +42,7 @@ void PlayerMove::Move()
 	m_cameraForward.y = 0.0f;
 	m_cameraForward.Normalize();
 
-	if (g_pad->IsPress(enButtonRB1))
+	if (m_gamePad->IsPressAccel())
 	{
 		m_moveDirection = m_cameraForward;
 		m_accel = m_moveDirection * m_movePower;
@@ -72,7 +72,7 @@ void PlayerMove::Jump()
 {
 	
 
-	if (g_pad->IsPress(enButtonA) && m_over)
+	if (m_gamePad->IsPressJump() && m_over)
 	{
 		m_jump.y = 10.0f;
 	}

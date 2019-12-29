@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "PlayerMove.h"
 Player::Player()
 {
 	//cmoファイルの読み込み。

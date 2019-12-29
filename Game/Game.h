@@ -3,6 +3,9 @@
 #include "Sprite.h"
 #include "level/Level.h"
 #include "RenderTarget.h"
+#include "PlayerPad.h"
+#include "ComputerPad.h"
+
 class Pass;
 class Enemy;
 class GameCamera;
@@ -16,10 +19,11 @@ public:
 	void Update();
 	void Render();
 private:
-	Player* m_player = nullptr;
+	Player* m_player[4] = { nullptr };
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
-	Enemy* m_enemy   = nullptr;
+	PlayerPad m_playerPad;	//プレイヤー用のゲームパッド。
+	ComputerPad m_comPad;
 	//Sprite m_sprite;
 	Level m_level;
 	std::vector<Pass*> m_passList;

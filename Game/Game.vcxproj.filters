@@ -49,6 +49,9 @@
     <Filter Include="PostEffect">
       <UniqueIdentifier>{9c089c88-889c-4d25-87b6-1ae914a09873}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{3103440b-9572-41b6-8e76-57379265fc7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -138,7 +141,6 @@
     </ClCompile>
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Pass.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
@@ -169,6 +171,15 @@
     </ClCompile>
     <ClCompile Include="DebugWireframe.cpp">
       <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPad.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputerPad.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,7 +278,6 @@
     </ClInclude>
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Pass.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
@@ -298,6 +308,15 @@
     </ClInclude>
     <ClInclude Include="DebugWireframe.h">
       <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPad.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerPad.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

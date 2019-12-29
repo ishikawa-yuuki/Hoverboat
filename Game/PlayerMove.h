@@ -1,6 +1,7 @@
 #pragma once
 #include "character/CharacterController.h"
 #include "PhysicsGhostObject.h"
+class GamePad;
 class Enemy;
 class PlayerMove 
 {
@@ -42,6 +43,10 @@ public:
 		m_enemy = en;
 		return m_enemy;
 	}
+	void SetPad(GamePad* gamePad)
+	{
+		m_gamePad = gamePad;
+	}
 private:
 	Enemy* m_enemy = nullptr;
 	CharacterController m_charaCon;
@@ -57,5 +62,6 @@ private:
 	CVector3 m_moveDirection = g_camera3D.GetForward();//ˆÚ“®‚Ì‰œ•ûŒü
 	CVector3 m_cameraForward = g_camera3D.GetForward();//ƒJƒƒ‰‚Ì‘O•û•ûŒü‚ğæ“¾B
 	CQuaternion m_rot = CQuaternion::Identity();
+	GamePad* m_gamePad = nullptr;
 };
 

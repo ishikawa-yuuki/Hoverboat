@@ -27,12 +27,18 @@ Game::Game()
 		return false;
 	});
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
-	m_enemy = g_goMgr->NewGameObject<Enemy>();
-	m_player = g_goMgr->NewGameObject<Player>();
-	m_gc->GetInfoPlayer(m_player);
-	m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
+	//0番目はユーザーが操作するプレイヤー
+	m_player[0] = g_goMgr->NewGameObject<Player>();
+	m_player[0]->SetPad(&m_playerPad);
+	m_gc->GetInfoPlayer(m_player[0]);
+	//1番目はコンピューターが操作するプレイヤー
+	m_player[1] = g_goMgr->NewGameObject<Player>();
+	//m_player[1]->SetPad(&m_playerPad);
+	m_player[1]->SetPad(&m_comPad);
+
+	//m_player[0]->GetPlayerMove()->GetInfoEnemy(m_enemy);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
-	m_enemy->GetPassObjectList(m_passList);
+	//m_enemy->GetPassObjectList(m_passList);
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	g_camera2D.SetWidth(FRAME_BUFFER_W);
 	g_camera2D.SetHeight(FRAME_BUFFER_H);
@@ -44,7 +50,11 @@ Game::Game()
 
 Game::~Game()
 {
-	g_goMgr->DeleteGameObject(m_player);
+	for (Player* pl : m_player) {
+		if (pl) {
+			g_goMgr->DeleteGameObject(pl);
+		}
+	}
 	g_goMgr->DeleteGameObject(m_bg);
 	g_goMgr->DeleteGameObject(m_gc);
 	for (auto& pass : m_passList) {
@@ -53,10 +63,11 @@ Game::~Game()
 }
 void Game::Update()
 {
+	m_comPad.UpdatePad();
 	/*CQuaternion rot;
 	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);*/
 	//m_sprite.UpdateWorldMatrix(CVector3::Zero(),rot,CVector3::One());
-	m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
+	//m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
 }
 void Game::Render()
 {
