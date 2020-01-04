@@ -63,7 +63,6 @@ Game::~Game()
 }
 void Game::Update()
 {
-	m_comPad.UpdatePad();
 	/*CQuaternion rot;
 	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);*/
 	//m_sprite.UpdateWorldMatrix(CVector3::Zero(),rot,CVector3::One());

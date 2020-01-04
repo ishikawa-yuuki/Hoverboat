@@ -104,12 +104,14 @@ void PlayerMove::Check()
 }
 void PlayerMove::Update()
 {
-	if (!m_first) {
-		Start();
+	if (m_gamePad != nullptr) {
+		if (!m_first) {
+			Start();
+		}
+		Rotation();
+		Check();
+		Move();
+		Jump();
+		m_charaCon.SetPosition(m_position);
 	}
-	Rotation();
-	Check();
-	Move();
-	Jump();
-	m_charaCon.SetPosition(m_position);
 }
