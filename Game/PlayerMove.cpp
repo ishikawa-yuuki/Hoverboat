@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PlayerMove.h"
-#include "Enemy.h"
 #include "GamePad.h"
 bool PlayerMove::Start()
 {
@@ -93,13 +92,13 @@ void PlayerMove::Jump()
 void PlayerMove::Check()
 {
 	 
-		PhysicsGhostObject* ghostObj = m_enemy->GetGhost();
-		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-			if (ghostObj->IsSelf(contactObject)) {//== true
-				//ü‰ñ”»’è‚·‚éêŠ
-				m_position.y += 5;
-			}
-		});
+		//PhysicsGhostObject* ghostObj = m_enemy->GetGhost();
+		//g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+		//	if (ghostObj->IsSelf(contactObject)) {//== true
+		//		//ü‰ñ”»’è‚·‚éêŠ
+		//		m_position.y += 5;
+		//	}
+		//});
 	
 }
 void PlayerMove::Update()

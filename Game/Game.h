@@ -7,7 +7,6 @@
 #include "ComputerPad.h"
 
 class Pass;
-class Enemy;
 class GameCamera;
 class Player;
 class BackGround;

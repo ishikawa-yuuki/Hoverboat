@@ -2,7 +2,6 @@
 #include "character/CharacterController.h"
 #include "PhysicsGhostObject.h"
 class GamePad;
-class Enemy;
 class PlayerMove 
 {
 public:
@@ -38,17 +37,11 @@ public:
 	{
 		return m_rot;
 	}
-	Enemy* GetInfoEnemy(Enemy* en)
-	{
-		m_enemy = en;
-		return m_enemy;
-	}
 	void SetPad(GamePad* gamePad)
 	{
 		m_gamePad = gamePad;
 	}
 private:
-	Enemy* m_enemy = nullptr;
 	CharacterController m_charaCon;
 	float m_movePower = 100.0f;// ˆÚ“®‘¬“x
 	float m_moveForceMultiplier = 2.0f; // ˆÚ“®‘¬“x‚Ì“ü—Í‚É‘Î‚·‚é’Ç]“x

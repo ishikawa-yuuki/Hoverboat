@@ -9,4 +9,3 @@ public:
 	virtual CVector3	GetPosition()	= 0;
 	virtual CQuaternion GetRotation()	= 0;
 };
-

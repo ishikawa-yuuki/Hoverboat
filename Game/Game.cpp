@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
-#include "Enemy.h"
 #include "Pass.h"
 #include "BackGround.h"
 #include "RenderTarget.h"
@@ -35,7 +34,7 @@ Game::Game()
 	m_player[1] = g_goMgr->NewGameObject<Player>();
 	//m_player[1]->SetPad(&m_playerPad);
 	m_player[1]->SetPad(&m_comPad);
-
+	m_comPad.GetPassObjectList(m_passList);
 	//m_player[0]->GetPlayerMove()->GetInfoEnemy(m_enemy);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	//m_enemy->GetPassObjectList(m_passList);
