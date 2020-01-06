@@ -103,6 +103,7 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBufferGPU.cpp" />
+    <ClCompile Include="CPSwitchG.cpp" />
     <ClCompile Include="DebugWireframe.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ComputerPad.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBufferGPU.h" />
+    <ClInclude Include="CPSwitchG.h" />
     <ClInclude Include="DebugWireframe.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ComputerPad.h" />

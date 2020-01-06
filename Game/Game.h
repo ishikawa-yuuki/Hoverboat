@@ -5,7 +5,7 @@
 #include "RenderTarget.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
-
+class CPSwitchG;
 class Pass;
 class GameCamera;
 class Player;
@@ -18,14 +18,15 @@ public:
 	void Update();
 	void Render();
 private:
-	Player* m_player[4] = { nullptr };
-	BackGround* m_bg = nullptr;
-	GameCamera* m_gc = nullptr;
-	PlayerPad m_playerPad;	//プレイヤー用のゲームパッド。
+	Player* m_player[4]		   = { nullptr };
+	BackGround* m_bg           =   nullptr;
+	GameCamera* m_gc		   =   nullptr;
+	PlayerPad m_playerPad;						//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad;
 	//Sprite m_sprite;
 	Level m_level;
 	std::vector<Pass*> m_passList;
-	RenderTarget m_renderTarget;			//レンダリングターゲット。
+	std::vector<CPSwitchG*> m_CPGhostList;
+	RenderTarget m_renderTarget;			   //レンダリングターゲット。
 };
 

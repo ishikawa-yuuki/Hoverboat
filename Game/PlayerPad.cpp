@@ -13,7 +13,7 @@ PlayerPad::~PlayerPad()
 bool PlayerPad::Start()
 {
 	m_charaCon.Init(
-		20.0f,
+		30.0f,
 		20.0f,
 		m_position
 	);

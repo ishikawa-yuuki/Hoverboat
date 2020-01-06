@@ -181,6 +181,9 @@
     <ClCompile Include="ComputerPad.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="CPSwitchG.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -316,6 +319,9 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ComputerPad.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CPSwitchG.h">
       <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>

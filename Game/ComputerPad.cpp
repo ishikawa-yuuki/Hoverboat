@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ComputerPad.h"
+#include "CPSwitchG.h"
 #include "Pass.h"
 #include "PhysicsGhostObject.h"
 ComputerPad::ComputerPad()
@@ -13,7 +14,7 @@ ComputerPad::~ComputerPad()
 bool ComputerPad::Start()
 {
 	m_charaCon.Init(
-		20.0f,
+		30.0f,
 		20.0f,
 		m_position
 	);
@@ -76,14 +77,18 @@ void ComputerPad::Jump()
 }
 void ComputerPad::Check()
 {
+	
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_cpGhostList.size(); j++) {
+		ghostObj = m_cpGhostList[j]->GetGhost();
 
-	//PhysicsGhostObject* ghostObj = ->GetGhost();
-	//g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-	//	if (ghostObj->IsSelf(contactObject)) {//== true
-	//		//ü‰ñ”»’è‚·‚éêŠ
-	//		m_position.y += 5;
-	//	}
-	//});
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//Ÿ‚ÌPass‚Ì•ûŒü‚ğ”»’è‚·‚éêŠ
+
+			}
+		});
+	}
 }
 void ComputerPad::UpdatePad()
 {

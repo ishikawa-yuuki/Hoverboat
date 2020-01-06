@@ -62,6 +62,8 @@ public:
 	*@param[in]	skinModelData		スキンモデルデータ。
 	*/
 	void CreateMesh(CVector3 pos, CQuaternion rot, const SkinModel& skinModel);
+	void CreateMesh(CVector3 pos, CQuaternion rot, CVector3 scale, const SkinModel& skinModel);
+	void CreateMesh(CVector3 pos, CQuaternion rot, CVector3 scale, SkinModel* skinModelRender);
 protected:
 	std::unique_ptr<ICollider> m_collider;	//!<コライダー。
 };

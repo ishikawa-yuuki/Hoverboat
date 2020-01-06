@@ -38,3 +38,21 @@ void PhysicsObjectBase::CreateMesh(CVector3 pos, CQuaternion rot, const SkinMode
 	m_collider = move(meshCollider);
 	CreateCommon(pos, rot);
 }
+void PhysicsObjectBase::CreateMesh(CVector3 pos, CQuaternion rot, CVector3 scale, SkinModel* skinModelRender)
+{
+	CreateMesh(pos, rot, scale, skinModelRender);
+}
+void PhysicsObjectBase::CreateMesh(CVector3 pos, CQuaternion rot, CVector3 scale, const SkinModel& skinModel)
+{
+	Release();
+	CMatrix mScale;
+	mScale.MakeScaling(scale);
+	auto meshCollider = make_unique<MeshCollider>();
+	meshCollider->CreateFromSkinModel(skinModel, &mScale);
+	m_collider = move(meshCollider);
+	CreateCommon(
+		pos,
+		rot
+	);
+
+}

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
+#include "CPSwitchG.h"
 #include "Pass.h"
 #include "BackGround.h"
 #include "RenderTarget.h"
@@ -22,6 +23,13 @@ Game::Game()
 			m_passList.push_back(pass);
 			return true;
 		}
+		else if (objdata.EqualObjectName(L"Ghost")) {
+			CPSwitchG* cpGhost = g_goMgr->NewGameObject<CPSwitchG>();
+			cpGhost->SetPosition(objdata.position);
+			cpGhost->SetScale(objdata.scale);
+			m_CPGhostList.push_back(cpGhost);
+			return true;
+		}
 
 		return false;
 	});
@@ -35,6 +43,7 @@ Game::Game()
 	//m_player[1]->SetPad(&m_playerPad);
 	m_player[1]->SetPad(&m_comPad);
 	m_comPad.GetPassObjectList(m_passList);
+	m_comPad.GetGhostObjectList(m_CPGhostList);
 	//m_player[0]->GetPlayerMove()->GetInfoEnemy(m_enemy);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	//m_enemy->GetPassObjectList(m_passList);
