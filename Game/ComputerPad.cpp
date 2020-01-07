@@ -19,16 +19,18 @@ bool ComputerPad::Start()
 		m_position
 	);
 	m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+	m_cpDirection = m_passList[i]->GetPosition() - m_position;
+	m_cpDirection.y = 0.0f;
+	m_cpDirection.Normalize();
 	m_first = true;
 	return true;
 }
 void ComputerPad::Rotation()
 {
 	CVector3 stick;
-	CQuaternion qRot = CQuaternion::Identity();
 	stick.x = GetLstickXF();
-	qRot.SetRotationDeg(CVector3::AxisY(), stick.x * 1.4f);
-	m_rot.Multiply(qRot);
+	float angle = atan2(m_cpDirection.x, m_cpDirection.z);
+	m_rot.SetRotation(CVector3::AxisY(), angle);
 	if (fabsf(stick.x) >= 0.8f)
 	{
 		m_friction *= 0.999f;
@@ -39,6 +41,10 @@ void ComputerPad::Rotation()
 			m_friction = 0.98f;
 		}
 	}
+	if (m_stickL >= 0.0f)
+	{
+		m_stickL *= 0.9f;
+	}
 }
 void ComputerPad::Move()
 {
@@ -48,20 +54,19 @@ void ComputerPad::Move()
 			m_passList[j]->InitPass();
 		}
 	}
-	m_diff = m_passList[i]->GetPosition() - m_position;
-	m_diff.y = 0.0f;
-
-	if (m_diff.LengthSq() < 50.0f * 50.0f && !m_passList[i]->GetPass()) {
+	m_passDirection = m_passList[i]->GetPosition() - m_position;
+	m_passDirection.y = 0.0f;
+	if (m_passDirection.LengthSq() < 500.0f * 500.0f && !m_passList[i]->GetPass()) {
 		m_passList[i]->OverPass();
 	}
 	else if (m_passList[i]->GetPass())
 	{
-
+		m_stickL = 0.0f;
 		i++;
 	}
-	m_moveSpeed = m_diff;
-	m_moveSpeed.Normalize();
-	m_moveSpeed += m_moveSpeed * 2000.0f;
+	m_accel = m_cpDirection * m_movePower;
+	m_moveSpeed += m_accel;
+	m_moveSpeed *= m_friction;		//ñÄéC
 	
 }
 void ComputerPad::Jump()
@@ -73,11 +78,10 @@ void ComputerPad::Jump()
 	{
 		m_moveSpeed.y -= 100.0f;
 	}
-	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+	
 }
 void ComputerPad::Check()
 {
-	
 	PhysicsGhostObject* ghostObj = nullptr;
 	for (int j = 0; j < m_cpGhostList.size(); j++) {
 		ghostObj = m_cpGhostList[j]->GetGhost();
@@ -85,7 +89,25 @@ void ComputerPad::Check()
 		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
 			if (ghostObj->IsSelf(contactObject)) {//== true
 				//éüÇÃPassÇÃï˚å¸ÇîªíËÇ∑ÇÈèÍèä
-
+				
+				float angle = m_cpDirection.x * m_passDirection.z - m_cpDirection.z * m_passDirection.x;
+				if (angle == 0)
+				{
+					m_stickL = 0.0f;
+				}
+				else if (angle < 0.3f) 
+				{
+					m_stickL = 1.0f;
+				}
+				else if (angle > 0.3f) 
+				{
+					m_stickL = -1.0f;
+				}
+				m_passDirection.Normalize();
+				m_cpDirection = m_passDirection;
+				
+			
+				
 			}
 		});
 	}
@@ -96,9 +118,11 @@ void ComputerPad::UpdatePad()
 	{
 		Start();
 	}
-	Check();
+	
 	Rotation();
 	Move();
 	Jump();
+	Check();
+	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 	m_charaCon.SetPosition(m_position);
 }

@@ -12,7 +12,10 @@ class CPSwitchG : public IGameObject
 public:
 	CPSwitchG();
 	~CPSwitchG();
-	void Update() {};
+	void Update() 
+	{
+		m_ghost.SetPosition(m_position);
+	};
 	void Render() {};
 	//CPÇÃç¿ïWÇê›íË
 	void SetPosition(CVector3 const& pos) {

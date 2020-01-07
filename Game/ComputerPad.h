@@ -60,11 +60,10 @@ private:
 	CQuaternion m_rot		   = CQuaternion::Identity();
 	CVector3 m_position		   = { 10.0f,20.0f,0.0f };
 	CVector3 m_accel		   = CVector3::Zero();	//加速度。
-	CVector3 m_PassDirection   = CVector3::Zero();//Passの奥方向
-	CVector3 m_ComDirection    = CVector3::Zero();//Computerの奥方向
+	CVector3 m_passDirection   = CVector3::Zero();//Passの奥方向
+	CVector3 m_cpDirection    = CVector3::Zero();//Computerの奥方向
 	CVector3 m_moveSpeed	   = CVector3::Zero();
-	CVector3 m_diff	 		   = CVector3::Zero();
-	float	 m_movePower	   = 10.0f;// 移動速度
+	float	 m_movePower	   = 100.0f;// 移動速度
 	int		 i = 0;
 };
 

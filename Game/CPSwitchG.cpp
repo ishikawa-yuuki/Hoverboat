@@ -7,7 +7,7 @@ CPSwitchG::CPSwitchG()
 	m_ghost.CreateBox(
 		m_position,
 		m_rot,
-		m_scale
+		{1300.0f,100.0f,2500.0f}
 	);
 }
 
