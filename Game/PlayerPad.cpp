@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PlayerPad.h"
-
+#include "CPSwitchG.h"
 
 PlayerPad::PlayerPad()
 {
@@ -58,20 +58,6 @@ void PlayerPad::Move()
 	else {
 		m_accel = CVector3::Zero();
 	}
-	/*float angle = m_moveDirection.x * cameraForward.z - m_moveDirection.z * cameraForward.x;
-	if (angle < 0.1f) {
-		m_moveDirection.x += cameraForward.x / 0.1f;
-		m_moveDirection.z = cameraForward.z;
-		m_moveDirection.Normalize();
-	}
-	if (angle > 0.1f) {
-		m_moveDirection.x -= cameraForward.x / 0.1f;
-		m_moveDirection.z = cameraForward.z;
-		m_moveDirection.Normalize();
-	}
-	else {
-		m_moveDirection = cameraForward;
-	}*/
 
 	m_moveSpeed += m_accel;	//‰œ•ûŒü‚Ö‚ÌˆÚ“®‘¬“x‚ğ‘ã“üB
 	m_moveSpeed *= m_friction;		//–€C
@@ -101,18 +87,21 @@ void PlayerPad::Jump()
 void PlayerPad::Check()
 {
 
-	//PhysicsGhostObject* ghostObj = m_enemy->GetGhost();
-	//g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-	//	if (ghostObj->IsSelf(contactObject)) {//== true
-	//		//ü‰ñ”»’è‚·‚éêŠ
-	//		m_position.y += 5;
-	//	}
-	//});
+	PhysicsGhostObject* ghostObj =nullptr;
+	for (int j = 0; j < m_cpGhostList.size(); j++) {
+		ghostObj = m_cpGhostList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//ü‰ñ”»’è‚·‚éêŠ
+				
+			}
+		});
+	}
 
 }
 void PlayerPad::UpdatePad()
 {
-	/*if (m_gamePad != nullptr) {*/
+	
 		if (!m_first) {
 			Start();
 		}
@@ -121,5 +110,5 @@ void PlayerPad::UpdatePad()
 		Move();
 		Jump();
 		m_charaCon.SetPosition(m_position);
-	/*}*/
+	
 }

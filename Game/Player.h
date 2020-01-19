@@ -31,5 +31,11 @@ private:
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();
 	GamePad* m_gamePad = nullptr;
+	enum HumanAnimationClip {
+		enAnimationClip_test,
+		enAnimationClip_num
+	};
+	AnimationClip m_animClip[enAnimationClip_num];
+	Animation m_animation;
 };
 

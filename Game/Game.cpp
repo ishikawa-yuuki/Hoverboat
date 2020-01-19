@@ -38,12 +38,21 @@ Game::Game()
 	m_player[0] = g_goMgr->NewGameObject<Player>();
 	m_player[0]->SetPad(&m_playerPad);
 	m_gc->GetInfoPlayer(m_player[0]);
-	//1番目はコンピューターが操作するプレイヤー
+
+	//1,2,3番目はコンピューターが操作するプレイヤー
 	m_player[1] = g_goMgr->NewGameObject<Player>();
-	//m_player[1]->SetPad(&m_playerPad);
-	m_player[1]->SetPad(&m_comPad);
-	m_comPad.GetPassObjectList(m_passList);
-	m_comPad.GetGhostObjectList(m_CPGhostList);
+	m_player[1]->SetPad(&m_comPad[0]);
+
+	m_player[2] = g_goMgr->NewGameObject<Player>();
+	m_player[2]->SetPad(&m_comPad[1]);
+
+	m_player[3] = g_goMgr->NewGameObject<Player>();
+	m_player[3]->SetPad(&m_comPad[2]);
+	for (int i = 0; i < 3; i++) {
+		m_comPad[i].GetPassObjectList(m_passList);
+		m_comPad[i].GetGhostObjectList(m_CPGhostList);
+	}
+	m_playerPad.GetGhostObjectList(m_CPGhostList);
 	//m_player[0]->GetPlayerMove()->GetInfoEnemy(m_enemy);
 	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
 	//m_enemy->GetPassObjectList(m_passList);

@@ -22,7 +22,7 @@ private:
 	BackGround* m_bg           =   nullptr;
 	GameCamera* m_gc		   =   nullptr;
 	PlayerPad m_playerPad;						//プレイヤー用のゲームパッド。
-	ComputerPad m_comPad;
+	ComputerPad m_comPad[3];					//cp用のゲームパッド。
 	//Sprite m_sprite;
 	Level m_level;
 	std::vector<Pass*> m_passList;

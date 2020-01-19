@@ -338,6 +338,12 @@
     <MeshContentTask Include="Assets\modelData\Stage\stage_test.fbx">
       <Filter>Assets\modelData\Stage</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Player\hover.fbx">
+      <Filter>Assets\modelData\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\hover\Hope.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\all_pc.jpg">

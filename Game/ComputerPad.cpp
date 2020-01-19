@@ -43,7 +43,7 @@ void ComputerPad::Rotation()
 	}
 	if (m_stickL >= 0.0f)
 	{
-		m_stickL *= 0.9f;
+		m_stickL *= 0.95f;
 	}
 }
 void ComputerPad::Move()

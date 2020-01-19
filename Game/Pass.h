@@ -1,9 +1,12 @@
 #pragma once
 #include "GameObjectManager.h"
+#include "PhysicsGhostObject.h"
+
 class Pass : public IGameObject
 {
 private:
 	CVector3 m_position = CVector3::Zero();
+	PhysicsGhostObject m_ghost;
 	bool over = false;
 public:
 	Pass();
@@ -32,6 +35,9 @@ public:
 	{
 		return over;
 	}
-
+	PhysicsGhostObject* GetGhost()
+	{
+		return &m_ghost;
+	}
 };
 

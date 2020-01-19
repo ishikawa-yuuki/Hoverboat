@@ -23,6 +23,9 @@ public:
 	void Jump();
 
 	void Check();
+
+	void UpdatePad();
+
 	float GetLstickXF()
 	{
 		return m_stickL;
@@ -35,9 +38,10 @@ public:
 	{
 		return m_pressJump;
 	}
+
 	CVector3	GetPosition() { return m_position; };
 	CQuaternion GetRotation() { return m_rot; };
-	void UpdatePad();
+
 	const std::vector<CPSwitchG*>& GetGhostObjectList(const std::vector<CPSwitchG*>& List)
 	{
 		m_cpGhostList = List;
