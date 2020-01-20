@@ -33,7 +33,22 @@ public:
 	{
 		return &m_ghost;
 	}
+	bool InitPass()
+	{
+		m_t = false;
+		return m_t;
+	}
+	bool OverPass()
+	{
+		m_t = true;
+		return m_t;
+	}
+	bool GetPass()const
+	{
+		return m_t;
+	}
 private:
+	bool m_t = false;
 	PhysicsGhostObject m_ghost;
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();

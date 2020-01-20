@@ -56,6 +56,7 @@ public:
 private:
 	CharacterController m_charaCon;
 	std::vector<CPSwitchG*> m_cpGhostList;
+	int i = 0;
 	float m_movePower = 100.0f;// 移動速度
 	float m_friction = 0.98f;   //摩擦度
 	bool m_first = false;
@@ -67,5 +68,4 @@ private:
 	CVector3 m_position = { 10.0f,20.0f,0.0f };
 	CVector3 m_moveDirection = g_camera3D.GetForward();//移動時の奥方向
 	CVector3 m_cameraForward = g_camera3D.GetForward();//カメラの前方方向を取得。
-	
 };

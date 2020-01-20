@@ -93,7 +93,7 @@ void PlayerPad::Check()
 		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
 			if (ghostObj->IsSelf(contactObject)) {//== true
 				//Žü‰ñ”»’è‚·‚éêŠ
-				
+				m_cpGhostList[j]->OverPass();
 			}
 		});
 	}

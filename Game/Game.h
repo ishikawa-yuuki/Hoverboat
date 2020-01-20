@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObjectManager.h"
-#include "Sprite.h"
 #include "level/Level.h"
 #include "RenderTarget.h"
 #include "PlayerPad.h"
@@ -23,7 +22,6 @@ private:
 	GameCamera* m_gc		   =   nullptr;
 	PlayerPad m_playerPad;						//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];					//cp用のゲームパッド。
-	//Sprite m_sprite;
 	Level m_level;
 	std::vector<Pass*> m_passList;
 	std::vector<CPSwitchG*> m_CPGhostList;

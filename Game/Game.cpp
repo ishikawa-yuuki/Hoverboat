@@ -53,9 +53,6 @@ Game::Game()
 		m_comPad[i].GetGhostObjectList(m_CPGhostList);
 	}
 	m_playerPad.GetGhostObjectList(m_CPGhostList);
-	//m_player[0]->GetPlayerMove()->GetInfoEnemy(m_enemy);
-	//m_sprite.Init(L"Assets/sprite/title.dds", 200, 200);
-	//m_enemy->GetPassObjectList(m_passList);
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	g_camera2D.SetWidth(FRAME_BUFFER_W);
 	g_camera2D.SetHeight(FRAME_BUFFER_H);
@@ -80,21 +77,7 @@ Game::~Game()
 }
 void Game::Update()
 {
-	/*CQuaternion rot;
-	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);*/
-	//m_sprite.UpdateWorldMatrix(CVector3::Zero(),rot,CVector3::One());
-	//m_player->GetPlayerMove()->GetInfoEnemy(m_enemy);
 }
 void Game::Render()
 {
-	
-	/*CMatrix mView;
-	CMatrix mProj;
-	mView.MakeLookAt(
-		{ 0, 0, 1 },
-		{ 0, 0, 0 },
-		{ 0,1,0 }
-	);
-	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);
-	m_sprite.Draw(mView, mProj);*/
 }

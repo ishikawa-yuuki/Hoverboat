@@ -41,9 +41,9 @@ void ComputerPad::Rotation()
 			m_friction = 0.98f;
 		}
 	}
-	if (m_stickL >= 0.0f)
+	if (m_stickL >= 0.0f||m_stickL<=0.0f)
 	{
-		m_stickL *= 0.95f;
+		m_stickL *= 0.8f;
 	}
 }
 void ComputerPad::Move()
@@ -56,7 +56,7 @@ void ComputerPad::Move()
 	}
 	m_passDirection = m_passList[i]->GetPosition() - m_position;
 	m_passDirection.y = 0.0f;
-	if (m_passDirection.LengthSq() < 500.0f * 500.0f && !m_passList[i]->GetPass()) {
+	if (m_passDirection.LengthSq() < 400.0f * 400.0f && !m_passList[i]->GetPass()) {
 		m_passList[i]->OverPass();
 	}
 	else if (m_passList[i]->GetPass())
@@ -95,11 +95,11 @@ void ComputerPad::Check()
 				{
 					m_stickL = 0.0f;
 				}
-				else if (angle < 0.3f) 
+				else if (angle < 0.4f) 
 				{
 					m_stickL = 1.0f;
 				}
-				else if (angle > 0.3f) 
+				else if (angle > 0.4f) 
 				{
 					m_stickL = -1.0f;
 				}
