@@ -105,7 +105,6 @@
     <ClCompile Include="ConstantBufferGPU.cpp" />
     <ClCompile Include="CPSwitchG.cpp" />
     <ClCompile Include="DebugWireframe.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ComputerPad.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
@@ -140,7 +139,6 @@
     <ClCompile Include="physics\CapsuleCollider.cpp" />
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerMove.cpp" />
     <ClCompile Include="PlayerPad.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
@@ -160,7 +158,6 @@
     <ClInclude Include="ConstantBufferGPU.h" />
     <ClInclude Include="CPSwitchG.h" />
     <ClInclude Include="DebugWireframe.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ComputerPad.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
@@ -197,7 +194,6 @@
     <ClInclude Include="physics\CollisionAttr.h" />
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerMove.h" />
     <ClInclude Include="PlayerPad.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderTarget.h" />

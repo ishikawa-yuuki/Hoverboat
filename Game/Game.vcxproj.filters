@@ -132,9 +132,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMove.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Sprite.cpp">
       <Filter>graphics</Filter>
@@ -174,9 +171,6 @@
     </ClCompile>
     <ClCompile Include="PlayerPad.cpp">
       <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ComputerPad.cpp">
       <Filter>Enemy</Filter>
@@ -272,9 +266,6 @@
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMove.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Sprite.h">
       <Filter>graphics</Filter>
@@ -314,9 +305,6 @@
     </ClInclude>
     <ClInclude Include="PlayerPad.h">
       <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ComputerPad.h">
       <Filter>Enemy</Filter>
