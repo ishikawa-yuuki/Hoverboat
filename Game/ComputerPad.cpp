@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ComputerPad.h"
-#include "CPSwitchG.h"
-#include "Pass.h"
+#include "CoursePass.h"
 #include "PhysicsGhostObject.h"
 ComputerPad::ComputerPad()
 {
@@ -13,13 +12,9 @@ ComputerPad::~ComputerPad()
 }
 bool ComputerPad::Start()
 {
-	m_charaCon.Init(
-		30.0f,
-		20.0f,
-		m_position
-	);
+
 	m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
-	m_cpDirection = m_passList[i]->GetPosition() - m_position;
+	m_cpDirection = m_courcePassList[i]->GetPosition() - m_position;
 	m_cpDirection.y = 0.0f;
 	m_cpDirection.Normalize();
 	m_first = true;
@@ -27,102 +22,75 @@ bool ComputerPad::Start()
 }
 void ComputerPad::Rotation()
 {
-	CVector3 stick;
-	stick.x = GetLstickXF();
 	float angle = atan2(m_cpDirection.x, m_cpDirection.z);
 	m_rot.SetRotation(CVector3::AxisY(), angle);
-	if (fabsf(stick.x) >= 0.8f)
+}
+void ComputerPad::Move()
+{
+	if (!m_first)
 	{
-		m_friction *= 0.999f;
+		Start();
 	}
-	else {
-		m_friction *= 1.01f;
-		if (m_friction >= 0.98f) {
-			m_friction = 0.98f;
+	if (i == m_courcePassList.size()) {
+		i = 0;
+		for (int j = 0; j < m_courcePassList.size(); j++) {
+			m_courcePassList[j]->InitPass();
 		}
 	}
-	if (m_stickL >= 0.0f||m_stickL<=0.0f)
+	
+	m_passDirection = m_courcePassList[i]->GetPosition() - m_position;
+	;
+	m_passDirection.y = 0.0f;
+	if (m_passDirection.LengthSq() < 550.0f * 550.0f && !m_courcePassList[i]->GetPass()) {
+		m_courcePassList[i]->OverPass();
+	}
+	else if (m_courcePassList[i]->GetPass())
+	{
+		i++;
+	}
+	if (m_stickL >= 0.0f || m_stickL <= 0.0f)
 	{
 		m_stickL *= 0.8f;
 	}
 }
-void ComputerPad::Move()
-{
-	if (i == m_passList.size()) {
-		i = 0;
-		for (int j = 0; j < m_passList.size(); j++) {
-			m_passList[j]->InitPass();
-		}
-	}
-	m_passDirection = m_passList[i]->GetPosition() - m_position;
-	m_passDirection.y = 0.0f;
-	if (m_passDirection.LengthSq() < 400.0f * 400.0f && !m_passList[i]->GetPass()) {
-		m_passList[i]->OverPass();
-	}
-	else if (m_passList[i]->GetPass())
-	{
-		m_stickL = 0.0f;
-		i++;
-	}
-	m_accel = m_cpDirection * m_movePower;
-	m_moveSpeed += m_accel;
-	m_moveSpeed *= m_friction;		//–€C
-	
-}
 void ComputerPad::Jump()
 {
-	if (m_charaCon.IsOnGround()) {
+	/*if (m_charaCon.IsOnGround()) {
 		m_moveSpeed.y = 0.0f;
 	}
 	else
 	{
 		m_moveSpeed.y -= 100.0f;
-	}
+	}*/
 	
 }
-void ComputerPad::Check()
+void ComputerPad::CheckGhost()
 {
-	PhysicsGhostObject* ghostObj = nullptr;
-	for (int j = 0; j < m_cpGhostList.size(); j++) {
-		ghostObj = m_cpGhostList[j]->GetGhost();
-
-		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-			if (ghostObj->IsSelf(contactObject)) {//== true
-				//Ÿ‚ÌPass‚Ì•ûŒü‚ğ”»’è‚·‚éêŠ
+	//Ÿ‚ÌPass‚Ì•ûŒü‚ğ”»’è‚·‚éêŠ
 				
-				float angle = m_cpDirection.x * m_passDirection.z - m_cpDirection.z * m_passDirection.x;
-				if (angle == 0)
-				{
-					m_stickL = 0.0f;
-				}
-				else if (angle < 0.4f) 
-				{
-					m_stickL = 1.0f;
-				}
-				else if (angle > 0.4f) 
-				{
-					m_stickL = -1.0f;
-				}
-				m_passDirection.Normalize();
-				m_cpDirection = m_passDirection;
-				
-			
-				
-			}
-		});
-	}
-}
-void ComputerPad::UpdatePad()
-{
-	if(!m_first)
+	float angle = m_cpDirection.x * m_passDirection.z - m_cpDirection.z * m_passDirection.x;
+	if (angle == 0.0f)
 	{
-		Start();
+			
+		m_stickL = 0.0f;
+	}
+	else if (angle < 0.6f)
+	{
+		m_stickL = 1.0f;
+	}
+	else if (angle > -0.6f)
+	{
+		m_stickL = -1.0f;
+	}
+	else if (angle < 0.4f)
+	{
+		m_stickL = 0.5f;
+	}
+	else if (angle > -0.4f)
+	{
+		m_stickL = -0.5f;
 	}
 	
-	Rotation();
-	Move();
-	Jump();
-	Check();
-	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
-	m_charaCon.SetPosition(m_position);
+	m_passDirection.Normalize();
+	m_cpDirection = m_passDirection;
 }

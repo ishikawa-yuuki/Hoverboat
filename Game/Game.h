@@ -5,7 +5,7 @@
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 class CPSwitchG;
-class Pass;
+class CoursePass;
 class GameCamera;
 class Player;
 class BackGround;
@@ -23,7 +23,7 @@ private:
 	PlayerPad m_playerPad;						//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];					//cp用のゲームパッド。
 	Level m_level;
-	std::vector<Pass*> m_passList;
+	std::vector<CoursePass*> m_coursePassList;
 	std::vector<CPSwitchG*> m_CPGhostList;
 	RenderTarget m_renderTarget;			   //レンダリングターゲット。
 };

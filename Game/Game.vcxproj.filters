@@ -137,7 +137,6 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="Pass.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>GameObject</Filter>
@@ -178,6 +177,7 @@
     <ClCompile Include="CPSwitchG.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="CoursePass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -271,7 +271,6 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="Pass.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="GameObjectManager.h">
       <Filter>GameObject</Filter>
@@ -303,15 +302,16 @@
     <ClInclude Include="DebugWireframe.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerPad.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="ComputerPad.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CPSwitchG.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerPad.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CoursePass.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

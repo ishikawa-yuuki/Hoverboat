@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Pass.h"
+#include "CoursePass.h"
 
 
-Pass::Pass()
+CoursePass::CoursePass()
 {
 	m_ghost.CreateBox(
 		m_position,
@@ -12,7 +12,7 @@ Pass::Pass()
 }
 
 
-Pass::~Pass()
+CoursePass::~CoursePass()
 {
 }
 

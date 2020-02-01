@@ -3,7 +3,7 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "CPSwitchG.h"
-#include "Pass.h"
+#include "CoursePass.h"
 #include "BackGround.h"
 #include "RenderTarget.h"
 #include "ShadowMap.h"
@@ -17,10 +17,10 @@ Game::Game()
 			m_bg = g_goMgr->NewGameObject<BackGround>();
 			return true;
 		}
-		else if (objdata.EqualObjectName(L"Pass")) {
-			Pass* pass = g_goMgr->NewGameObject<Pass>();
-			pass->SetPosition(objdata.position);
-			m_passList.push_back(pass);
+		else if (objdata.EqualObjectName(L"coursePass")) {
+			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
+			coursePass->SetPosition(objdata.position);
+			m_coursePassList.push_back(coursePass);
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"Ghost")) {
@@ -48,11 +48,14 @@ Game::Game()
 
 	m_player[3] = g_goMgr->NewGameObject<Player>();
 	m_player[3]->SetPad(&m_comPad[2]);
-	for (int i = 0; i < 3; i++) {
-		m_comPad[i].GetPassObjectList(m_passList);
-		m_comPad[i].GetGhostObjectList(m_CPGhostList);
+	for (int i = 0; i < 4; i++) {
+		m_player[i]->SetPassObjectList(m_coursePassList);
+		m_player[i]->SetGhostObjectList(m_CPGhostList);
 	}
-	m_playerPad.GetGhostObjectList(m_CPGhostList);
+	for (int i = 0; i < 3; i++) {
+		m_comPad[i].SetPassObjectList(m_coursePassList);
+	}
+	
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	g_camera2D.SetWidth(FRAME_BUFFER_W);
 	g_camera2D.SetHeight(FRAME_BUFFER_H);
@@ -71,12 +74,16 @@ Game::~Game()
 	}
 	g_goMgr->DeleteGameObject(m_bg);
 	g_goMgr->DeleteGameObject(m_gc);
-	for (auto& pass : m_passList) {
-		g_goMgr->DeleteGameObject(pass);
+	for (auto& coursePass : m_coursePassList) {
+		g_goMgr->DeleteGameObject(coursePass);
 	}
 }
 void Game::Update()
 {
+	for (int i = 0; i < 3; i++) {
+		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
+	}
+
 }
 void Game::Render()
 {

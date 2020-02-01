@@ -1,8 +1,6 @@
 #pragma once
-#include "character/CharacterController.h"
 #include "GamePad.h"
-class CPSwitchG;
-class Pass;
+class CoursePass;
 class ComputerPad : public GamePad
 {
 public:
@@ -22,9 +20,7 @@ public:
 	/// </summary>
 	void Jump();
 
-	void Check();
-
-	void UpdatePad();
+	void CheckGhost();
 
 	float GetLstickXF()
 	{
@@ -38,36 +34,27 @@ public:
 	{
 		return m_pressJump;
 	}
-
-	CVector3	GetPosition() { return m_position; };
-	CQuaternion GetRotation() { return m_rot; };
-
-	const std::vector<CPSwitchG*>& GetGhostObjectList(const std::vector<CPSwitchG*>& List)
+	CQuaternion GetRotation()
 	{
-		m_cpGhostList = List;
-		return m_cpGhostList;
+		return m_rot;
 	}
-	const std::vector<Pass*>& GetPassObjectList(const std::vector<Pass*>& List)
+	CVector3    GetDirection() { return m_cpDirection; }
+	void SetPosition(CVector3 const& pos) { m_position = pos; }
+	const std::vector<CoursePass*>& SetPassObjectList(const std::vector<CoursePass*>& List)
 	{
-		m_passList = List;
-		return m_passList;
+		m_courcePassList = List;
+		return m_courcePassList;
 	}
 private:
-	std::vector<Pass*> m_passList;
-	std::vector<CPSwitchG*> m_cpGhostList;
-	CharacterController m_charaCon;
-	bool m_pressAccel		   = false;
+	std::vector<CoursePass*> m_courcePassList;
+	bool m_pressAccel		   = true;
 	bool m_pressJump		   = false;
 	bool m_first			   = false;
 	float m_stickL			   = 0.0f;
-	float m_friction		   = 0.98f;   //摩擦度
-	CQuaternion m_rot		   = CQuaternion::Identity();
-	CVector3 m_position		   = { 10.0f,20.0f,0.0f };
-	CVector3 m_accel		   = CVector3::Zero();	//加速度。
+	CQuaternion m_rot = CQuaternion::Identity();
+	CVector3 m_position		   = CVector3::Zero();
 	CVector3 m_passDirection   = CVector3::Zero();//Passの奥方向
-	CVector3 m_cpDirection    = CVector3::Zero();//Computerの奥方向
-	CVector3 m_moveSpeed	   = CVector3::Zero();
-	float	 m_movePower	   = 100.0f;// 移動速度
+	CVector3 m_cpDirection     = CVector3::Zero();//Computerの奥方向
 	int		 i = 0;
 };
 

@@ -18,6 +18,6 @@ private:
 	CVector3 m_target = CVector3::Zero();
 	CVector3 m_position = CVector3::Zero();
 	//注視点から視点までのベクトルを設定。
-	CVector3 m_toCameraPos = { 0.0f, 40.0f, 250.0f };
+	CVector3 m_toCameraPos = { 0.0f, 110.0f, 380.0f };
 };
 

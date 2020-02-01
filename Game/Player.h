@@ -1,13 +1,30 @@
 #pragma once
+#include "character/CharacterController.h"
+#include "PhysicsGhostObject.h"
 #include "GameObjectManager.h"
 class GamePad;
+class CPSwitchG;
+class CoursePass;
+struct PlayerData {
+	float accel;//加速度
+	float friction;//摩擦度
+	float sutearing;
+};
 class Player : public IGameObject
 {
 public:
 	Player();
 	~Player();
+	bool Start();
 	void Update();
 	void Render();
+	void Rotation();
+	void Move();
+	void Jump();
+	/// <summary>
+	/// 周回判定処理
+	/// </summary>
+	void Check();
 	/*!
 	 *@brief	PlayerのPositionを取得。
 	 */
@@ -26,16 +43,37 @@ public:
 	{
 		m_gamePad = gamePad;
 	}
+	const std::vector<CPSwitchG*>& SetGhostObjectList(const std::vector<CPSwitchG*>& List)
+	{
+		m_cpGhostList = List;
+	}
+	const std::vector<CoursePass*>& SetPassObjectList(const std::vector<CoursePass*>& List)
+	{
+		m_courcePassList = List;
+		return m_courcePassList;
+	}
 private:
-	SkinModel m_model;									//スキンモデル。
-	CVector3 m_position = CVector3::Zero();
-	CQuaternion m_rot = CQuaternion::Identity();
-	GamePad* m_gamePad = nullptr;
 	enum HumanAnimationClip {
 		enAnimationClip_test,
 		enAnimationClip_num
 	};
 	AnimationClip m_animClip[enAnimationClip_num];
 	Animation m_animation;
+	PlayerData m_playerData;//キャラ事のパラメータ
+	SkinModel m_model;	//スキンモデル。
+	CharacterController m_charaCon;
+	std::vector<CoursePass*> m_courcePassList;
+	std::vector<CPSwitchG*> m_cpGhostList;
+	GamePad* m_gamePad	 = nullptr;			
+	CVector3 m_position  = CVector3::Zero();
+	CVector3 m_moveSpeed = CVector3::Zero();
+	CVector3 m_accel	 = CVector3::Zero();	//加速度
+	CVector3 m_jump		 = CVector3::Zero();     //ジャンプの加速度
+	CQuaternion m_rot	 = CQuaternion::Identity();
+	float m_friction	 = 0.98f;   //摩擦度
+	float m_movePower	 = 100.0f;// 移動速度
+	bool m_first		 = false;
+
 };
+
 

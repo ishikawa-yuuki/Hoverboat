@@ -52,5 +52,5 @@ private:
 	PhysicsGhostObject m_ghost;
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();
-	CVector3 m_scale = CVector3::One();
+	CVector3 m_scale = { 1300.0f,100.0f,2200.0f };
 };
