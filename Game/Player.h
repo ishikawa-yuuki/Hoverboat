@@ -5,6 +5,7 @@
 class GamePad;
 class CPSwitchG;
 class CoursePass;
+class WeekBackPass;
 struct PlayerData {
 	float accel;//加速度
 	float friction;//摩擦度
@@ -29,6 +30,7 @@ public:
 	/// 周回用ゴースト判定
 	/// </summary>
 	void CheckPass();
+	void WeekBack();
 	/*!
 	 *@brief	PlayerのPositionを取得。
 	 */
@@ -50,6 +52,7 @@ public:
 	const std::vector<CPSwitchG*>& SetGhostObjectList(const std::vector<CPSwitchG*>& List)
 	{
 		m_cpGhostList = List;
+		return m_cpGhostList;
 	}
 	const std::vector<CoursePass*>& SetPassObjectList(const std::vector<CoursePass*>& List)
 	{
@@ -68,6 +71,7 @@ private:
 	CharacterController m_charaCon;
 	std::vector<CoursePass*> m_courcePassList;
 	std::vector<CPSwitchG*> m_cpGhostList;
+	std::vector<WeekBackPass*> m_weekbackPassList;
 	GamePad* m_gamePad	 = nullptr;			
 	CVector3 m_position  = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();

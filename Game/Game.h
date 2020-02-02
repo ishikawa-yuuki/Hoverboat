@@ -6,6 +6,7 @@
 #include "ComputerPad.h"
 class CPSwitchG;
 class CoursePass;
+class WeekBackPass;
 class GameCamera;
 class Player;
 class BackGround;
@@ -20,11 +21,12 @@ private:
 	Player* m_player[4]		   = { nullptr };
 	BackGround* m_bg           =   nullptr;
 	GameCamera* m_gc		   =   nullptr;
-	PlayerPad m_playerPad;						//プレイヤー用のゲームパッド。
-	ComputerPad m_comPad[3];					//cp用のゲームパッド。
 	Level m_level;
-	std::vector<CoursePass*> m_coursePassList;
-	std::vector<CPSwitchG*> m_CPGhostList;
-	RenderTarget m_renderTarget;			   //レンダリングターゲット。
+	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
+	ComputerPad m_comPad[3];						//AI用のゲームパッド。
+	std::vector<CoursePass*> m_coursePassList;		//コースパス用
+	std::vector<WeekBackPass*> m_weekbackPassList;	//周回計測用
+	std::vector<CPSwitchG*> m_CPGhostList;			//AI用の当たり判定
+	RenderTarget m_renderTarget;					//レンダリングターゲット。
 };
 

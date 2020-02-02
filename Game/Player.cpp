@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "CPSwitchG.h"
+#include "WeekBackPass.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 Player::Player()
@@ -93,15 +94,19 @@ void Player::CheckGhost()
 		});
 	}
 }
+void Player::WeekBack()
+{
+
+}
 void Player::CheckPass()
 {
 	PhysicsGhostObject* ghostObj = nullptr;
 	for (int j = 0; j < m_cpGhostList.size(); j++) {
-		ghostObj = m_cpGhostList[j]->GetGhost();
+		ghostObj = m_weekbackPassList[j]->GetGhost();
 		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
 			if (ghostObj->IsSelf(contactObject)) {//== true
 				//Žü‰ñ”»’è‚·‚éêŠ
-				m_gamePad->CheckGhost();
+				WeekBack();
 			}
 		});
 	}

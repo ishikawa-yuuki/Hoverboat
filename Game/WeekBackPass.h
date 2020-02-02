@@ -28,15 +28,13 @@ public:
 	{
 		return &m_ghost;
 	}
-	bool InitPass()
+	void InitPass()
 	{
 		m_over = false;
-		return m_over;
 	}
-	bool OverPass()
+	void  OverPass()
 	{
 		m_over = true;
-		return m_over;
 	}
 	bool GetPass()const
 	{

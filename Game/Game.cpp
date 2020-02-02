@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "CPSwitchG.h"
 #include "CoursePass.h"
+#include "WeekBackPass.h"
 #include "BackGround.h"
 #include "RenderTarget.h"
 #include "ShadowMap.h"
@@ -21,6 +22,12 @@ Game::Game()
 			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
 			coursePass->SetPosition(objdata.position);
 			m_coursePassList.push_back(coursePass);
+			return true;
+		}
+		else if (objdata.EqualObjectName(L"WeekBackPass")) {
+			WeekBackPass* weekbackPass = g_goMgr->NewGameObject<WeekBackPass>();
+			weekbackPass->SetPosition(objdata.position);
+			m_weekbackPassList.push_back(weekbackPass);
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"Ghost")) {
@@ -72,11 +79,15 @@ Game::~Game()
 			g_goMgr->DeleteGameObject(pl);
 		}
 	}
-	g_goMgr->DeleteGameObject(m_bg);
-	g_goMgr->DeleteGameObject(m_gc);
 	for (auto& coursePass : m_coursePassList) {
 		g_goMgr->DeleteGameObject(coursePass);
 	}
+	for (auto& weekbackPass : m_weekbackPassList) {
+		g_goMgr->DeleteGameObject(weekbackPass);
+	}
+	g_goMgr->DeleteGameObject(m_bg);
+	g_goMgr->DeleteGameObject(m_gc);
+	
 }
 void Game::Update()
 {
