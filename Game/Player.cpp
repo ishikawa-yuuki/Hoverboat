@@ -94,22 +94,38 @@ void Player::CheckGhost()
 		});
 	}
 }
-void Player::WeekBack()
-{
-
-}
 void Player::CheckPass()
 {
 	PhysicsGhostObject* ghostObj = nullptr;
-	for (int j = 0; j < m_cpGhostList.size(); j++) {
+	for (int j = 0; j < m_weekbackPassList.size(); j++) {
 		ghostObj = m_weekbackPassList[j]->GetGhost();
 		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
 			if (ghostObj->IsSelf(contactObject)) {//== true
 				//周回判定する場所
-				WeekBack();
+				if (j == 0)
+					WeekBack();
+				else {
+					m_weekbackPassList[j]->HitPass();
+				}
 			}
 		});
 	}
+}
+void Player::WeekBack()
+{
+	//スタート地点にて精算
+	for (int j = 0; j < m_weekbackPassList.size(); j++) {
+		if (m_weekbackPassList[j]->GetPass()) {
+			m_passNum++;
+		}
+		m_weekbackPassList[j]->InitPass();
+	}
+	if (m_passNum == m_weekbackPassList.size()-1)
+	{
+		m_passNum = 0;
+		m_weekbackNum++;
+	}
+	
 }
 void Player::Update()
 {
@@ -117,12 +133,14 @@ void Player::Update()
 		Start();
 		
 	}
-	if (m_gamePad != nullptr) {
-		Rotation();
-		CheckGhost();
-		CheckPass();
-		Jump();
-		Move();
+	if (m_gamePad != nullptr) 
+	{
+			Rotation();
+			CheckGhost();
+
+			Jump();
+			Move();
+			CheckPass();
 		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 	}
 	//ワールド行列の更新。

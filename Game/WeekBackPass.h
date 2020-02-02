@@ -16,10 +16,6 @@ public:
 	void SetPosition(CVector3 const& pos) {
 		m_position = pos;
 	}
-	//CP‚Ì‰ñ“]‚ğİ’è
-	void SetRotation(const CQuaternion& rot) {
-		m_rot = rot;
-	}
 	//CP‚Ì‘å‚«‚³‚ğİ’è
 	void SetScale(const CVector3& scale) {
 		m_scale = scale;
@@ -32,7 +28,7 @@ public:
 	{
 		m_over = false;
 	}
-	void  OverPass()
+	void  HitPass()
 	{
 		m_over = true;
 	}

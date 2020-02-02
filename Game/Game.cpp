@@ -48,6 +48,7 @@ Game::Game()
 
 	//1,2,3番目はコンピューターが操作するプレイヤー
 	m_player[1] = g_goMgr->NewGameObject<Player>();
+	// vector out 
 	m_player[1]->SetPad(&m_comPad[0]);
 
 	m_player[2] = g_goMgr->NewGameObject<Player>();
@@ -58,6 +59,7 @@ Game::Game()
 	for (int i = 0; i < 4; i++) {
 		m_player[i]->SetPassObjectList(m_coursePassList);
 		m_player[i]->SetGhostObjectList(m_CPGhostList);
+		m_player[i]->SetWeekPassObjectList(m_weekbackPassList);
 	}
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPassObjectList(m_coursePassList);

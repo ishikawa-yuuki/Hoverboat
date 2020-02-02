@@ -59,6 +59,11 @@ public:
 		m_courcePassList = List;
 		return m_courcePassList;
 	}
+	const std::vector<WeekBackPass*>& SetWeekPassObjectList(const std::vector<WeekBackPass*>& List)
+	{
+		m_weekbackPassList = List;
+		return m_weekbackPassList;
+	}
 private:
 	enum HumanAnimationClip {
 		enAnimationClip_test,
@@ -80,8 +85,9 @@ private:
 	CQuaternion m_rot	 = CQuaternion::Identity();
 	float m_friction	 = 0.98f;   //–€ŽC“x
 	float m_movePower	 = 100.0f;// ˆÚ“®‘¬“x
+	int m_passNum = 0;
+	int m_weekbackNum = 0;
 	bool m_first		 = false;
-
 };
 
 
