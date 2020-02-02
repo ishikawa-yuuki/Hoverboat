@@ -18,6 +18,7 @@ public:
 	/// ƒWƒƒƒ“ƒvˆ—
 	/// </summary>
 	void Jump();
+
 	void PlayerPad::CheckGhost() {}
 	bool PlayerPad::IsPressAccel()
 	{

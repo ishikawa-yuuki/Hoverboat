@@ -22,9 +22,13 @@ public:
 	void Move();
 	void Jump();
 	/// <summary>
-	/// 周回判定処理
+	/// ゴースト判定処理
 	/// </summary>
-	void Check();
+	void CheckGhost();
+	/// <summary>
+	/// 周回用ゴースト判定
+	/// </summary>
+	void CheckPass();
 	/*!
 	 *@brief	PlayerのPositionを取得。
 	 */

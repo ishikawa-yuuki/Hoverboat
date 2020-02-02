@@ -80,9 +80,22 @@ void Player::Jump()
 	}
 	m_moveSpeed += m_jump * 5.0f;
 }
-void Player::Check()
+void Player::CheckGhost()
 {
 	PhysicsGhostObject* ghostObj =nullptr;
+	for (int j = 0; j < m_cpGhostList.size(); j++) {
+		ghostObj = m_cpGhostList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//Žü‰ñ”»’è‚·‚éêŠ
+				m_gamePad->CheckGhost();
+			}
+		});
+	}
+}
+void Player::CheckPass()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
 	for (int j = 0; j < m_cpGhostList.size(); j++) {
 		ghostObj = m_cpGhostList[j]->GetGhost();
 		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
@@ -101,7 +114,8 @@ void Player::Update()
 	}
 	if (m_gamePad != nullptr) {
 		Rotation();
-		Check();
+		CheckGhost();
+		CheckPass();
 		Jump();
 		Move();
 		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);

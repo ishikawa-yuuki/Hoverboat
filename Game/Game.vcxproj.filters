@@ -178,6 +178,7 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CoursePass.cpp" />
+    <ClCompile Include="WeekBackPass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -312,6 +313,7 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="CoursePass.h" />
+    <ClInclude Include="WeekBackPass.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

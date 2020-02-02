@@ -19,9 +19,10 @@ public:
 	/// ジャンプ処理
 	/// </summary>
 	void Jump();
-
+	/// <summary>
+	/// ゴースト(当たり判定)
+	/// </summary>
 	void CheckGhost();
-
 	float GetLstickXF()
 	{
 		return m_stickL;
