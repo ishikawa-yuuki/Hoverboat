@@ -31,6 +31,14 @@ public:
 	/// </summary>
 	void CheckPass();
 	void WeekBack();
+	void Data();
+	void SetChara(const int& num)
+	{
+		m_charaNum = num;
+	}
+	void SetPosition(CVector3 const& pos) {
+		m_position = pos;
+	}
 	/*!
 	 *@brief	PlayerのPositionを取得。
 	 */
@@ -71,12 +79,12 @@ private:
 	};
 	AnimationClip m_animClip[enAnimationClip_num];
 	Animation m_animation;
-	PlayerData m_playerData;//キャラ事のパラメータ
 	SkinModel m_model;	//スキンモデル。
 	CharacterController m_charaCon;
 	std::vector<CoursePass*> m_courcePassList;
 	std::vector<CPSwitchG*> m_cpGhostList;
 	std::vector<WeekBackPass*> m_weekbackPassList;
+	PlayerData* m_playerData = nullptr;//キャラ事のパラメータ
 	GamePad* m_gamePad	 = nullptr;			
 	CVector3 m_position  = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
@@ -87,6 +95,7 @@ private:
 	float m_movePower	 = 100.0f;// 移動速度
 	int m_passNum = 0;
 	int m_weekbackNum = 0;
+	int m_charaNum = 0;
 	bool m_first		 = false;
 };
 

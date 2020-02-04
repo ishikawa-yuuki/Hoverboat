@@ -21,6 +21,7 @@ Player::~Player()
 }
 bool Player::Start()
 {
+	Data();
 	m_charaCon.Init(
 		30.0f,
 		20.0f,
@@ -38,7 +39,7 @@ void Player::Rotation()
 	m_rot = m_gamePad->GetRotation();
 	if (fabsf(stick.x) >= 0.8f)
 	{
-		m_friction *= 0.999f;
+		m_friction *= m_playerData[m_charaNum].friction;
 	}
 	else {
 		m_friction *= 1.01f;
@@ -59,7 +60,7 @@ void Player::Move()
 	else {
 		m_accel = CVector3::Zero();
 	}
-	m_moveSpeed += m_accel;	//奥方向への移動速度を代入。
+	m_moveSpeed += m_accel * m_playerData[m_charaNum].accel;	//奥方向への移動速度を代入。
 	m_moveSpeed *= m_friction;//摩擦
 }
 void Player::Jump()
@@ -127,20 +128,30 @@ void Player::WeekBack()
 	}
 	
 }
+void Player::Data()
+{
+	FILE* fp = fopen("Assets/Character_Data/CharacterData/data.ai", "rb");
+	int charaNoKazu;
+	fread(&charaNoKazu, sizeof(int), 1, fp);
+	m_playerData = new PlayerData[charaNoKazu];
+	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
+	fclose(fp);
+}
 void Player::Update()
 {
 	if (!m_first) {
 		Start();
-		
 	}
 	if (m_gamePad != nullptr) 
 	{
 			Rotation();
 			CheckGhost();
-
+			CheckPass();
 			Jump();
 			Move();
-			CheckPass();
+			if (m_charaNum == 2) {
+				m_moveSpeed = CVector3::Zero();
+			}
 		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 	}
 	//ワールド行列の更新。

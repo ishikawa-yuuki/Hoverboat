@@ -179,6 +179,7 @@
     </ClCompile>
     <ClCompile Include="CoursePass.cpp" />
     <ClCompile Include="WeekBackPass.cpp" />
+    <ClCompile Include="StartRacePos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -314,6 +315,7 @@
     </ClInclude>
     <ClInclude Include="CoursePass.h" />
     <ClInclude Include="WeekBackPass.h" />
+    <ClInclude Include="StartRacePos.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

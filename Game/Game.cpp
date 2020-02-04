@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
+#include "StartRacePos.h"
 #include "CPSwitchG.h"
 #include "CoursePass.h"
 #include "WeekBackPass.h"
@@ -37,25 +38,35 @@ Game::Game()
 			m_CPGhostList.push_back(cpGhost);
 			return true;
 		}
-
+		else if (objdata.EqualObjectName(L"StartRacePos")) {
+			StartRacePos* startRacePos= g_goMgr->NewGameObject<StartRacePos>();
+			startRacePos->SetPosition(objdata.position);
+			m_startRacePosList.push_back(startRacePos);
+			return true;
+		}
 		return false;
 	});
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
 	//0番目はユーザーが操作するプレイヤー
-	m_player[0] = g_goMgr->NewGameObject<Player>();
+	for (int i = 0; i < 4; i++) {
+		m_player[i] = g_goMgr->NewGameObject<Player>();
+		m_player[i]->SetPosition(m_startRacePosList[i]->GetPosition());
+		m_player[i]->SetPassObjectList(m_coursePassList);
+		m_player[i]->SetGhostObjectList(m_CPGhostList);
+		m_player[i]->SetWeekPassObjectList(m_weekbackPassList);
+	}
 	m_player[0]->SetPad(&m_playerPad);
 	m_gc->GetInfoPlayer(m_player[0]);
-
+	m_player[0]->SetChara(0);
 	//1,2,3番目はコンピューターが操作するプレイヤー
-	m_player[1] = g_goMgr->NewGameObject<Player>();
-	// vector out 
 	m_player[1]->SetPad(&m_comPad[0]);
+	m_player[1]->SetChara(0);
 
-	m_player[2] = g_goMgr->NewGameObject<Player>();
 	m_player[2]->SetPad(&m_comPad[1]);
+	m_player[2]->SetChara(1);
 
-	m_player[3] = g_goMgr->NewGameObject<Player>();
 	m_player[3]->SetPad(&m_comPad[2]);
+	m_player[3]->SetChara(0);
 	for (int i = 0; i < 4; i++) {
 		m_player[i]->SetPassObjectList(m_coursePassList);
 		m_player[i]->SetGhostObjectList(m_CPGhostList);
@@ -86,6 +97,12 @@ Game::~Game()
 	}
 	for (auto& weekbackPass : m_weekbackPassList) {
 		g_goMgr->DeleteGameObject(weekbackPass);
+	}
+	for (auto& cpGhost : m_CPGhostList) {
+		g_goMgr->DeleteGameObject(cpGhost);
+	}
+	for (auto& startRacePos : m_startRacePosList) {
+		g_goMgr->DeleteGameObject(startRacePos);
 	}
 	g_goMgr->DeleteGameObject(m_bg);
 	g_goMgr->DeleteGameObject(m_gc);
