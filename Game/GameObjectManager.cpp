@@ -4,7 +4,7 @@
 GameObjectManager* g_goMgr = nullptr;
 
 bool GameObjectManager::Start() {
-
+	
 	m_mainRenderTarget.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
@@ -15,6 +15,7 @@ bool GameObjectManager::Start() {
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H
 	);
+	
 	m_first = true;
 	return true;
 }
@@ -79,6 +80,7 @@ void GameObjectManager::Update()
 		{
 			go->Update();
 		}
+		
 		//ごり押し↓
 	//シャドウマップを更新。
 		m_shadowMap.UpdateFromLightTarget(

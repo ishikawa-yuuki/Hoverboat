@@ -4,6 +4,7 @@
 #include "ShadowMap.h"
 #include "RenderTarget.h"
 #include "Sprite.h"
+#include "SoundEngine.h"
 class GameObjectManager
 {
 public:
@@ -70,6 +71,7 @@ public:
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 private:
+	CSoundEngine m_soundEngine;				//サウンドエンジン。
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	RenderTarget m_mainRenderTarget;        //メインレンダリングターゲット
 	ShadowMap m_shadowMap;					//シャドウマップ。

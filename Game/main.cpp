@@ -3,6 +3,7 @@
 #include "GameObjectManager.h"
 #include "Game.h"
 #include "Title.h"
+//#include "SoundEngine.h"
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -10,7 +11,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 {
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
-
+	g_soundEngine->Init();
 	/*g_goMgr->NewGameObject<Game>();*/
 	g_goMgr->NewGameObject<Title>();
 	//デバッグモードのオンオフ
@@ -21,10 +22,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		
 		//描画開始。
 		g_graphicsEngine->BegineRender();
+		
 		//ゲームパッドの更新。	
 		for (auto& pad : g_pad) {
 			pad.Update();
 		}
+		g_soundEngine->Update();
 		//物理エンジンの更新。
 		g_physics.Update();
 		
