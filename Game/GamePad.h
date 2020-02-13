@@ -4,7 +4,9 @@ class GamePad
 public:
 	virtual bool		IsPressAccel()	= 0;
 	virtual bool		IsPressJump()   = 0;
-	virtual void		CheckGhost()	= 0;
+	virtual void		HitGhost()		= 0;
+	virtual void		HitCourcePass()	= 0;
+	virtual void		NotHitPass()	= 0;
 	virtual void		Move()		    = 0;
 	virtual void        Rotation()		= 0;
 	virtual float		GetLstickXF()   = 0;

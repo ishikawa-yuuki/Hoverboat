@@ -14,7 +14,7 @@ bool ComputerPad::Start()
 {
 
 	m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
-	m_cpDirection = m_courcePassList[i]->GetPosition() - m_position;
+	m_cpDirection = m_courcePassList[m_passNum]->GetPosition() - m_position;
 	m_cpDirection.y = 0.0f;
 	m_cpDirection.Normalize();
 	m_first = true;
@@ -31,26 +31,27 @@ void ComputerPad::Move()
 	{
 		Start();
 	}
-	if (i == m_courcePassList.size()) {
-		i = 0;
+
+	if (m_stickL >= 0.0f || m_stickL <= 0.0f)
+	{
+		m_stickL *= 0.8f;
+	}
+
+	if (m_passNum == m_courcePassList.size()) {
+		m_passNum = 0;
 		for (int j = 0; j < m_courcePassList.size(); j++) {
 			m_courcePassList[j]->InitPass();
 		}
 	}
 	
-	m_passDirection = m_courcePassList[i]->GetPosition() - m_position;
-	;
+	m_passDirection = m_courcePassList[m_passNum]->GetPosition() - m_position;
 	m_passDirection.y = 0.0f;
-	if (m_passDirection.LengthSq() < 550.0f * 550.0f && !m_courcePassList[i]->GetPass()) {
-		m_courcePassList[i]->OverPass();
+	if (m_passDirection.LengthSq() < 550.0f * 550.0f && !m_courcePassList[m_passNum]->GetPass()) {
+		m_courcePassList[m_passNum]->HitPass();
 	}
-	else if (m_courcePassList[i]->GetPass())
+	else if (m_courcePassList[m_passNum]->GetPass())
 	{
-		i++;
-	}
-	if (m_stickL >= 0.0f || m_stickL <= 0.0f)
-	{
-		m_stickL *= 0.8f;
+		m_passNum++;
 	}
 }
 void ComputerPad::Jump()
@@ -64,7 +65,7 @@ void ComputerPad::Jump()
 	}*/
 	
 }
-void ComputerPad::CheckGhost()
+void ComputerPad::HitGhost()
 {
 	//ŽŸ‚ÌPass‚Ì•ûŒü‚ð”»’è‚·‚éêŠ
 				
@@ -94,3 +95,14 @@ void ComputerPad::CheckGhost()
 	m_passDirection.Normalize();
 	m_cpDirection = m_passDirection;
 }
+void ComputerPad::HitCourcePass()
+{
+	if (!m_courcePassList[m_passNum]->GetPass()&&!m_hit)
+		m_courcePassList[m_passNum]->HitPass();
+		m_passNum++;
+		m_hit =true;
+}
+void ComputerPad::NotHitPass()
+{
+	m_hit = false;
+};

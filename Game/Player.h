@@ -30,6 +30,8 @@ public:
 	/// 周回用ゴースト判定
 	/// </summary>
 	void CheckPass();
+
+	void CheckCourcePass();
 	void WeekBack();
 	void Data();
 	void SetChara(const int& num)

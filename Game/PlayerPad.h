@@ -18,8 +18,9 @@ public:
 	/// ƒWƒƒƒ“ƒvˆ—
 	/// </summary>
 	void Jump();
-
-	void PlayerPad::CheckGhost() {}
+	void HitCourcePass();
+	void PlayerPad::NotHitPass() {}
+	void PlayerPad::HitGhost() {}
 	bool PlayerPad::IsPressAccel()
 	{
 		return g_pad->IsPress(enButtonRB1);

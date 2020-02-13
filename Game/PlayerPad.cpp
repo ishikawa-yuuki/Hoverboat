@@ -56,3 +56,7 @@ void PlayerPad::Jump()
 	}*/
 	/*m_moveSpeed += m_jump * 5.0f;*/
 }
+void PlayerPad::HitCourcePass()
+{
+
+}

@@ -22,18 +22,22 @@ Game::Game()
 		else if (objdata.EqualObjectName(L"coursePass")) {
 			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
 			coursePass->SetPosition(objdata.position);
+			coursePass->SetRotation(objdata.rotation);
+			coursePass->SetScale(objdata.scale);
 			m_coursePassList.push_back(coursePass);
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"WeekBackPass")) {
 			WeekBackPass* weekbackPass = g_goMgr->NewGameObject<WeekBackPass>();
 			weekbackPass->SetPosition(objdata.position);
+			weekbackPass->SetScale(objdata.scale);
 			m_weekbackPassList.push_back(weekbackPass);
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"Ghost")) {
 			CPSwitchG* cpGhost = g_goMgr->NewGameObject<CPSwitchG>();
 			cpGhost->SetPosition(objdata.position);
+			cpGhost->SetRotation(objdata.rotation);
 			cpGhost->SetScale(objdata.scale);
 			m_CPGhostList.push_back(cpGhost);
 			return true;
@@ -67,11 +71,6 @@ Game::Game()
 
 	m_player[3]->SetPad(&m_comPad[2]);
 	m_player[3]->SetChara(0);
-	for (int i = 0; i < 4; i++) {
-		m_player[i]->SetPassObjectList(m_coursePassList);
-		m_player[i]->SetGhostObjectList(m_CPGhostList);
-		m_player[i]->SetWeekPassObjectList(m_weekbackPassList);
-	}
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPassObjectList(m_coursePassList);
 	}

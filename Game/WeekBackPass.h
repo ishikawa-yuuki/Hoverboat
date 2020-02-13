@@ -7,9 +7,19 @@ class WeekBackPass :public IGameObject
 public:
 	WeekBackPass();
 	~WeekBackPass();
+	void Start() {
+		m_ghost.CreateBox(
+			m_position,
+			m_rot,
+			m_scale
+		);
+		m_start = true;
+	}
 	void Update()
 	{
-		m_ghost.SetPosition(m_position);
+		if (!m_start) {
+			Start();
+		}
 	};
 	void Render() {};
 	//CPÇÃç¿ïWÇê›íË
@@ -18,7 +28,7 @@ public:
 	}
 	//CPÇÃëÂÇ´Ç≥Çê›íË
 	void SetScale(const CVector3& scale) {
-		m_scale = scale;
+		m_scale = scale*1000;
 	}
 	PhysicsGhostObject* GetGhost()
 	{
@@ -38,9 +48,10 @@ public:
 	}
 private:
 	bool m_over = false;
+	bool m_start = false;
 	PhysicsGhostObject m_ghost;
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rot = CQuaternion::Identity();
-	CVector3 m_scale = { 1300.0f,100.0f,2200.0f };
+	CVector3 m_scale = CVector3::One();
 };
 

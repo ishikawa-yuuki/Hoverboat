@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "CPSwitchG.h"
 #include "WeekBackPass.h"
+#include "CoursePass.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 Player::Player()
@@ -19,6 +20,83 @@ Player::Player()
 Player::~Player()
 {
 }
+/// <summary>
+/// キャラのデータ、当たり判定
+/// </summary>
+void Player::Data()
+{
+	FILE* fp = fopen("Assets/Character_Data/CharacterData/data.ai", "rb");
+	int charaNoKazu;
+	fread(&charaNoKazu, sizeof(int), 1, fp);
+	m_playerData = new PlayerData[charaNoKazu];
+	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
+	fclose(fp);
+}
+void Player::CheckGhost()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_cpGhostList.size(); j++) {
+		ghostObj = m_cpGhostList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//
+				m_gamePad->HitGhost();
+			}
+			});
+	}
+}
+void Player::CheckCourcePass()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_courcePassList.size(); j++) {
+		ghostObj = m_courcePassList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//
+				m_gamePad->HitCourcePass();
+			}
+			else {
+				m_gamePad->NotHitPass();
+			}
+			});
+	}
+}
+void Player::CheckPass()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_weekbackPassList.size(); j++) {
+		ghostObj = m_weekbackPassList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				//周回判定する場所
+				if (j == 0)
+					WeekBack();
+				else {
+					m_weekbackPassList[j]->HitPass();
+				}
+			}
+			});
+	}
+}
+void Player::WeekBack()
+{
+	//スタート地点にて精算
+	for (int j = 0; j < m_weekbackPassList.size(); j++) {
+		if (m_weekbackPassList[j]->GetPass()) {
+			m_passNum++;
+		}
+		m_weekbackPassList[j]->InitPass();
+	}
+	if (m_passNum == m_weekbackPassList.size() - 1)
+	{
+		m_passNum = 0;
+		m_weekbackNum++;
+	}
+
+}
+/// <summary>
+/// キャラの動き
+/// </summary>
 bool Player::Start()
 {
 	Data();
@@ -82,61 +160,7 @@ void Player::Jump()
 	}
 	m_moveSpeed += m_jump * 5.0f;
 }
-void Player::CheckGhost()
-{
-	PhysicsGhostObject* ghostObj =nullptr;
-	for (int j = 0; j < m_cpGhostList.size(); j++) {
-		ghostObj = m_cpGhostList[j]->GetGhost();
-		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-			if (ghostObj->IsSelf(contactObject)) {//== true
-				//周回判定する場所
-				m_gamePad->CheckGhost();
-			}
-		});
-	}
-}
-void Player::CheckPass()
-{
-	PhysicsGhostObject* ghostObj = nullptr;
-	for (int j = 0; j < m_weekbackPassList.size(); j++) {
-		ghostObj = m_weekbackPassList[j]->GetGhost();
-		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-			if (ghostObj->IsSelf(contactObject)) {//== true
-				//周回判定する場所
-				if (j == 0)
-					WeekBack();
-				else {
-					m_weekbackPassList[j]->HitPass();
-				}
-			}
-		});
-	}
-}
-void Player::WeekBack()
-{
-	//スタート地点にて精算
-	for (int j = 0; j < m_weekbackPassList.size(); j++) {
-		if (m_weekbackPassList[j]->GetPass()) {
-			m_passNum++;
-		}
-		m_weekbackPassList[j]->InitPass();
-	}
-	if (m_passNum == m_weekbackPassList.size()-1)
-	{
-		m_passNum = 0;
-		m_weekbackNum++;
-	}
-	
-}
-void Player::Data()
-{
-	FILE* fp = fopen("Assets/Character_Data/CharacterData/data.ai", "rb");
-	int charaNoKazu;
-	fread(&charaNoKazu, sizeof(int), 1, fp);
-	m_playerData = new PlayerData[charaNoKazu];
-	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
-	fclose(fp);
-}
+
 void Player::Update()
 {
 	if (!m_first) {
@@ -145,13 +169,11 @@ void Player::Update()
 	if (m_gamePad != nullptr) 
 	{
 			Rotation();
-			CheckGhost();
-			CheckPass();
 			Jump();
 			Move();
-			if (m_charaNum == 2) {
-				m_moveSpeed = CVector3::Zero();
-			}
+			CheckGhost();
+			CheckPass();
+			//CheckCourcePass();
 		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 	}
 	//ワールド行列の更新。

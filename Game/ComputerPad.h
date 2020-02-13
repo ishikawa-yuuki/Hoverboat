@@ -22,7 +22,9 @@ public:
 	/// <summary>
 	/// ƒS[ƒXƒg(“–‚½‚è”»’è)
 	/// </summary>
-	void CheckGhost();
+	void HitGhost();
+	void HitCourcePass();
+	void NotHitPass();
 	float GetLstickXF()
 	{
 		return m_stickL;
@@ -51,11 +53,12 @@ private:
 	bool m_pressAccel		   = true;
 	bool m_pressJump		   = false;
 	bool m_first			   = false;
+	bool m_hit = false;
 	float m_stickL			   = 0.0f;
 	CQuaternion m_rot = CQuaternion::Identity();
 	CVector3 m_position		   = CVector3::Zero();
 	CVector3 m_passDirection   = CVector3::Zero();//Pass‚Ì‰œ•ûŒü
 	CVector3 m_cpDirection     = CVector3::Zero();//Computer‚Ì‰œ•ûŒü
-	int		 i = 0;
+	int		 m_passNum = 0;
 };
 
