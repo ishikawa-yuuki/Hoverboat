@@ -50,6 +50,10 @@ public:
 	{
 		return &m_shadowMap;
 	}
+	Effekseer::Manager* GetEffectManeger()
+	{
+		return m_effekseerManager;
+	}
 	/// <summary>
 	/// プリレンダリング。
 	/// </summary>
@@ -63,6 +67,10 @@ public:
 	/// </summary>
 	void PostRender();
 	/// <summary>
+   /// Effekseerの初期化。
+   /// </summary>
+	void InitEffekseer();
+	/// <summary>
 	/// レンダリングターゲットの切り替え。
 	/// </summary>
 	/// <param name="d3dDeviceContext">D3Dデバイスコンテキスト</param>
@@ -71,10 +79,14 @@ public:
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 private:
-	CSoundEngine m_soundEngine;				//サウンドエンジン。
+	//Effekseerマネージャ管理。
+	Effekseer::Manager* m_effekseerManager				= nullptr;
+	EffekseerRenderer::Renderer* m_effekseerRenderer	= nullptr;
+
+	CSoundEngine m_soundEngine;						//サウンドエンジン。
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
-	RenderTarget m_mainRenderTarget;        //メインレンダリングターゲット
-	ShadowMap m_shadowMap;					//シャドウマップ。
+	RenderTarget m_mainRenderTarget;			    //メインレンダリングターゲット
+	ShadowMap m_shadowMap;							//シャドウマップ。
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。

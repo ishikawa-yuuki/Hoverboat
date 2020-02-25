@@ -86,8 +86,10 @@ private:
 	std::vector<CoursePass*> m_courcePassList;
 	std::vector<CPSwitchG*> m_cpGhostList;
 	std::vector<WeekBackPass*> m_weekbackPassList;
-	PlayerData* m_playerData = nullptr;//キャラ事のパラメータ
-	GamePad* m_gamePad	 = nullptr;			
+	Effekseer::Effect* m_sampleEffect = nullptr;
+	Effekseer::Handle m_playEffectHandle = -1;
+	PlayerData* m_playerData		  = nullptr;//キャラ事のパラメータ
+	GamePad* m_gamePad	              = nullptr;			
 	CVector3 m_position  = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
 	CVector3 m_accel	 = CVector3::Zero();	//加速度
@@ -95,9 +97,9 @@ private:
 	CQuaternion m_rot	 = CQuaternion::Identity();
 	float m_friction	 = 0.98f;   //摩擦度
 	float m_movePower	 = 100.0f;// 移動速度
-	int m_passNum = 0;
-	int m_weekbackNum = 0;
-	int m_charaNum = 0;
+	int m_passNum		 = 0;
+	int m_weekbackNum	 = 0;
+	int m_charaNum		 = 0;
 	bool m_first		 = false;
 };
 

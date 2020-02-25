@@ -19,6 +19,10 @@ Player::Player()
 
 Player::~Player()
 {
+	//エフェクトを破棄。
+	if (m_sampleEffect != nullptr) {
+		m_sampleEffect->Release();
+	}
 }
 /// <summary>
 /// キャラのデータ、当たり判定
@@ -106,6 +110,13 @@ bool Player::Start()
 		m_position
 	);
 	//m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+	//サンプルのエフェクトをロードする。
+	if (g_goMgr->GetEffectManeger() != nullptr) {
+		m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
+		//エフェクトを再生する。
+	/*	g_goMgr->GetEffectManeger()->SetRotation(m_playEffectHandle,0.0f,0.0f,0.0f);*/
+		m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, m_position.x, m_position.y, m_position.z);
+	}
 	m_first = true;
 	return true;
 }
