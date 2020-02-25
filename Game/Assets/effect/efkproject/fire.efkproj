@@ -5,6 +5,9 @@
     <Children>
       <Node>
         <CommonValues>
+          <MaxGeneration>
+            <Infinite>True</Infinite>
+          </MaxGeneration>
           <GenerationTime>
             <Center>8</Center>
             <Max>8</Max>
@@ -20,6 +23,7 @@
             <CommonValues>
               <MaxGeneration>
                 <Value>50</Value>
+                <Infinite>True</Infinite>
               </MaxGeneration>
               <Life>
                 <Center>25</Center>
@@ -41,13 +45,13 @@
                     <Min>-0.01</Min>
                   </X>
                   <Y>
-                    <Center>0.07999999</Center>
-                    <Max>0.09999999</Max>
-                    <Min>0.06</Min>
-                  </Y>
-                  <Z>
                     <Max>0.01</Max>
                     <Min>-0.01</Min>
+                  </Y>
+                  <Z>
+                    <Center>0.08</Center>
+                    <Max>0.09</Max>
+                    <Min>0.07</Min>
                   </Z>
                 </Velocity>
               </PVA>
@@ -57,17 +61,19 @@
               <PVA>
                 <Scale>
                   <X>
-                    <Max>1.5</Max>
-                    <Min>0.5</Min>
+                    <Center>0.5</Center>
+                    <Max>0.7</Max>
+                    <Min>0.3</Min>
                   </X>
                   <Y>
+                    <Center>0.5</Center>
+                    <Max>0.7</Max>
+                    <Min>0.3</Min>
+                  </Y>
+                  <Z>
                     <Center>2</Center>
                     <Max>2</Max>
                     <Min>2</Min>
-                  </Y>
-                  <Z>
-                    <Max>1.5</Max>
-                    <Min>0.5</Min>
                   </Z>
                 </Scale>
                 <Velocity>
@@ -77,14 +83,14 @@
                     <Min>0.03</Min>
                   </X>
                   <Y>
-                    <Center>0.06</Center>
-                    <Max>0.075</Max>
-                    <Min>0.045</Min>
-                  </Y>
-                  <Z>
                     <Center>0.04</Center>
                     <Max>0.05</Max>
                     <Min>0.03</Min>
+                  </Y>
+                  <Z>
+                    <Center>0.06</Center>
+                    <Max>0.075</Max>
+                    <Min>0.045</Min>
                   </Z>
                 </Velocity>
               </PVA>

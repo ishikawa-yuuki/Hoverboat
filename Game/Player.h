@@ -95,6 +95,8 @@ private:
 	CVector3 m_accel	 = CVector3::Zero();	//加速度
 	CVector3 m_jump		 = CVector3::Zero();     //ジャンプの加速度
 	CQuaternion m_rot	 = CQuaternion::Identity();
+	CQuaternion m_effectRot = {0.0f,0.0f,90.0f,1.0f};
+
 	float m_friction	 = 0.98f;   //摩擦度
 	float m_movePower	 = 100.0f;// 移動速度
 	int m_passNum		 = 0;

@@ -82,10 +82,7 @@ void GameObjectManager::ForwordRender() {
 	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	m_mainRenderTarget.ClearRenderTarget(clearColor);
 
-	//エフェクトは不透明オブジェクトを描画した後で描画する。
-	m_effekseerRenderer->BeginRendering();
-	m_effekseerManager->Draw();
-	m_effekseerRenderer->EndRendering();
+	
 }
 void GameObjectManager::PostRender() {
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -152,6 +149,10 @@ void GameObjectManager::Update()
 		for (auto go : m_goList) {
 			go->Render();
 		}
+		//エフェクトは不透明オブジェクトを描画した後で描画する。
+		m_effekseerRenderer->BeginRendering();
+		m_effekseerManager->Draw();
+		m_effekseerRenderer->EndRendering();
 // ポストレンダリング
 		PostRender();
 	}

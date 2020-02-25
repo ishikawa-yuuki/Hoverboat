@@ -113,9 +113,9 @@ bool Player::Start()
 	//サンプルのエフェクトをロードする。
 	if (g_goMgr->GetEffectManeger() != nullptr) {
 		m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
-		//エフェクトを再生する。
-	/*	g_goMgr->GetEffectManeger()->SetRotation(m_playEffectHandle,0.0f,0.0f,0.0f);*/
-		m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, m_position.x, m_position.y, m_position.z);
+		////エフェクトを再生する。
+		
+		m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
 	}
 	m_first = true;
 	return true;
@@ -174,6 +174,15 @@ void Player::Jump()
 
 void Player::Update()
 {
+	{
+		CMatrix mTrans, mRot, mScale, mBase;
+		mTrans.MakeTranslation(m_position);
+		mRot.MakeRotationFromQuaternion(CQuaternion::Identity());
+		mScale.MakeScaling(CVector3::One());
+		mBase.Mul(mScale, mRot);
+		mBase.Mul(mBase, mTrans);
+		g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+	}
 	if (!m_first) {
 		Start();
 	}
