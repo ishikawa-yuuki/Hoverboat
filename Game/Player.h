@@ -103,6 +103,7 @@ private:
 	int m_weekbackNum	 = 0;
 	int m_charaNum		 = 0;
 	bool m_first		 = false;
+	std::vector<bool> m_over;
 };
 
 

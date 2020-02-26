@@ -76,7 +76,7 @@ void Player::CheckPass()
 				if (j == 0)
 					WeekBack();
 				else {
-					m_weekbackPassList[j]->HitPass();
+					m_over[j] = true;
 				}
 			}
 			});
@@ -86,10 +86,10 @@ void Player::WeekBack()
 {
 	//スタート地点にて精算
 	for (int j = 0; j < m_weekbackPassList.size(); j++) {
-		if (m_weekbackPassList[j]->GetPass()) {
+		if (m_over[j]) {
 			m_passNum++;
 		}
-		m_weekbackPassList[j]->InitPass();
+		m_over[j] = false;
 	}
 	if (m_passNum == m_weekbackPassList.size() - 1)
 	{
@@ -117,6 +117,11 @@ bool Player::Start()
 		
 		m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
 	}
+	//////////
+	//ListではなくPlayerクラスに通過判定のみ隔離（他プレイヤーと共通化してしまうため）
+	//////////
+	m_over.resize(m_weekbackPassList.size());
+
 	m_first = true;
 	return true;
 }
@@ -195,6 +200,10 @@ void Player::Update()
 			CheckPass();
 			//CheckCourcePass();
 		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+	}
+	if (m_weekbackNum == 3)
+	{
+		m_moveSpeed = CVector3::Zero();
 	}
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());

@@ -71,6 +71,9 @@ Game::Game()
 
 	m_player[3]->SetPad(&m_comPad[2]);
 	m_player[3]->SetChara(0);
+//////////////////////////////////////////////////////////
+	//‚±‚±‚Å–³—‚É“n‚µ‚Ä‚éB«
+//////////////////////////////////////////////////////////
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPassObjectList(m_coursePassList);
 	}
@@ -117,3 +120,6 @@ void Game::Update()
 void Game::Render()
 {
 }
+
+
+

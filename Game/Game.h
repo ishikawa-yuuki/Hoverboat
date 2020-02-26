@@ -19,7 +19,8 @@ public:
 	void Update();
 	void Render();
 private:
-	Player* m_player[4] = { nullptr };
+	static const int gamePadSize = 4;
+	Player* m_player[gamePadSize] = { nullptr };
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
 	Level m_level;
