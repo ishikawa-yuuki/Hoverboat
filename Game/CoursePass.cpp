@@ -10,5 +10,18 @@ CoursePass::CoursePass()
 CoursePass::~CoursePass()
 {
 }
-
+void CoursePass::Start() {
+	m_ghost.CreateBox(
+		m_position,
+		m_rot,
+		m_scale
+	);
+	m_start = true;
+}
+void CoursePass::Update()
+{
+	if (!m_start) {
+		Start();
+	}
+};
 

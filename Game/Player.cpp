@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "GameData.h"
 #include "CPSwitchG.h"
 #include "WeekBackPass.h"
 #include "CoursePass.h"
@@ -19,7 +20,7 @@ Player::Player()
 
 Player::~Player()
 {
-	//エフェクトを破棄。
+	//エフェクトを破棄。(消えません）
 	if (m_sampleEffect != nullptr) {
 		m_sampleEffect->Release();
 	}
@@ -103,6 +104,7 @@ void Player::WeekBack()
 /// </summary>
 bool Player::Start()
 {
+	m_gamedata = &GameData::GetInstance();
 	Data();
 	m_charaCon.Init(
 		30.0f,
@@ -111,12 +113,11 @@ bool Player::Start()
 	);
 	//m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
 	//サンプルのエフェクトをロードする。
-	if (g_goMgr->GetEffectManeger() != nullptr) {
-		m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
-		////エフェクトを再生する。
-		
-		m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
-	}
+
+	m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
+	////エフェクトを再生する。
+	m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
+
 	//////////
 	//ListではなくPlayerクラスに通過判定のみ隔離（他プレイヤーと共通化してしまうため）
 	//////////
@@ -179,37 +180,46 @@ void Player::Jump()
 
 void Player::Update()
 {
+	if (m_weekbackNum == 3)
 	{
-		CMatrix mTrans, mRot, mScale, mBase;
-		mTrans.MakeTranslation(m_position);
-		mRot.MakeRotationFromQuaternion(CQuaternion::Identity());
-		mScale.MakeScaling(CVector3::One());
-		mBase.Mul(mScale, mRot);
-		mBase.Mul(mBase, mTrans);
-		g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+	
+		//ゴール
+		m_gamedata->SetGoal();
 	}
+	
 	if (!m_first) {
 		Start();
 	}
-	if (m_gamePad != nullptr) 
-	{
+
+	if (!m_gamedata->GetGoal()) {
+
+
+		{
+			CMatrix mTrans, mRot, mScale, mBase;
+			mTrans.MakeTranslation(m_position);
+			mRot.MakeRotationFromQuaternion(CQuaternion::Identity());
+			mScale.MakeScaling(CVector3::One());
+			mBase.Mul(mScale, mRot);
+			mBase.Mul(mBase, mTrans);
+			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+		}
+		if (m_gamePad != nullptr)
+		{
 			Rotation();
 			Jump();
 			Move();
 			CheckGhost();
 			CheckPass();
 			//CheckCourcePass();
-		m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+			m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+		}
+
+		//ワールド行列の更新。
+		m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
+		m_animation.Update(1.0f / 60.0f);
+		m_charaCon.SetPosition(m_position);
+		g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 	}
-	if (m_weekbackNum == 3)
-	{
-		m_moveSpeed = CVector3::Zero();
-	}
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
-	m_animation.Update(1.0f / 60.0f);
-	m_charaCon.SetPosition(m_position);
-	g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Player::Render()
 {

@@ -2,6 +2,7 @@
 #include "character/CharacterController.h"
 #include "PhysicsGhostObject.h"
 #include "GameObjectManager.h"
+class GameData;
 class GamePad;
 class CPSwitchG;
 class CoursePass;
@@ -90,6 +91,7 @@ private:
 	Effekseer::Handle m_playEffectHandle = -1;
 	PlayerData* m_playerData		  = nullptr;//キャラ事のパラメータ
 	GamePad* m_gamePad	              = nullptr;			
+	GameData* m_gamedata			  = nullptr;
 	CVector3 m_position  = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
 	CVector3 m_accel	 = CVector3::Zero();	//加速度

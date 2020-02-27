@@ -4,6 +4,7 @@
 #include "RenderTarget.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
+class GameData;
 class StartRacePos;
 class CPSwitchG;
 class CoursePass;
@@ -23,6 +24,7 @@ private:
 	Player* m_player[gamePadSize] = { nullptr };
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
+	GameData* m_gamedata = nullptr;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。

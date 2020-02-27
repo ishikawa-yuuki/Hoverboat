@@ -12,20 +12,8 @@ class CPSwitchG : public IGameObject
 public:
 	CPSwitchG();
 	~CPSwitchG();
-	void Start() {
-		m_ghost.CreateBox(
-			m_position,
-			m_rot,
-			m_scale
-		);
-		m_start = true;
-	}
-	void Update() 
-	{
-		if (!m_start) {
-			Start();
-		}
-	};
+	void Start(); 
+	void Update(); 
 	void Render() {};
 	//CPÇÃç¿ïWÇê›íË
 	void SetPosition(CVector3 const& pos) {

@@ -195,6 +195,7 @@
     <ClCompile Include="WaveFileBank.cpp">
       <Filter>sound</Filter>
     </ClCompile>
+    <ClCompile Include="GameData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -343,6 +344,7 @@
     <ClInclude Include="WaveFileBank.h">
       <Filter>sound</Filter>
     </ClInclude>
+    <ClInclude Include="GameData.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

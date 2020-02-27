@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "GameObjectManager.h"
+#include "GameData.h"
 #include "Game.h"
 #include "Title.h"
 //#include "SoundEngine.h"
@@ -12,7 +13,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 	g_soundEngine->Init();
-	/*g_goMgr->NewGameObject<Game>();*/
+	GameData::GetInstance();
 	g_goMgr->NewGameObject<Title>();
 	//デバッグモードのオンオフ
 	bool m_isDebug = false;
@@ -27,12 +28,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		for (auto& pad : g_pad) {
 			pad.Update();
 		}
+		//サウンド更新
 		g_soundEngine->Update();
-		//物理エンジンの更新。
-		g_physics.Update();
 		
+		//物理エンジンの更新。
+
+		g_physics.Update();
 		//毎フレーム呼び出す。
 		g_goMgr->Update();
+		
 		if (g_pad[0].IsTrigger(enButtonSelect))
 		{
 			m_isDebug = !m_isDebug;

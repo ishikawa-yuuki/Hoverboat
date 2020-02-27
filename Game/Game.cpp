@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
+#include "GameData.h"
 #include "StartRacePos.h"
 #include "CPSwitchG.h"
 #include "CoursePass.h"
@@ -12,7 +13,7 @@
 Game::Game()
 {	
 	
-	
+	m_gamedata = &GameData::GetInstance();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
@@ -89,25 +90,7 @@ Game::Game()
 
 Game::~Game()
 {
-	for (Player* pl : m_player) {
-		if (pl) {
-			g_goMgr->DeleteGameObject(pl);
-		}
-	}
-	for (auto& coursePass : m_coursePassList) {
-		g_goMgr->DeleteGameObject(coursePass);
-	}
-	for (auto& weekbackPass : m_weekbackPassList) {
-		g_goMgr->DeleteGameObject(weekbackPass);
-	}
-	for (auto& cpGhost : m_CPGhostList) {
-		g_goMgr->DeleteGameObject(cpGhost);
-	}
-	for (auto& startRacePos : m_startRacePosList) {
-		g_goMgr->DeleteGameObject(startRacePos);
-	}
-	g_goMgr->DeleteGameObject(m_bg);
-	g_goMgr->DeleteGameObject(m_gc);
+	
 	
 }
 void Game::Update()
@@ -115,7 +98,34 @@ void Game::Update()
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
 	}
-
+	if (g_pad->IsPressAnyKey()) {
+		m_gamedata->SetGoal();
+	}
+	if (m_gamedata->GetGoal()) {
+		//リザルトへ
+		
+		for (auto& pl : m_player) {	
+				g_goMgr->DeleteGameObject(pl);
+		}
+		/// <summary>
+		/// physics関連でクラッシュ↓ghostobject
+		/// </summary>
+	/*	for (auto& coursePass : m_coursePassList) {
+			g_goMgr->DeleteGameObject(coursePass);
+		}
+		for (auto& weekbackPass : m_weekbackPassList) {
+			g_goMgr->DeleteGameObject(weekbackPass);
+		}
+		for (auto& cpGhost : m_CPGhostList) {
+			g_goMgr->DeleteGameObject(cpGhost);
+		}*/
+		for (auto& startRacePos : m_startRacePosList) {
+			g_goMgr->DeleteGameObject(startRacePos);
+		}
+		g_goMgr->DeleteGameObject(m_bg);
+		g_goMgr->DeleteGameObject(m_gc);
+		g_goMgr->DeleteGameObject(this);
+	}
 }
 void Game::Render()
 {

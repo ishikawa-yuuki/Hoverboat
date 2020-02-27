@@ -4,30 +4,11 @@
 
 class CoursePass : public IGameObject
 {
-private:
-	CVector3 m_position = CVector3::Zero();
-	CQuaternion m_rot = CQuaternion::Identity();
-	CVector3 m_scale = CVector3::One();
-	PhysicsGhostObject m_ghost;
-	bool over = false;
-	bool m_start = false;
 public:
 	CoursePass();
 	~CoursePass();
-	void Start() {
-		m_ghost.CreateBox(
-			m_position,
-			m_rot,
-			m_scale
-		);
-		m_start = true;
-	}
-	void Update()
-	{
-		if (!m_start) {
-			Start();
-		}
-	};
+	void Start();
+	void Update();
 	void Render() {};
 	void SetPosition(const CVector3& pos)
 	{
@@ -61,5 +42,12 @@ public:
 	{
 		return &m_ghost;
 	}
+private:
+	CVector3 m_position = CVector3::Zero();
+	CQuaternion m_rot = CQuaternion::Identity();
+	CVector3 m_scale = CVector3::One();
+	PhysicsGhostObject m_ghost;
+	bool over = false;
+	bool m_start = false;
 };
 
