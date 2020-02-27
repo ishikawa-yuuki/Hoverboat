@@ -211,12 +211,12 @@ void Player::Update()
 			CheckGhost();
 			CheckPass();
 			//CheckCourcePass();
-			m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+			m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 		}
 
 		//ワールド行列の更新。
 		m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
-		m_animation.Update(1.0f / 60.0f);
+		m_animation.Update(GameTime().GetFrameDeltaTime());
 		m_charaCon.SetPosition(m_position);
 		g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 	}

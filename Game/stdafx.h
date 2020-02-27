@@ -41,6 +41,9 @@
 #include "graphics/SkinModel.h"
 #include "graphics/Skeleton.h"
 
+#include "GameTime.h"
+#include "StopWatch.h"
+
 #include "graphics/animation/Animation.h"
 #include "graphics/animation/AnimationClip.h"
 #include "graphics/Camera.h"

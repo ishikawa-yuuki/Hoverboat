@@ -98,9 +98,11 @@ void Game::Update()
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
 	}
-	if (g_pad->IsPressAnyKey()) {
-		m_gamedata->SetGoal();
-	}
+
+	//テスト用
+	//if (g_pad->IsPressAnyKey()) {
+	//	m_gamedata->SetGoal();
+	//}
 	if (m_gamedata->GetGoal()) {
 		//リザルトへ
 		

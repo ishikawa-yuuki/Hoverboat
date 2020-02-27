@@ -14,13 +14,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 	g_soundEngine->Init();
 	GameData::GetInstance();
+	StopWatch stopWatch;
 	g_goMgr->NewGameObject<Title>();
 	//デバッグモードのオンオフ
 	bool m_isDebug = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
-		
+		//計測開始
+		stopWatch.Start();
+
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 		
@@ -48,5 +51,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		}
 		//描画終了。
 		g_graphicsEngine->EndRender();
+
+		//計測終了
+		stopWatch.Stop();
+
+		GameTime().PushFrameDeltaTime((float)stopWatch.GetElapsed());
 	}
 }
