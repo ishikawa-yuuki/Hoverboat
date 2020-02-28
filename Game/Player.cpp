@@ -16,14 +16,16 @@ Player::Player()
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
 	m_animation.Play(0,0.4f);
 }
-
-
 Player::~Player()
 {
 	//エフェクトを破棄。(消えません）
-	if (m_sampleEffect != nullptr) {
-		m_sampleEffect->Release();
-	}
+	//if (m_sampleEffect != nullptr) {
+	//	m_sampleEffect->Release();
+	//}
+}
+void Player::Release()
+{
+	m_charaCon.RemoveRigidBoby();
 }
 /// <summary>
 /// キャラのデータ、当たり判定
@@ -114,9 +116,9 @@ bool Player::Start()
 	//m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
 	//サンプルのエフェクトをロードする。
 
-	m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
-	////エフェクトを再生する。
-	m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
+	//m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
+	//////エフェクトを再生する。
+	//m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
 
 	//////////
 	//ListではなくPlayerクラスに通過判定のみ隔離（他プレイヤーと共通化してしまうため）
@@ -195,13 +197,13 @@ void Player::Update()
 
 
 		{
-			CMatrix mTrans, mRot, mScale, mBase;
+			/*CMatrix mTrans, mRot, mScale, mBase;
 			mTrans.MakeTranslation(m_position);
 			mRot.MakeRotationFromQuaternion(CQuaternion::Identity());
 			mScale.MakeScaling(CVector3::One());
 			mBase.Mul(mScale, mRot);
 			mBase.Mul(mBase, mTrans);
-			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);*/
 		}
 		if (m_gamePad != nullptr)
 		{

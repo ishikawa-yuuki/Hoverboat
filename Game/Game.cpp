@@ -100,30 +100,36 @@ void Game::Update()
 	}
 
 	//テスト用
-	//if (g_pad->IsPressAnyKey()) {
-	//	m_gamedata->SetGoal();
-	//}
+	/*if (g_pad->IsPressAnyKey()) {
+		m_gamedata->SetGoal();
+	}*/
 	if (m_gamedata->GetGoal()) {
 		//リザルトへ
 		
 		for (auto& pl : m_player) {	
+			pl->Release();
 				g_goMgr->DeleteGameObject(pl);
 		}
 		/// <summary>
 		/// physics関連でクラッシュ↓ghostobject
+		/// 対処 : コリジョンを消してからDeleteGameObject
 		/// </summary>
-	/*	for (auto& coursePass : m_coursePassList) {
+		for (auto& coursePass : m_coursePassList) {
+			coursePass->Release();
 			g_goMgr->DeleteGameObject(coursePass);
 		}
 		for (auto& weekbackPass : m_weekbackPassList) {
+			weekbackPass->Release();
 			g_goMgr->DeleteGameObject(weekbackPass);
 		}
 		for (auto& cpGhost : m_CPGhostList) {
+			cpGhost->Release();
 			g_goMgr->DeleteGameObject(cpGhost);
-		}*/
+		}
 		for (auto& startRacePos : m_startRacePosList) {
 			g_goMgr->DeleteGameObject(startRacePos);
 		}
+		m_bg->Release();
 		g_goMgr->DeleteGameObject(m_bg);
 		g_goMgr->DeleteGameObject(m_gc);
 		g_goMgr->DeleteGameObject(this);

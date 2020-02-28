@@ -21,6 +21,7 @@ public:
 	void Update();
 	void Render();
 	void Rotation();
+	void Release();
 	void Move();
 	void Jump();
 	/// <summary>
@@ -87,8 +88,8 @@ private:
 	std::vector<CoursePass*> m_courcePassList;
 	std::vector<CPSwitchG*> m_cpGhostList;
 	std::vector<WeekBackPass*> m_weekbackPassList;
-	Effekseer::Effect* m_sampleEffect = nullptr;
-	Effekseer::Handle m_playEffectHandle = -1;
+	//Effekseer::Effect* m_sampleEffect = nullptr;
+	//Effekseer::Handle m_playEffectHandle = -1;
 	PlayerData* m_playerData		  = nullptr;//キャラ事のパラメータ
 	GamePad* m_gamePad	              = nullptr;			
 	GameData* m_gamedata			  = nullptr;

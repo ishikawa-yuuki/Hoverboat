@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PhysicsGhostObject.h"
+#include "BoxCollider.h"
 using namespace std;
 void PhysicsGhostObject::Release()
 {

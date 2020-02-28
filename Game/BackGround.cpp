@@ -12,6 +12,10 @@ BackGround::BackGround()
 BackGround::~BackGround()
 {
 }
+void BackGround::Release()
+{
+	m_static.Release();
+}
 void BackGround::Update()
 {
 	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());

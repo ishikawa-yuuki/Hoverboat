@@ -11,6 +11,10 @@ WeekBackPass::WeekBackPass()
 WeekBackPass::~WeekBackPass()
 {
 }
+void WeekBackPass::Release()
+{
+	m_ghost.Release();
+}
 void WeekBackPass::Start() {
 	m_ghost.CreateBox(
 		m_position,

@@ -1,6 +1,5 @@
 #pragma once
 #include "PhysicsObjectBase.h"
-#include "physics/MeshCollider.h"
 class PhysicsGhostObject : public PhysicsObjectBase
 {
 public:

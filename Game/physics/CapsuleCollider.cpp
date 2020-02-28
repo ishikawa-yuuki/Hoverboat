@@ -6,11 +6,11 @@
 #include "Physics/CapsuleCollider.h"
 
 
-
-/*!
-	* @brief	デストラクタ。
-	*/
-CapsuleCollider::~CapsuleCollider()
-{
-	delete shape;
-}
+//
+///*!
+//	* @brief	デストラクタ。
+//	*/
+//CapsuleCollider::~CapsuleCollider()
+//{
+//	delete shape;
+//}

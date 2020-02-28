@@ -10,6 +10,7 @@ public:
 	void Start();
 	void Update();
 	void Render() {};
+	void Release();
 	//CP‚ÌÀ•W‚ğİ’è
 	void SetPosition(CVector3 const& pos) {
 		m_position = pos;

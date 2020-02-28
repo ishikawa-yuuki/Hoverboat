@@ -10,6 +10,10 @@ CPSwitchG::CPSwitchG()
 CPSwitchG::~CPSwitchG()
 {
 }
+void CPSwitchG::Release()
+{
+	m_ghost.Release();
+}
 void CPSwitchG::Start() {
 	m_ghost.CreateBox(
 		m_position,
@@ -23,4 +27,5 @@ void CPSwitchG::Update()
 	if (!m_start) {
 		Start();
 	}
+
 };

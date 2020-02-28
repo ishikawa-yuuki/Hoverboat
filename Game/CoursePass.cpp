@@ -10,6 +10,10 @@ CoursePass::CoursePass()
 CoursePass::~CoursePass()
 {
 }
+void CoursePass::Release()
+{
+	m_ghost.Release();
+}
 void CoursePass::Start() {
 	m_ghost.CreateBox(
 		m_position,
