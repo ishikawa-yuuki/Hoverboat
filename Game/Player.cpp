@@ -182,11 +182,15 @@ void Player::Jump()
 
 void Player::Update()
 {
-	if (m_weekbackNum == 3)
+	if (m_weekbackNum == 3 &&!m_one)
 	{
 	
 		//ƒS[ƒ‹
-		m_gamedata->SetGoal();
+		m_goal = true;
+		m_one  = true;
+	}
+	else {
+		m_goal = false;
 	}
 	
 	if (!m_first) {

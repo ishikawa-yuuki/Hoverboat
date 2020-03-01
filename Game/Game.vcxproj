@@ -144,6 +144,7 @@
     <ClCompile Include="PlayerPad.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="SoundEngine.cpp" />
     <ClCompile Include="SoundSource.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="PlayerPad.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SoundEngine.h" />
     <ClInclude Include="SoundSource.h" />

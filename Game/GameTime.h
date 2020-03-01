@@ -33,7 +33,7 @@ public:
 
 		//配列の長さが30.0f以上なら時間を経過する
 
-		if (m_frameDeltaTimeQue.size() > 30.0f) {
+		if (m_frameDeltaTimeQue.size() > 60.0f) {
 
 			float totalTime = 0.0f;
 
@@ -45,7 +45,7 @@ public:
 			}
 
 			//平均値をとる、配列の合計時間を配列の長さで割る
-			m_frameDeltaTime = min(1.0f / 30.0f, totalTime / m_frameDeltaTimeQue.size());
+			m_frameDeltaTime = min(1.0f / 60.0f, totalTime / m_frameDeltaTimeQue.size());
 
 			//配列の一番最初の要素を削除する
 			m_frameDeltaTimeQue.pop_front();

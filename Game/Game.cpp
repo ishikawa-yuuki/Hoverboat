@@ -10,6 +10,7 @@
 #include "BackGround.h"
 #include "RenderTarget.h"
 #include "ShadowMap.h"
+#include "Result.h"
 Game::Game()
 {	
 	
@@ -53,7 +54,7 @@ Game::Game()
 	});
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
 	//0番目はユーザーが操作するプレイヤー
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < gamePadSize; i++) {
 		m_player[i] = g_goMgr->NewGameObject<Player>();
 		m_player[i]->SetPosition(m_startRacePosList[i]->GetPosition());
 		m_player[i]->SetPassObjectList(m_coursePassList);
@@ -99,10 +100,19 @@ void Game::Update()
 		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
 	}
 
+
+
 	//テスト用
 	/*if (g_pad->IsPressAnyKey()) {
 		m_gamedata->SetGoal();
 	}*/
+	//ゴール順にリストに入れてる
+	for (int i = 0; i < gamePadSize; i++) {
+		if (m_player[i]->GetPlayerGoal()) {
+			m_gamedata->List_push_buck(i, m_player[i]->GetGoalTime());
+			m_gamedata->SetGoal();
+		}
+	}
 	if (m_gamedata->GetGoal()) {
 		//リザルトへ
 		
@@ -133,7 +143,9 @@ void Game::Update()
 		g_goMgr->DeleteGameObject(m_bg);
 		g_goMgr->DeleteGameObject(m_gc);
 		g_goMgr->DeleteGameObject(this);
+		g_goMgr->NewGameObject<Result>();
 	}
+
 }
 void Game::Render()
 {

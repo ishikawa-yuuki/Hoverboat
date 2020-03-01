@@ -58,6 +58,9 @@
     <Filter Include="Time">
       <UniqueIdentifier>{0930222c-fef1-42f6-a805-ebe3e25364d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Result">
+      <UniqueIdentifier>{f26ba654-f154-495a-814e-3895013e5aaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -205,6 +208,7 @@
     <ClCompile Include="GameTime.cpp">
       <Filter>Time</Filter>
     </ClCompile>
+    <ClCompile Include="Result.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -360,6 +364,7 @@
     <ClInclude Include="GameTime.h">
       <Filter>Time</Filter>
     </ClInclude>
+    <ClInclude Include="Result.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

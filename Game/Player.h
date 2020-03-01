@@ -43,6 +43,7 @@ public:
 	void SetPosition(CVector3 const& pos) {
 		m_position = pos;
 	}
+
 	/*!
 	 *@brief	PlayerのPositionを取得。
 	 */
@@ -50,12 +51,27 @@ public:
 	{
 		return m_position;
 	}
+
 	/*!
 	 *@brief	PlayerのCQuaternionを取得。
 	 */
 	const CQuaternion& GetPlayerRotation()const
 	{
 		return m_rot;
+	}
+
+	float GetGoalTime()
+	{
+		return m_goalTime;
+	}
+
+	/// <summary>
+	/// ゴール判定
+	/// </summary>
+	/// <returns></returns>
+	bool GetPlayerGoal()
+	{
+		return m_goal;
 	}
 	void SetPad(GamePad* gamePad)
 	{
@@ -101,11 +117,14 @@ private:
 	CQuaternion m_effectRot = {0.0f,0.0f,90.0f,1.0f};
 
 	float m_friction	 = 0.98f;   //摩擦度
-	float m_movePower	 = 100.0f;// 移動速度
+	float m_movePower	 = 100.0f;	// 移動速度
+	float m_goalTime	 = 2434.0f;	//ゴールタイム
 	int m_passNum		 = 0;
 	int m_weekbackNum	 = 0;
 	int m_charaNum		 = 0;
 	bool m_first		 = false;
+	bool m_goal			 = false;
+	bool m_one			 = false;
 	std::vector<bool> m_over;
 };
 
