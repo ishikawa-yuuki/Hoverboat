@@ -24,8 +24,9 @@ void Title::Update()
 {
 	
 	//m_sprite.Update(CVector3::Zero(),CQuaternion::Identity(),CVector3::One());
-	if (g_pad->IsPressAnyKey()) 
+	if (g_pad->IsTrigger(enButtonA)) 
 	{
+		//ƒQ[ƒ€‚Ö
 		g_goMgr->NewGameObject<Game>();
 		g_goMgr->DeleteGameObject(this);
 		delete(m_bgm);

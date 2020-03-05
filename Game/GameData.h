@@ -13,6 +13,7 @@ public:
 		static GameData gamedata;
 		return gamedata;
 	}
+	void Init();
 	void SetGoal()
 	{
 		m_goal = true;

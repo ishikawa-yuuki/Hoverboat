@@ -15,6 +15,7 @@ Game::Game()
 {	
 	
 	m_gamedata = &GameData::GetInstance();
+	m_gamedata->Init();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
