@@ -13,6 +13,7 @@ Title::Title()
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/bgm.wav");
 	m_bgm->Play(true);
+	
 }
 
 
@@ -22,7 +23,6 @@ Title::~Title()
 }
 void Title::Update() 
 {
-	
 	//m_sprite.Update(CVector3::Zero(),CQuaternion::Identity(),CVector3::One());
 	if (g_pad->IsTrigger(enButtonA)) 
 	{
@@ -31,6 +31,7 @@ void Title::Update()
 		g_goMgr->DeleteGameObject(this);
 		delete(m_bgm);
 	}
+
 }
 void Title::Render()
 {
@@ -42,5 +43,5 @@ void Title::Render()
 		{ 0,1,0 }
 	);
 	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);*/
-	m_sprite.Draw(/*mView, mProj*/);
+	m_sprite.Draw();
 }

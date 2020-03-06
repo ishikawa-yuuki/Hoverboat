@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="CFont.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBufferGPU.cpp" />
     <ClCompile Include="CPSwitchG.cpp" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="CFont.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBufferGPU.h" />
     <ClInclude Include="CPSwitchG.h" />

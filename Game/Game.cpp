@@ -13,7 +13,6 @@
 #include "Result.h"
 Game::Game()
 {	
-	
 	m_gamedata = &GameData::GetInstance();
 	m_gamedata->Init();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
@@ -150,6 +149,7 @@ void Game::Update()
 }
 void Game::Render()
 {
+	//m_sprite.Draw();
 }
 
 

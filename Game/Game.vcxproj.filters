@@ -61,6 +61,9 @@
     <Filter Include="Result">
       <UniqueIdentifier>{f26ba654-f154-495a-814e-3895013e5aaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Font">
+      <UniqueIdentifier>{54c6177a-7dc3-4e9e-b497-90b7f0cd8260}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -209,6 +212,9 @@
       <Filter>Time</Filter>
     </ClCompile>
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="CFont.cpp">
+      <Filter>Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -365,6 +371,9 @@
       <Filter>Time</Filter>
     </ClInclude>
     <ClInclude Include="Result.h" />
+    <ClInclude Include="CFont.h">
+      <Filter>Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

@@ -6,6 +6,7 @@
 #include <queue>
 #include <list>
 #include <minwindef.h>
+#include "CFont.h"
 class CGameTime {
 private:
 	CGameTime() {}
@@ -31,8 +32,7 @@ public:
 		//時間を記憶
 		m_frameDeltaTimeQue.push_back(deltaTime);
 
-		//配列の長さが30.0f以上なら時間を経過する
-
+		//配列の長さが60.0f以上なら時間を経過する
 		if (m_frameDeltaTimeQue.size() > 60.0f) {
 
 			float totalTime = 0.0f;
@@ -53,9 +53,17 @@ public:
 		}
 
 	}
+	void Draw() {
+		wchar_t output[256];
+
+		swprintf_s(output, L"FPS %f", 1.0f / m_frameDeltaTime);
+
+		m_font.DrawScreenPos(output, CVector2::Zero());
+	}
 private:
 	std::list<float> m_frameDeltaTimeQue;
 	float m_frameDeltaTime = 1.0f / 60.0f;			//1フレームごとの経過時間
+	CFont m_font;
 };
 static inline CGameTime& GameTime()
 {
