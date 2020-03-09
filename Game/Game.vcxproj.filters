@@ -215,6 +215,7 @@
     <ClCompile Include="CFont.cpp">
       <Filter>Font</Filter>
     </ClCompile>
+    <ClCompile Include="RaceTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -374,6 +375,7 @@
     <ClInclude Include="CFont.h">
       <Filter>Font</Filter>
     </ClInclude>
+    <ClInclude Include="RaceTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

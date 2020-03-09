@@ -182,6 +182,10 @@ void Player::Jump()
 
 void Player::Update()
 {
+	if (!m_first) {
+		Start();
+	}
+	
 	if (m_weekbackNum == 3 &&!m_one)
 	{
 	
@@ -193,9 +197,7 @@ void Player::Update()
 		m_goal = false;
 	}
 	
-	if (!m_first) {
-		Start();
-	}
+	
 
 	if (!m_gamedata->GetGoal()) {
 
@@ -211,6 +213,17 @@ void Player::Update()
 		}
 		if (m_gamePad != nullptr)
 		{
+			if (m_gamedata->GetPose())
+			{
+				
+
+				m_rot = m_gamePad->GetRotation();
+				m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
+				m_animation.Update(GameTime().GetFrameDeltaTime());
+				m_charaCon.SetPosition(m_position);
+				g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
+				return;
+			}
 			Rotation();
 			Jump();
 			Move();
@@ -226,6 +239,7 @@ void Player::Update()
 		m_charaCon.SetPosition(m_position);
 		g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
 	}
+	
 }
 void Player::Render()
 {

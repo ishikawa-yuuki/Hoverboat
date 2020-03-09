@@ -103,6 +103,11 @@ void GameObjectManager::PostRender() {
 
 	GameTime().Draw();
 
+	//登録されているゲームオブジェクトのポストレンダー呼ぶ。
+	for (auto go : m_goList)
+	{
+		go->PostRender();
+	}
 	g_graphicsEngine->GetSpriteBatch()->End();
 	g_graphicsEngine->GetSpriteBatchPMA()->End();
 	g_graphicsEngine->ResetLayerDepthCnt();

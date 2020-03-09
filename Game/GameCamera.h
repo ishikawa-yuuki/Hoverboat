@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObjectManager.h"
 class Player;
+class GameData;
 class GameCamera : public IGameObject
 {
 public:
@@ -15,9 +16,10 @@ public:
 	}
 private:
 	Player* m_player =nullptr;
+	GameData* m_gamedata = nullptr;
 	CVector3 m_target = CVector3::Zero();
 	CVector3 m_position = CVector3::Zero();
 	//注視点から視点までのベクトルを設定。
-	CVector3 m_toCameraPos = { 0.0f, 110.0f, 380.0f };
+	CVector3 m_toCameraPos = { 0.0f, 0.0f, 350.0f };
 };
 

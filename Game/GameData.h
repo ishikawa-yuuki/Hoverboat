@@ -14,6 +14,19 @@ public:
 		return gamedata;
 	}
 	void Init();
+	//‚Æ‚è‚ ‚¦‚¸‚±‚±‚ÉPose
+	void SetPose()
+	{
+		m_pose = true;
+	}
+	void SetCanselPose()
+	{
+		m_pose = false;
+	}
+	bool GetPose()
+	{
+		return m_pose;
+	}
 	void SetGoal()
 	{
 		m_goal = true;
@@ -30,6 +43,7 @@ public:
 	};
 private:
 	bool m_goal = false;
+	bool m_pose = false;
 	std::vector<RankResult> m_rankingList;
 };
 

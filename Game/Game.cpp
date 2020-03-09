@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Game.h"
 #include "GameCamera.h"
 #include "Player.h"
@@ -11,6 +11,7 @@
 #include "RenderTarget.h"
 #include "ShadowMap.h"
 #include "Result.h"
+#include "RaceTimer.h"
 Game::Game()
 {	
 	m_gamedata = &GameData::GetInstance();
@@ -52,8 +53,9 @@ Game::Game()
 		}
 		return false;
 	});
+	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
-	//0”Ô–Ú‚Íƒ†[ƒU[‚ª‘€ì‚·‚éƒvƒŒƒCƒ„[
+	//0ç•ªç›®ã¯ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒæ“ä½œã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	for (int i = 0; i < gamePadSize; i++) {
 		m_player[i] = g_goMgr->NewGameObject<Player>();
 		m_player[i]->SetPosition(m_startRacePosList[i]->GetPosition());
@@ -64,7 +66,7 @@ Game::Game()
 	m_player[0]->SetPad(&m_playerPad);
 	m_gc->GetInfoPlayer(m_player[0]);
 	m_player[0]->SetChara(0);
-	//1,2,3”Ô–Ú‚ÍƒRƒ“ƒsƒ…[ƒ^[‚ª‘€ì‚·‚éƒvƒŒƒCƒ„[
+	//1,2,3ç•ªç›®ã¯ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ãŒæ“ä½œã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	m_player[1]->SetPad(&m_comPad[0]);
 	m_player[1]->SetChara(0);
 
@@ -74,7 +76,7 @@ Game::Game()
 	m_player[3]->SetPad(&m_comPad[2]);
 	m_player[3]->SetChara(0);
 //////////////////////////////////////////////////////////
-	//‚±‚±‚Å–³—‚É“n‚µ‚Ä‚éB«
+	//ã“ã“ã§ç„¡ç†ã«æ¸¡ã—ã¦ã‚‹ã€‚â†“
 //////////////////////////////////////////////////////////
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPassObjectList(m_coursePassList);
@@ -96,17 +98,24 @@ Game::~Game()
 }
 void Game::Update()
 {
+	if (!m_raceTime->GetRaceStart())
+	{
+		m_gamedata->SetPose();
+	}
+	else {
+		m_gamedata->SetCanselPose();
+	}
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
 	}
 
 
 
-	//ƒeƒXƒg—p
+	//ãƒ†ã‚¹ãƒˆç”¨
 	/*if (g_pad->IsPressAnyKey()) {
 		m_gamedata->SetGoal();
 	}*/
-	//ƒS[ƒ‹‡‚ÉƒŠƒXƒg‚É“ü‚ê‚Ä‚é
+	//ã‚´ãƒ¼ãƒ«é †ã«ãƒªã‚¹ãƒˆã«å…¥ã‚Œã¦ã‚‹
 	for (int i = 0; i < gamePadSize; i++) {
 		if (m_player[i]->GetPlayerGoal()) {
 			m_gamedata->List_push_buck(i, m_player[i]->GetGoalTime());
@@ -114,15 +123,15 @@ void Game::Update()
 		}
 	}
 	if (m_gamedata->GetGoal()) {
-		//ƒŠƒUƒ‹ƒg‚Ö
+		//ãƒªã‚¶ãƒ«ãƒˆã¸
 		
 		for (auto& pl : m_player) {	
 			pl->Release();
 				g_goMgr->DeleteGameObject(pl);
 		}
 		/// <summary>
-		/// physicsŠÖ˜A‚ÅƒNƒ‰ƒbƒVƒ…«ghostobject
-		/// ‘Îˆ : ƒRƒŠƒWƒ‡ƒ“‚ğÁ‚µ‚Ä‚©‚çDeleteGameObject
+		/// physicsé–¢é€£ã§ã‚¯ãƒ©ãƒƒã‚·ãƒ¥â†“ghostobject
+		/// å¯¾å‡¦ : ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’æ¶ˆã—ã¦ã‹ã‚‰DeleteGameObject
 		/// </summary>
 		for (auto& coursePass : m_coursePassList) {
 			coursePass->Release();
@@ -140,17 +149,15 @@ void Game::Update()
 			g_goMgr->DeleteGameObject(startRacePos);
 		}
 		m_bg->Release();
+		g_goMgr->DeleteGameObject(m_raceTime);
 		g_goMgr->DeleteGameObject(m_bg);
 		g_goMgr->DeleteGameObject(m_gc);
 		g_goMgr->DeleteGameObject(this);
 		g_goMgr->NewGameObject<Result>();
 	}
 
+	
 }
 void Game::Render()
 {
-	//m_sprite.Draw();
 }
-
-
-

@@ -4,6 +4,7 @@
 #include "RenderTarget.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
+class RaceTimer;
 class GameData;
 class StartRacePos;
 class CPSwitchG;
@@ -25,6 +26,7 @@ private:
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
 	GameData* m_gamedata = nullptr;
+	RaceTimer* m_raceTime = nullptr;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。
@@ -33,5 +35,6 @@ private:
 	std::vector<CPSwitchG*> m_CPGhostList;			//AI用の当たり判定
 	std::vector<StartRacePos*> m_startRacePosList;
 	RenderTarget m_renderTarget;					//レンダリングターゲット。
+	
 };
 

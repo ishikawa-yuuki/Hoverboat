@@ -523,6 +523,12 @@ public:
 		return white;
 
 	}
+	static CVector4 Yellow()
+	{
+		static const CVector4 yellow = { 1.0f, 1.0f, 0.0f, 1.0f };
+		return yellow;
+
+	}
 };
 
 class CQuaternion : public CVector4{

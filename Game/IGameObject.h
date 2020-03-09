@@ -10,6 +10,8 @@ public:
 	/// 描画処理
 	/// </summary>
 	virtual void Render() = 0;
+
+	virtual void PostRender() {};
 	/// <summary>
 	/// 排除リクエスト
 	/// </summary>
