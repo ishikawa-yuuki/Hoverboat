@@ -35,11 +35,31 @@ public:
 	{
 		return m_goal;
 	}
-	void List_push_buck(float PlayerNo,float GoalTime);
+	void List_push_buck(int minute, int second, float comma, int PlayerNo);
+
+	int GetMinute(int i)
+	{
+		return m_rankingList[i].m_minute;
+	}
+	int GetSeond(int i)
+	{
+		return m_rankingList[i].m_second;
+	}
+	float GetComma(int i)
+	{
+		return m_rankingList[i].m_comma;
+	}
+	int GetNum(int i)
+	{
+		return m_rankingList[i].PlayerNo;
+	}
 	struct RankResult
 	{
-		float PlayerNo =0.0f;
-		float GoalTime =0.0f;
+		int   m_minute = 0;
+		int	  m_second = 0;
+		float m_comma = 0.0f;
+		int PlayerNo = 0.0f;
+
 	};
 private:
 	bool m_goal = false;

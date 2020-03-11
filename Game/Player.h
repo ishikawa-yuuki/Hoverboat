@@ -60,11 +60,6 @@ public:
 		return m_rot;
 	}
 
-	float GetGoalTime()
-	{
-		return m_goalTime;
-	}
-
 	/// <summary>
 	/// ゴール判定
 	/// </summary>
@@ -118,7 +113,6 @@ private:
 
 	float m_friction	 = 0.98f;   //摩擦度
 	float m_movePower	 = 100.0f;	// 移動速度
-	float m_goalTime	 = 2434.0f;	//ゴールタイム
 	int m_passNum		 = 0;
 	int m_weekbackNum	 = 0;
 	int m_charaNum		 = 0;

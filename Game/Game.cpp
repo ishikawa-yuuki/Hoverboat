@@ -118,7 +118,10 @@ void Game::Update()
 	//ゴール順にリストに入れてる
 	for (int i = 0; i < gamePadSize; i++) {
 		if (m_player[i]->GetPlayerGoal()) {
-			m_gamedata->List_push_buck(i, m_player[i]->GetGoalTime());
+			m_gamedata->List_push_buck(m_raceTime->GetMinute(),
+										m_raceTime->GetSeond(),
+										m_raceTime->GetComma(),
+										i);
 			m_gamedata->SetGoal();
 		}
 	}

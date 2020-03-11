@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "GameData.h"
 
-void GameData::List_push_buck(float PlayerNo, float GoalTime)
+void GameData::List_push_buck(int minute, int second,float comma, int PlayerNo)
 {
-	m_rankingList.push_back({PlayerNo, GoalTime});
+	m_rankingList.push_back({minute, second, comma, PlayerNo });
 }
 void GameData::Init()
 {
