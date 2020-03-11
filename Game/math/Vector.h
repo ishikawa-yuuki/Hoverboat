@@ -28,6 +28,14 @@ public:
 		float v[2];
 	};
 	/*!
+		*@brief	代入演算子。
+		*/
+	CVector2& operator=(const CVector2& _v)
+	{
+		vec = _v.vec;
+		return *this;
+	}
+	/*!
 	* @brief	線形補間。
 	*@details
 	* this = v0 + (v1-v0) * t;

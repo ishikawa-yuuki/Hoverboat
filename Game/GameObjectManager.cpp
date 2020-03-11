@@ -86,9 +86,9 @@ void GameObjectManager::ForwordRender() {
 }
 void GameObjectManager::PostRender() {
 
-	g_graphicsEngine->GetSpriteBatch()->Begin(DirectX::SpriteSortMode_BackToFront);
-	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
-	g_graphicsEngine->GetSpriteBatchPMA()->Begin(DirectX::SpriteSortMode_BackToFront, state.NonPremultiplied());
+	
+	//DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
+	//g_graphicsEngine->GetSpriteBatchPMA()->Begin(DirectX::SpriteSortMode_BackToFront, state.NonPremultiplied());
 
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 	ChangeRenderTarget(
@@ -108,8 +108,8 @@ void GameObjectManager::PostRender() {
 	{
 		go->PostRender();
 	}
-	g_graphicsEngine->GetSpriteBatch()->End();
-	g_graphicsEngine->GetSpriteBatchPMA()->End();
+	
+	//g_graphicsEngine->GetSpriteBatchPMA()->End();
 	g_graphicsEngine->ResetLayerDepthCnt();
 	
 }

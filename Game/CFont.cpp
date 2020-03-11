@@ -65,7 +65,7 @@ void CFont::DrawScreenPos(
 	layerDepth *= 0.999f; layerDepth += 0.001f;
 
 	layerDepth -= g_graphicsEngine->AddAndGetLayerDepthCnt();
-
+	g_graphicsEngine->GetSpriteBatch()->Begin(DirectX::SpriteSortMode_Deferred);
 	m_spriteFont->DrawString(
 
 		m_spriteBatch,
@@ -78,4 +78,6 @@ void CFont::DrawScreenPos(
 		effects,
 		layerDepth
 	);
+	g_graphicsEngine->GetSpriteBatch()->End();
+
 }

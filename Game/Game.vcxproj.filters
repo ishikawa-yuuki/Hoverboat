@@ -43,9 +43,6 @@
     <Filter Include="Assets\modelData\Stage">
       <UniqueIdentifier>{81688c4d-fccc-4be5-a0bb-86bcc4a542dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{3ae8b0f5-7319-4a2f-b3fb-6a61cfcb68f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PostEffect">
       <UniqueIdentifier>{9c089c88-889c-4d25-87b6-1ae914a09873}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Font">
       <UniqueIdentifier>{54c6177a-7dc3-4e9e-b497-90b7f0cd8260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{3ae8b0f5-7319-4a2f-b3fb-6a61cfcb68f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

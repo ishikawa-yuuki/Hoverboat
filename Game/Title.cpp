@@ -5,10 +5,10 @@
 Title::Title()
 {
 	
-	//カメラを設定。
-	/*g_camera3D.SetPosition({ 0.0f, 1000.0f, 2200.0f });
-	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
-	g_camera3D.Update();*/
+	////カメラを設定。
+	//g_camera3D.SetPosition({ 0.0f, 1000.0f, 2200.0f });
+	//g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
+	//g_camera3D.Update();
 	m_sprite.Init(L"Assets/sprite/title.dds", 1280, 720);
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/bgm.wav");
@@ -31,7 +31,14 @@ void Title::Update()
 		g_goMgr->DeleteGameObject(this);
 		delete(m_bgm);
 	}
-
+	if (g_pad->IsPressAnyKey()) {
+		m_timer += m_addPress * GameTime().GetFrameDeltaTime();
+	}
+	else 
+	{
+			m_timer += m_add * GameTime().GetFrameDeltaTime();
+	}
+	m_color = sin(m_timer) * m_sinWave + m_sinWave;
 }
 void Title::Render()
 {
@@ -43,5 +50,13 @@ void Title::Render()
 		{ 0,1,0 }
 	);
 	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);*/
+
+}
+void Title::PostRender()
+{
 	m_sprite.Draw();
+	wchar_t output[256];
+	swprintf(output, L"PRESS ANYKEY");
+	m_font.DrawScreenPos(output, m_pos, { m_color,m_color,m_color, m_color }, m_scale);
+	
 }
