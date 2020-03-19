@@ -52,6 +52,7 @@ public:
 	}
 private:
 	std::vector<CoursePass*> m_courcePassList;
+	std::vector<bool> m_hitPass;
 	bool m_pressAccel		   = true;
 	bool m_pressJump		   = false;
 	bool m_first			   = false;

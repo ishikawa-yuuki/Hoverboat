@@ -17,6 +17,7 @@ bool ComputerPad::Start()
 	m_cpDirection = m_courcePassList[m_passNum]->GetPosition() - m_position;
 	m_cpDirection.y = 0.0f;
 	m_cpDirection.Normalize();
+	m_hitPass.resize(m_courcePassList.size());
 	m_first = true;
 	return true;
 }
@@ -40,16 +41,16 @@ void ComputerPad::Move()
 	if (m_passNum == m_courcePassList.size()) {
 		m_passNum = 0;
 		for (int j = 0; j < m_courcePassList.size(); j++) {
-			m_courcePassList[j]->InitPass();
+			m_hitPass[j] = false;
 		}
 	}
 	
 	m_passDirection = m_courcePassList[m_passNum]->GetPosition() - m_position;
 	m_passDirection.y = 0.0f;
-	if (m_passDirection.LengthSq() < 550.0f * 550.0f && !m_courcePassList[m_passNum]->GetPass()) {
-		m_courcePassList[m_passNum]->HitPass();
+	if (m_passDirection.LengthSq() < 550.0f * 550.0f && !m_hitPass[m_passNum]) {
+		m_hitPass[m_passNum] = true;
 	}
-	else if (m_courcePassList[m_passNum]->GetPass())
+	else if (m_hitPass[m_passNum])
 	{
 		m_passNum++;
 	}
@@ -97,8 +98,8 @@ void ComputerPad::HitGhost()
 }
 void ComputerPad::HitCourcePass()
 {
-	if (!m_courcePassList[m_passNum]->GetPass()&&!m_hit)
-		m_courcePassList[m_passNum]->HitPass();
+	if (!m_hitPass[m_passNum] && !m_hit)
+		m_hitPass[m_passNum] = true;
 		m_passNum++;
 		m_hit =true;
 }
