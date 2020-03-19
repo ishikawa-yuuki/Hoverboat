@@ -25,11 +25,28 @@ void GameCamera::Update()
 	if (m_player != nullptr) {
 		m_target = m_player->GetPosition();
 		float x = g_pad[0].GetLStickXF();                 //パッドの入力を使ってカメラを回す。
-		CQuaternion qRot;                                //Y軸周りの回転
-		qRot.SetRotationDeg(CVector3::AxisY(), 1.4f * x);
+		CQuaternion qRot;        
+		qRot.SetRotationDeg(CVector3::AxisY(), 1.4f * x); //Y軸周りの回転
+		
+		
+		if (m_player->GetReStart()) {
+			m_rePosition = m_position;
+			m_reTarget = m_target;
+			m_retoCameraPos = m_toCameraPos;
+			m_player->SetReStart();
+		}
+		if (m_player->GetDead())
+		{
+
+			m_position = m_rePosition;
+			m_target = m_reTarget;
+			m_toCameraPos = m_retoCameraPos;
+			return;
+		}
 		qRot.Multiply(m_toCameraPos);
 		m_target.y += 150.0f;
-	    m_position = m_target + m_toCameraPos;
+
+		m_position = m_target + m_toCameraPos;
 		g_camera3D.SetTarget(m_target);                  
 		g_camera3D.SetPosition(m_position);
 		g_camera3D.Update();

@@ -24,6 +24,8 @@ public:
 	/// </summary>
 	void HitGhost();
 	void HitCourcePass();
+	void HitReStartPos() {};
+	void isDead() {};
 	void NotHitPass();
 	float GetLstickXF()
 	{

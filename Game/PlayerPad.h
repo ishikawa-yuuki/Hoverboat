@@ -19,6 +19,8 @@ public:
 	/// </summary>
 	void Jump();
 	void HitCourcePass();
+	void HitReStartPos();
+	void isDead();
 	void PlayerPad::NotHitPass() {}
 	void PlayerPad::HitGhost() {}
 	bool PlayerPad::IsPressAccel()
@@ -45,5 +47,6 @@ private:
 	CVector3 m_moveDirection = g_camera3D.GetForward();//ˆÚ“®‚Ì‰œ•ûŒü
 	CVector3 m_cameraForward = g_camera3D.GetForward();//ƒJƒƒ‰‚Ì‘O•û•ûŒü‚ğæ“¾B
 	CQuaternion m_rot = CQuaternion::Identity();
+	CQuaternion m_reStartRot = CQuaternion::Identity();
 	bool m_first = false;
 };

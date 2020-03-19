@@ -60,3 +60,11 @@ void PlayerPad::HitCourcePass()
 {
 
 }
+void PlayerPad::HitReStartPos()
+{
+	m_reStartRot = m_rot;
+}
+void PlayerPad::isDead()
+{
+	m_rot = m_reStartRot;
+}

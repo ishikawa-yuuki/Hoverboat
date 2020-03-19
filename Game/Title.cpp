@@ -55,7 +55,7 @@ void Title::Render()
 void Title::PostRender()
 {
 	m_sprite.Draw();
-	wchar_t output[256];
+	wchar_t output[13];
 	swprintf(output, L"PRESS ANYKEY");
 	m_font.DrawScreenPos(output, m_pos, { m_color,m_color,m_color, m_color }, m_scale);
 	

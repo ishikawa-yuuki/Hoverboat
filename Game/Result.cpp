@@ -27,7 +27,7 @@ void Result::Render()
 void Result::PostRender()
 {
 	wchar_t output[9];
-	wchar_t output2[256];
+	wchar_t output2[15];
 	swprintf_s(output, L"NUM: %d ",m_gamedata[0].GetNum(0));
 	swprintf_s(output2, L"%d:%002d:%0.0f", m_gamedata->GetMinute(0), m_gamedata->GetSeond(0), m_gamedata->GetComma(0));
 	m_font.DrawScreenPos(output, { 350.0f,150.0f }, CVector4::White(), { 1.8f,1.8f });

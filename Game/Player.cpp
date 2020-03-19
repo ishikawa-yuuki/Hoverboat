@@ -68,6 +68,24 @@ void Player::CheckCourcePass()
 			});
 	}
 }
+void Player::ReStartPass()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_reStartPassList.size(); j++) {
+		if (!m_reStartOver[j]) {
+			ghostObj = m_reStartPassList[j]->GetGhost();
+			g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
+				if (ghostObj->IsSelf(contactObject)) {//== true
+					//周回判定する場所
+					m_reStartOver[j] = true;
+					m_reStart = true;
+					m_reStartPos = m_reStartPassList[j]->GetPosition();
+					m_gamePad->HitReStartPos();
+				}
+				});
+		}
+	}
+}
 void Player::CheckPass()
 {
 	PhysicsGhostObject* ghostObj = nullptr;
@@ -79,7 +97,7 @@ void Player::CheckPass()
 				if (j == 0)
 					WeekBack();
 				else {
-					m_over[j] = true;
+					m_weekBackOver[j] = true;
 				}
 			}
 			});
@@ -89,17 +107,33 @@ void Player::WeekBack()
 {
 	//スタート地点にて精算
 	for (int j = 0; j < m_weekbackPassList.size(); j++) {
-		if (m_over[j]) {
+		if (m_weekBackOver[j]) {
 			m_passNum++;
 		}
-		m_over[j] = false;
+		m_weekBackOver[j] = false;
 	}
 	if (m_passNum == m_weekbackPassList.size() - 1)
 	{
 		m_passNum = 0;
 		m_weekbackNum++;
 	}
+	for (int j = 0; j < m_reStartPassList.size(); j++) {
+		m_reStartOver[j] = false;
+	}
 
+
+}
+void Player::HitDead()
+{
+	PhysicsGhostObject* ghostObj = nullptr;
+	for (int j = 0; j < m_deadZoneList.size(); j++) {
+		ghostObj = m_deadZoneList[j]->GetGhost();
+		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
+			if (ghostObj->IsSelf(contactObject)) {//== true
+				m_isDead = true;
+			}
+			});
+	}
 }
 /// <summary>
 /// キャラの動き
@@ -123,7 +157,8 @@ bool Player::Start()
 	//////////
 	//ListではなくPlayerクラスに通過判定のみ隔離（他プレイヤーと共通化してしまうため）
 	//////////
-	m_over.resize(m_weekbackPassList.size());
+	m_weekBackOver.resize(m_weekbackPassList.size());
+	m_reStartOver.resize(m_reStartPassList.size());
 
 	m_first = true;
 	return true;
@@ -134,7 +169,7 @@ void Player::Rotation()
 	CVector3 stick;
 	stick.x = m_gamePad->GetLstickXF();
 	m_rot = m_gamePad->GetRotation();
-	if (fabsf(stick.x) >= 0.8f)
+	if (fabsf(stick.x) >= 0.8f&&m_charaCon.IsOnGround())
 	{
 		m_friction *= m_playerData[m_charaNum].friction;
 	}
@@ -163,20 +198,29 @@ void Player::Move()
 void Player::Jump()
 {
 
-	if (m_gamePad->IsPressJump() )
+	if (m_gamePad->IsPressJump() && m_jumpPower <= 0.2f&&!m_isJump)
 	{
-		m_jump.y = 10.0f;
+		m_jumpPower += GameTime().GetFrameDeltaTime();
+		m_jump.y = 400.0f * m_jumpPower;
 	}
 	else {
+		if (m_charaCon.IsJump())
+		{
+			m_isJump = true;
+		}
 		m_jump = CVector3::Zero();
 		if (m_charaCon.IsOnGround()) {
 			m_moveSpeed.y = 0.0f;
+			m_jumpPower = 0.0f;
+			m_isJump = false;
 		}
 		else
 		{
 			m_moveSpeed.y -= 100.0f;
 		}
 	}
+	
+
 	m_moveSpeed += m_jump * 5.0f;
 }
 
@@ -216,12 +260,40 @@ void Player::Update()
 			if (m_gamedata->GetPose())
 			{
 				
-
 				m_rot = m_gamePad->GetRotation();
 				m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
 				m_animation.Update(GameTime().GetFrameDeltaTime());
 				m_charaCon.SetPosition(m_position);
 				g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
+				m_reStartPos = m_position;
+				m_gamePad->HitReStartPos();
+				return;
+			}
+			if (m_isDead)
+			{
+				if (!m_isTime) {
+					m_gamePad->isDead();
+					m_position = m_reStartPos;
+					m_rot = m_gamePad->GetRotation();
+					m_moveSpeed = CVector3::Zero();
+					m_isTime = true;
+				}
+				else {
+					m_cooltime += GameTime().GetFrameDeltaTime();
+				}
+
+				if (m_cooltime >= 0.5f)
+				{
+					m_isDead = false;
+					m_isTime = false;
+					m_cooltime = 0.0f;
+				}
+				
+				m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
+				m_animation.Update(GameTime().GetFrameDeltaTime());
+				m_charaCon.SetPosition(m_position);
+				g_goMgr->GetShadowMap()->RegistShadowCaster(&m_model);
+				
 				return;
 			}
 			Rotation();
@@ -229,8 +301,15 @@ void Player::Update()
 			Move();
 			CheckGhost();
 			CheckPass();
+			ReStartPass();
 			//CheckCourcePass();
+			HitDead();
+			
+			
+			
+			
 			m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+			
 		}
 
 		//ワールド行列の更新。

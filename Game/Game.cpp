@@ -30,6 +30,22 @@ Game::Game()
 			m_coursePassList.push_back(coursePass);
 			return true;
 		}
+		else if (objdata.EqualObjectName(L"ReStartPass")) {
+			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
+			coursePass->SetPosition(objdata.position);
+			coursePass->SetRotation(objdata.rotation);
+			coursePass->SetScale(objdata.scale);
+			m_reStartPassList.push_back(coursePass);
+			return true;
+		}
+		else if (objdata.EqualObjectName(L"DeadZone")) {
+			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
+			coursePass->SetPosition(objdata.position);
+			coursePass->SetRotation(objdata.rotation);
+			coursePass->SetScale(objdata.scale);
+			m_deadZoneList.push_back(coursePass);
+			return true;
+		}
 		else if (objdata.EqualObjectName(L"WeekBackPass")) {
 			WeekBackPass* weekbackPass = g_goMgr->NewGameObject<WeekBackPass>();
 			weekbackPass->SetPosition(objdata.position);
@@ -62,6 +78,8 @@ Game::Game()
 		m_player[i]->SetPassObjectList(m_coursePassList);
 		m_player[i]->SetGhostObjectList(m_CPGhostList);
 		m_player[i]->SetWeekPassObjectList(m_weekbackPassList);
+		m_player[i]->SetReStartPassObjectList( m_reStartPassList);
+		m_player[i]->SetDeadZonePassObjectList(m_deadZoneList);
 	}
 	m_player[0]->SetPad(&m_playerPad);
 	m_gc->GetInfoPlayer(m_player[0]);
@@ -137,6 +155,14 @@ void Game::Update()
 		/// 対処 : コリジョンを消してからDeleteGameObject
 		/// </summary>
 		for (auto& coursePass : m_coursePassList) {
+			coursePass->Release();
+			g_goMgr->DeleteGameObject(coursePass);
+		}
+		for (auto& coursePass : m_reStartPassList) {
+			coursePass->Release();
+			g_goMgr->DeleteGameObject(coursePass);
+		}
+		for (auto& coursePass : m_deadZoneList) {
 			coursePass->Release();
 			g_goMgr->DeleteGameObject(coursePass);
 		}
