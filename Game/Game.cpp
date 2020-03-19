@@ -71,6 +71,11 @@ Game::Game()
 	});
 	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
+	m_bgm = new CSoundSource();
+	m_bgm->Init(L"Assets/sound/StageBGM.wav");
+	m_bgm->Play(true);
+	m_bgm->SetVolume(0.1f);
+
 	//0番目はユーザーが操作するプレイヤー
 	for (int i = 0; i < gamePadSize; i++) {
 		m_player[i] = g_goMgr->NewGameObject<Player>();
@@ -178,6 +183,7 @@ void Game::Update()
 			g_goMgr->DeleteGameObject(startRacePos);
 		}
 		m_bg->Release();
+		m_bgm->Release();
 		g_goMgr->DeleteGameObject(m_raceTime);
 		g_goMgr->DeleteGameObject(m_bg);
 		g_goMgr->DeleteGameObject(m_gc);

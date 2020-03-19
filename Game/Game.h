@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "level/Level.h"
 #include "RenderTarget.h"
+#include "SoundSource.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 class RaceTimer;
@@ -27,6 +28,7 @@ private:
 	GameCamera* m_gc = nullptr;
 	GameData* m_gamedata = nullptr;
 	RaceTimer* m_raceTime = nullptr;
+	CSoundSource* m_bgm = nullptr;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。

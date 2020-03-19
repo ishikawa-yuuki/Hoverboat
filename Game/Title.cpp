@@ -13,7 +13,6 @@ Title::Title()
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/bgm.wav");
 	m_bgm->Play(true);
-	
 }
 
 
@@ -24,21 +23,29 @@ Title::~Title()
 void Title::Update() 
 {
 	//m_sprite.Update(CVector3::Zero(),CQuaternion::Identity(),CVector3::One());
-	if (g_pad->IsTrigger(enButtonA)) 
+	
+	if (g_pad->IsTrigger(enButtonA)) {
+		m_trigger = true;
+		
+	}
+	if (m_trigger)
+	{
+		m_timer += GameTime().GetFrameDeltaTime();
+		m_fontTimer += m_addPress * GameTime().GetFrameDeltaTime();
+	}
+	else 
+	{
+		m_fontTimer += m_add * GameTime().GetFrameDeltaTime();
+	}
+
+	if (m_timer >= 1.0f)
 	{
 		//ƒQ[ƒ€‚Ö
 		g_goMgr->NewGameObject<Game>();
 		g_goMgr->DeleteGameObject(this);
 		delete(m_bgm);
 	}
-	if (g_pad->IsPressAnyKey()) {
-		m_timer += m_addPress * GameTime().GetFrameDeltaTime();
-	}
-	else 
-	{
-			m_timer += m_add * GameTime().GetFrameDeltaTime();
-	}
-	m_color = sin(m_timer) * m_sinWave + m_sinWave;
+	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
 }
 void Title::Render()
 {

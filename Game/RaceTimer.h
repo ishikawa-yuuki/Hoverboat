@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObjectManager.h"
+#include "SoundSource.h"
 #include "CFont.h"
 class RaceTimer:public IGameObject
 {
@@ -32,6 +33,7 @@ public:
 	}
 
 private:
+	CSoundSource* m_countSound = nullptr;
 	CFont m_font;
 	float m_count	= 3.0f;
 	float m_timer	= 0.0f;

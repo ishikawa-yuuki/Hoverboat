@@ -20,6 +20,8 @@ private:
 	const float m_sinWave	= 0.5;						//ƒTƒCƒ“‚Ì”g‚ÌŽw’è
 	float  m_color			= 1.0f;
 	float m_timer			= 0.0f;
+	float m_fontTimer		= 0.0f;
+	bool m_trigger			= false;
 	CVector2 m_pos			= { 550.0f,600.0f };
 	CVector2 m_scale		= {2.0f,2.0f};
 	

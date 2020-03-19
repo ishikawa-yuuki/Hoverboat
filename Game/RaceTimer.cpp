@@ -5,6 +5,8 @@
 
 RaceTimer::RaceTimer()
 {
+	m_countSound = new CSoundSource;
+	m_countSound->Init(L"Assets/sound/count.wav");
 }
 
 RaceTimer::~RaceTimer()
@@ -31,6 +33,7 @@ void RaceTimer::Update()
 		}
 	}
 	else {
+		m_countSound->Play(false);
 		m_count -= GameTime().GetFrameDeltaTime();
 		if (m_count <= 0)
 		{
