@@ -196,3 +196,13 @@ void Game::Update()
 void Game::Render()
 {
 }
+void Game::PostRender()
+{
+	//レース中計測用
+	wchar_t output[256];
+	wchar_t output2[256];
+	swprintf_s(output, L"LAP  ");
+	swprintf_s(output2, L" %d / %d",m_player[0]->GetWeekBack(), 3);
+	m_font.DrawScreenPos(output, { 50.0f,350.0f }, CVector4::Yellow(), { 1.2f,1.2f });
+	m_font.DrawScreenPos(output2, { 80.0f,350.0f }, CVector4::White(), { 1.2f, 1.2f });
+}

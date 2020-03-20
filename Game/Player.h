@@ -69,6 +69,10 @@ public:
 	{
 		return m_reStart;
 	}
+	int GetWeekBack()
+	{
+		return m_weekbackNum;
+	}
 	void SetReStart() {
 		m_reStart = false;
 	}

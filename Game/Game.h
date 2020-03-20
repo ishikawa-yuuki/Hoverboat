@@ -5,6 +5,7 @@
 #include "SoundSource.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
+#include "CFont.h"
 class RaceTimer;
 class GameData;
 class StartRacePos;
@@ -21,6 +22,7 @@ public:
 	~Game();
 	void Update();
 	void Render();
+	void PostRender() override;
 private:
 	static const int gamePadSize = 4;
 	Player* m_player[gamePadSize] = { nullptr };
@@ -29,6 +31,7 @@ private:
 	GameData* m_gamedata = nullptr;
 	RaceTimer* m_raceTime = nullptr;
 	CSoundSource* m_bgm = nullptr;
+	CFont m_font;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。

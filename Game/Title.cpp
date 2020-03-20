@@ -11,7 +11,8 @@ Title::Title()
 	//g_camera3D.Update();
 	m_sprite.Init(L"Assets/sprite/title.dds", 1280, 720);
 	m_bgm = new CSoundSource();
-	m_bgm->Init(L"Assets/sound/bgm.wav");
+	m_bgm->Init(L"Assets/sound/Title.wav");
+	m_bgm->SetVolume(0.8f);
 	m_bgm->Play(true);
 }
 
