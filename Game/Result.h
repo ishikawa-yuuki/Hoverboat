@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObjectManager.h"
+#include "SoundSource.h"
 #include "CFont.h"
 class GameData;
 
@@ -13,6 +14,7 @@ public:
 	void PostRender()override;
 
 private:
+	CSoundSource* m_said = nullptr;						//ï\é¶âπÅB
 	GameData* m_gamedata = nullptr;
 	CFont m_font;
 };

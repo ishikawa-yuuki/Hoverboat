@@ -12,20 +12,21 @@ Player::Player()
 	m_animClip[enAnimationClip_test].SetLoopFlag(true);
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/hover/Hope.cmo");
-	/*m_model.PlayAnimation(enAnimationClip_test, 0.2);*/
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
 	m_animation.Play(0,0.4f);
 }
 Player::~Player()
 {
-	//エフェクトを破棄。(消えません）
-	//if (m_sampleEffect != nullptr) {
-	//	m_sampleEffect->Release();
-	//}
+	
 }
 void Player::Release()
 {
 	m_charaCon.RemoveRigidBoby();
+	//エフェクトを破棄。
+	if (m_sampleEffect != nullptr) {
+		g_goMgr->GetEffectManeger()->StopEffect(m_playEffectHandle);
+		m_sampleEffect->Release();
+	}
 }
 /// <summary>
 /// キャラのデータ、当たり判定
@@ -147,13 +148,11 @@ bool Player::Start()
 		20.0f,
 		m_position
 	);
-	//m_rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
 	//サンプルのエフェクトをロードする。
 
-	//m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
-	//////エフェクトを再生する。
-	//m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);
-
+	m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
+	////エフェクトを再生する。
+	m_playEffectHandle = g_goMgr->GetEffectManeger()->Play(m_sampleEffect, 0.0f, 0.0f, 0.0f);	
 	//////////
 	//ListではなくPlayerクラスに通過判定のみ隔離（他プレイヤーと共通化してしまうため）
 	//////////
@@ -246,20 +245,30 @@ void Player::Update()
 	if (!m_gamedata->GetGoal()) {
 
 
-		{
-			/*CMatrix mTrans, mRot, mScale, mBase;
-			mTrans.MakeTranslation(m_position);
-			mRot.MakeRotationFromQuaternion(CQuaternion::Identity());
-			mScale.MakeScaling(CVector3::One());
-			mBase.Mul(mScale, mRot);
-			mBase.Mul(mBase, mTrans);
-			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);*/
-		}
 		if (m_gamePad != nullptr)
 		{
 			if (m_gamedata->GetPose())
 			{
-				
+				{
+					CQuaternion effectrot;
+					CQuaternion rot;
+					CVector3 pos;
+					CVector3 po1 = { 0.0f,0.0f,50.0f };
+					effectrot = m_rot;
+					pos = m_position;
+					pos.y += 20.0f;
+					rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+					effectrot.Multiply(rot);
+					effectrot.Multiply(po1);
+					pos += po1;
+					CMatrix mTrans, mRot, mScale, mBase;
+					mTrans.MakeTranslation(pos);
+					mRot.MakeRotationFromQuaternion(effectrot);
+					mScale.MakeScaling(CVector3::One());
+					mBase.Mul(mScale, mRot);
+					mBase.Mul(mBase, mTrans);
+					g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+				}
 				m_rot = m_gamePad->GetRotation();
 				m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
 				m_animation.Update(GameTime().GetFrameDeltaTime());
@@ -312,6 +321,26 @@ void Player::Update()
 			
 		}
 
+		{
+			CQuaternion effectrot;
+			CQuaternion rot;
+			CVector3 pos;
+			CVector3 po1 = {0.0f,0.0f,50.0f};
+			effectrot = m_rot;
+			pos = m_position;
+			pos.y += 20.0f;
+			rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+			effectrot.Multiply(rot);
+			effectrot.Multiply(po1);
+			pos += po1;
+			CMatrix mTrans, mRot, mScale, mBase;
+			mTrans.MakeTranslation(pos);
+			mRot.MakeRotationFromQuaternion(effectrot);
+			mScale.MakeScaling(CVector3::One());
+			mBase.Mul(mScale, mRot);
+			mBase.Mul(mBase, mTrans);
+			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+		}
 		//ワールド行列の更新。
 		m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
 		m_animation.Update(GameTime().GetFrameDeltaTime());

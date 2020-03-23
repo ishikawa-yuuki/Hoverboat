@@ -5,14 +5,16 @@
 Result::Result()
 {
 	m_gamedata = &GameData::GetInstance();
-
+	m_said = new CSoundSource;
+	m_said->Init(L"Assets/sound/said.wav");
+	m_said->Play(false);
 }
 Result::~Result()
 {
 }
 void Result::Update()
 {
-
+	
 	if (g_pad->IsTrigger(enButtonA))
 	{	//ƒ^ƒCƒgƒ‹‚Ö
 		g_goMgr->NewGameObject<Title>();

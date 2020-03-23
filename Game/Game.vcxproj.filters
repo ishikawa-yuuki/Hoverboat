@@ -64,6 +64,9 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{3ae8b0f5-7319-4a2f-b3fb-6a61cfcb68f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\modelData\Title">
+      <UniqueIdentifier>{3d2f6d74-f95b-4ec4-9e39-5b0ab18cb691}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">

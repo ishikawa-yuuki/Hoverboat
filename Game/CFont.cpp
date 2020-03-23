@@ -58,14 +58,30 @@ void CFont::DrawScreenPos(
 	DirectX::SpriteEffects effects,
 	float layerDepth
 )
-{
+{/*
 	if (text == nullptr) {
 		return;
 	}
 	layerDepth *= 0.999f; layerDepth += 0.001f;
 
-	layerDepth -= g_graphicsEngine->AddAndGetLayerDepthCnt();
-	g_graphicsEngine->GetSpriteBatch()->Begin(DirectX::SpriteSortMode_Deferred);
+	layerDepth -= g_graphicsEngine->AddAndGetLayerDepthCnt();*/
+
+	/*ID3D11DeviceContext* dc = g_graphicsEngine->GetD3DDeviceContext();
+
+	ID3D11BlendState* blendState;
+
+	float dummy[4];
+
+	UINT dummy2;
+
+	dc->OMGetBlendState(&blendState, dummy, &dummy2);*/
+
+	g_graphicsEngine->GetSpriteBatch()->Begin(DirectX::SpriteSortMode_Deferred/*, blendState*/);
+	/*if (blendState != nullptr)
+	{
+		blendState->Release();
+	}*/
+
 	m_spriteFont->DrawString(
 
 		m_spriteBatch,

@@ -127,8 +127,8 @@ private:
 	std::vector<CPSwitchG*> m_cpGhostList;
 	std::vector<WeekBackPass*> m_weekbackPassList;
 	std::vector<CoursePass*> m_deadZoneList;
-	//Effekseer::Effect* m_sampleEffect = nullptr;
-	//Effekseer::Handle m_playEffectHandle = -1;
+	Effekseer::Effect* m_sampleEffect = nullptr;
+	Effekseer::Handle m_playEffectHandle = -1;
 	PlayerData* m_playerData		  = nullptr;//キャラ事のパラメータ
 	GamePad* m_gamePad	              = nullptr;			
 	GameData* m_gamedata			  = nullptr;

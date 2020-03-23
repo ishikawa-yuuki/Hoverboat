@@ -110,7 +110,7 @@ void GameObjectManager::PostRender() {
 	}
 	
 	//g_graphicsEngine->GetSpriteBatchPMA()->End();
-	g_graphicsEngine->ResetLayerDepthCnt();
+	/*g_graphicsEngine->ResetLayerDepthCnt();*/
 	
 }
 void GameObjectManager::Update()
