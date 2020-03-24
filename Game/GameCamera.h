@@ -24,6 +24,8 @@ private:
 	//注視点から視点までのベクトルを設定。
 	CVector3 m_toCameraPos = { 0.0f, 0.0f, 350.0f };
 	CVector3 m_retoCameraPos = { 0.0f, 0.0f, 350.0f };
+	//push,pupはグラフィックに代用作る
+	//フォンtそのままこぴー
 	
 };
 

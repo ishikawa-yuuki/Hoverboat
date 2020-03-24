@@ -28,10 +28,10 @@ void GraphicsEngine::EndRender()
 }
 void GraphicsEngine::Release()
 {
-	if (m_rasterizerState != NULL) {
-		m_rasterizerState->Release();
-		m_rasterizerState = NULL;
-	}
+	//if (m_rasterizerState != NULL) {
+	//	m_rasterizerState->Release();
+	//	m_rasterizerState = NULL;
+	//}
 	if (m_depthStencil != NULL) {
 		m_depthStencil->Release();
 		m_depthStencil = NULL;
@@ -140,7 +140,7 @@ void GraphicsEngine::Init(HWND hWnd)
 	desc.MultisampleEnable = true;
 
 	//ラスタライザとビューポートを初期化。
-	m_pd3dDevice->CreateRasterizerState(&desc, &m_rasterizerState);
+	m_pd3dDevice->CreateRasterizerState(&desc, &m_currentRenderState.rasterrizerState);
 
 	D3D11_VIEWPORT viewport;
 	viewport.Width = FRAME_BUFFER_W;
@@ -150,11 +150,11 @@ void GraphicsEngine::Init(HWND hWnd)
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
-	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
+	m_pd3dDeviceContext->RSSetState(m_currentRenderState.rasterrizerState);
 
 	//Sprite初期化
-	m_spriteFont = std::make_unique<DirectX::SpriteFont>(m_pd3dDevice, L"Assets/Font/myfile.spritefont");
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_pd3dDeviceContext);
-	m_spriteBatchPMA = std::make_unique<DirectX::SpriteBatch>(m_pd3dDeviceContext);
+	m_spriteFont = std::make_unique<DirectX::SpriteFont>(m_pd3dDevice, L"Assets/Font/myfile.spritefont");
+	
 
 }

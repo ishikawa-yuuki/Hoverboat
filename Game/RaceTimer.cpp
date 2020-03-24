@@ -53,13 +53,15 @@ void RaceTimer::PostRender()
 	wchar_t output2[256];
 	swprintf_s(output, L"Time ");
 	swprintf_s(output2, L"%d:%002d:%0.0f", m_minute, m_second, m_comma);
-	m_font.DrawScreenPos(output, { 550.0f,20.0f }, CVector4::White(), { 1.5f,1.5f });
-	m_font.DrawScreenPos(output2, { 600.0f,15.0f }, CVector4::Yellow(), { 1.8f, 1.8f });
+	m_font.Begin();
+	m_font.Draw(output, { -100.0f,350.0f }, CVector4::White(),  0.0f,1.5f );
+	m_font.Draw(output2, { -50.0f,350.0f }, CVector4::Yellow(), 0.0f, 1.8f );
 
 	//スタートカウント
 	if (!GetRaceStart()) {
 		wchar_t output3[256];
 		swprintf_s(output3, L"%d:%002.f", 0, m_count);
-		m_font.DrawScreenPos(output3, { 600.0f,200.0f }, CVector4::White(), { 2.5f, 2.5f });
+		m_font.Draw(output3, { -50.0f,50.0f }, CVector4::White(),  0.0f, 2.5f );
 	}
+	m_font.End();
 }

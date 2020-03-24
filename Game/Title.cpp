@@ -9,6 +9,8 @@ Title::Title()
 	g_camera3D.SetPosition({ 0.0f, 30.0f, 70.0f });
 	g_camera3D.SetTarget({ 0.0f, 40.0f, 0.0f });
 	g_camera3D.Update();
+
+	m_sprite.Init(L"Assets/sprite/title.dds",1280,720);
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/Title.wav");
 	m_bgm->SetVolume(0.8f);
@@ -62,12 +64,15 @@ void Title::Render()
 		{ 0,1,0 }
 	);
 	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);*/
+	//m_sprite.Draw();
 }
 void Title::PostRender()
 {
 	
 	wchar_t output[13];
 	swprintf(output, L"PRESS ANYKEY");
-	m_font.DrawScreenPos(output, m_pos, { m_color,m_color,m_color, m_color }, m_scale);
+	m_font.Begin();
+	m_font.Draw(output, m_pos, { m_color,m_color,m_color, m_color },0.0f,m_scale);
+	m_font.End();
 	
 }

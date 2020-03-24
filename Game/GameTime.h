@@ -57,8 +57,9 @@ public:
 		wchar_t output[256];
 
 		swprintf_s(output, L"FPS %f", 1.0f / m_frameDeltaTime);
-
-		m_font.DrawScreenPos(output, CVector2::Zero());
+		m_font.Begin();
+		m_font.Draw(output, {-630.0f,350.0f},CVector4::Yellow());
+		m_font.End();
 	}
 private:
 	std::list<float> m_frameDeltaTimeQue;
