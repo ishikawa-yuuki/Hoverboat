@@ -22,10 +22,8 @@ private:
 	CVector3 m_rePosition = CVector3::Zero();
 	CVector3 m_reTarget = CVector3::Zero();
 	//注視点から視点までのベクトルを設定。
-	CVector3 m_toCameraPos = { 0.0f, 0.0f, 350.0f };
-	CVector3 m_retoCameraPos = { 0.0f, 0.0f, 350.0f };
-	//push,pupはグラフィックに代用作る
-	//フォンtそのままこぴー
+	CVector3 m_toCameraPos = { 0.0f, 0.0f, 400.0f };
+	CVector3 m_retoCameraPos = m_toCameraPos;
 	
 };
 

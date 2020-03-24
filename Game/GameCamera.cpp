@@ -44,7 +44,7 @@ void GameCamera::Update()
 			return;
 		}
 		qRot.Multiply(m_toCameraPos);
-		m_target.y += 150.0f;
+		m_target.y += 180.0f;
 
 		m_position = m_target + m_toCameraPos;
 		g_camera3D.SetTarget(m_target);                  
