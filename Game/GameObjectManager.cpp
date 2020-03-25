@@ -107,8 +107,9 @@ void GameObjectManager::PostRender() {
 	for (auto go : m_goList)
 	{
 		go->PostRender();
+		
 	}
-	
+	Fade().PostRender();
 	//g_graphicsEngine->GetSpriteBatchPMA()->End();
 	/*g_graphicsEngine->ResetLayerDepthCnt();*/
 	
@@ -142,6 +143,7 @@ void GameObjectManager::Update()
 		for (auto go : m_goList)
 		{
 			go->Update();
+			Fade().Update();
 		}
 		
 	

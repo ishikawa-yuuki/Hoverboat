@@ -123,6 +123,7 @@ void Game::Update()
 {
 	if (!m_raceTime->GetRaceStart())
 	{
+		
 		m_gamedata->SetPose();
 	}
 	else {

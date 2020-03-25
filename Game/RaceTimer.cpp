@@ -18,28 +18,30 @@ void RaceTimer::RaceStart()
 }
 void RaceTimer::Update()
 {
-	if (GetRaceStart()) {
-		m_timer += GameTime().GetFrameDeltaTime();
-		m_second = m_timer;
-		m_comma = m_timer - m_second;
-		m_comma *= 10.0f;
-		if (m_comma >= 9.5f)
-		{
-			m_comma = 0.0f;
+	
+
+		if (GetRaceStart()) {
+			m_timer += GameTime().GetFrameDeltaTime();
+			m_second = m_timer;
+			m_comma = m_timer - m_second;
+			m_comma *= 10.0f;
+			if (m_comma >= 9.5f)
+			{
+				m_comma = 0.0f;
+			}
+			if (m_timer >= 60.0f) {
+				m_minute++;
+				m_timer = m_timer - 60.0f;
+			}
 		}
-		if (m_timer >= 60.0f) {
-			m_minute++;
-			m_timer = m_timer - 60.0f;
+		else {
+			m_countSound->Play(false);
+			m_count -= GameTime().GetFrameDeltaTime();
+			if (m_count <= 0)
+			{
+				SetRaceStart();
+			}
 		}
-	}
-	else {
-		m_countSound->Play(false);
-		m_count -= GameTime().GetFrameDeltaTime();
-		if (m_count <= 0)
-		{
-			SetRaceStart();
-		}
-	}
 }
 
 void RaceTimer::Render()

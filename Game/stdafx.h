@@ -44,6 +44,7 @@
 
 #include "GameTime.h"
 #include "StopWatch.h"
+#include "Fade.h"
 
 #include "graphics/animation/Animation.h"
 #include "graphics/animation/AnimationClip.h"

@@ -4,11 +4,6 @@
 
 Title::Title()
 {
-	
-	////ƒJƒƒ‰‚ðÝ’èB
-	g_camera3D.SetPosition({ 0.0f, 30.0f, 70.0f });
-	g_camera3D.SetTarget({ 0.0f, 40.0f, 0.0f });
-	g_camera3D.Update();
 
 	m_sprite.Init(L"Assets/sprite/title.dds",1280,720);
 	m_bgm = new CSoundSource();
@@ -19,6 +14,7 @@ Title::Title()
 	m_decided->Init(L"Assets/sound/decided.wav");
 
 	m_bgm->Play(true);
+	
 }
 
 
@@ -33,11 +29,13 @@ void Title::Update()
 		m_trigger = true;
 		m_decided->Play(false);
 		
+		
 	}
 	if (m_trigger)
 	{
 		m_timer += GameTime().GetFrameDeltaTime();
 		m_fontTimer += m_addPress * GameTime().GetFrameDeltaTime();
+		
 	}
 	else 
 	{
@@ -64,7 +62,7 @@ void Title::Render()
 		{ 0,1,0 }
 	);
 	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);*/
-	//m_sprite.Draw();
+	m_sprite.Draw();
 }
 void Title::PostRender()
 {

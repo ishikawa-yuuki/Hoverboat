@@ -222,6 +222,7 @@
     <ClCompile Include="CFontRender.cpp">
       <Filter>Font</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -385,6 +386,7 @@
     <ClInclude Include="CFontRender.h">
       <Filter>Font</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">
@@ -410,5 +412,10 @@
     <ImageContentTask Include="Assets\sprite\title.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\fade.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
   </ItemGroup>
 </Project>

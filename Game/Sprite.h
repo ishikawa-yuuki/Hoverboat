@@ -49,20 +49,13 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
-	/// <summary>
-	/// αを変位させる
-	/// </summary>
-	/// <param name="delta">乗算αを変位させる量</param>
-	void DeltaAlpha(float delta)
+	/*!
+		* @brief	乗算カラーを設定。
+		*@param[in]	mulColor	乗算カラー。
+		*/
+	void SetMulColor(const CVector4& mulColor)
 	{
-		m_alpha += delta;
-		//数値の境界チェック。
-		if (m_alpha > 1.0f) {
-			m_alpha = 1.0f;
-		}
-		else if (m_alpha < 0.0f) {
-			m_alpha = 0.0f;
-		}
+		m_mulColor = mulColor;
 	}
 
 private:
@@ -94,7 +87,7 @@ private:
 private:
 	struct ConstantBuffer {
 		CMatrix WVP;		//ワールドビュープロジェクション行列。
-		float alpha;		//α値。
+		CVector4 mulColor;	//乗算カラー。
 	};
 	ID3D11Buffer* m_vertexBuffer = NULL;					//頂点バッファ。
 	ID3D11Buffer* m_indexBuffer = NULL;					//インデックスバッファ。
@@ -108,6 +101,6 @@ private:
 	CMatrix						m_world = CMatrix::Identity();			//ワールド行列。
 	CVector2					m_size = CVector2::Zero();				//画像のサイズ。
 	ID3D11Buffer* m_cb = nullptr;							//定数バッファ。
-	float						m_alpha = 1.0f;							//スプライトのα値。
+	CVector4					m_mulColor = CVector4::White();	//乗算カラー。
 
 };
