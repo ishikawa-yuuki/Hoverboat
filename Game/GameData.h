@@ -53,6 +53,10 @@ public:
 	{
 		return m_rankingList[i].PlayerNo;
 	}
+	int GetListSize()
+	{
+		return m_rankingList.size();
+	}
 	struct RankResult
 	{
 		int   m_minute = 0;

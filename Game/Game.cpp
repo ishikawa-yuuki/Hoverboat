@@ -146,6 +146,7 @@ void Game::Update()
 										m_raceTime->GetSeond(),
 										m_raceTime->GetComma(),
 										i);
+			if(i ==0)
 			m_gamedata->SetGoal();
 		}
 	}
