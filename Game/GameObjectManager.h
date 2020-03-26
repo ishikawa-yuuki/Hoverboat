@@ -42,6 +42,14 @@ public:
 			}
 		}
 	}
+	void SetShadowPos()
+	{
+		m_shadowMapPos = m_shadowMapTarget + m_shadow;
+	}
+	void SetShadowTarget(CVector3 const& pos)
+	{
+		m_shadowMapTarget = pos;
+	}
 	/// <summary>
 /// シャドウマップを取得。
 /// </summary>
@@ -91,6 +99,9 @@ private:
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
 	std::vector< IGameObject* > m_goList;		//ゲームオブジェクトのリスト。
+	CVector3 m_shadowMapPos = { 800.0f,800.0f,800.0f };
+	CVector3 m_shadow =  {800.0f,800.0f,800.0f} ;
+	CVector3 m_shadowMapTarget = {0.0f,0.0f,0.0f};
 	bool m_first = false;
 };
 //外部からアクセスするので、extern宣言も必要。

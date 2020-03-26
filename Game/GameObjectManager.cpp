@@ -135,8 +135,8 @@ void GameObjectManager::Update()
 		//ごり押し↓
 //シャドウマップを更新。
 		m_shadowMap.UpdateFromLightTarget(
-			{ 800.0f, 800.0f, 800.0f },
-			{ 0.0f, 0.0f, 0.0f }
+			m_shadowMapPos,
+			m_shadowMapTarget
 		);
 
 		//登録されているゲームオブジェクトの更新処理を呼ぶ。

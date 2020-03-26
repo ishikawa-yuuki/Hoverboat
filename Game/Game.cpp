@@ -123,17 +123,21 @@ void Game::Update()
 {
 	if (!m_raceTime->GetRaceStart())
 	{
-		
+
 		m_gamedata->SetPose();
 	}
 	else {
 		m_gamedata->SetCanselPose();
 	}
 	for (int i = 0; i < 3; i++) {
-		m_comPad[i].SetPosition(m_player[i+1]->GetPosition());
+		m_comPad[i].SetPosition(m_player[i + 1]->GetPosition());
 	}
 
+	{
+		g_goMgr->SetShadowTarget( m_player[0]->GetPosition());
+		g_goMgr->SetShadowPos();
 
+	}
 
 	//テスト用
 	/*if (g_pad->IsPressAnyKey()) {

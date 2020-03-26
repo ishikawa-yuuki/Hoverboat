@@ -18,6 +18,6 @@ private:
 	GameData* m_gamedata = nullptr;
 	CFont m_font;
 	float m_fontY = 150.0f;
-	float m_row = 50.0f;
+	float m_row = -50.0f;
 };
 
