@@ -5,7 +5,7 @@
 Title::Title()
 {
 
-	m_sprite.Init(L"Assets/sprite/title.dds",1280,720);
+	m_sprite.Init(L"Assets/sprite/test.dds",280,86);
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/Title.wav");
 	m_bgm->SetVolume(0.8f);
@@ -28,6 +28,7 @@ void Title::Update()
 	if (g_pad->IsTrigger(enButtonA)) {
 		m_trigger = true;
 		m_decided->Play(false);
+		Fade().FadeOut();
 		
 		
 	}
@@ -51,6 +52,7 @@ void Title::Update()
 		delete(m_decided);
 	}
 	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
+	
 }
 void Title::Render()
 {
@@ -68,7 +70,9 @@ void Title::PostRender()
 {
 	
 	wchar_t output[13];
+	wchar_t output2[256];
 	swprintf(output, L"PRESS ANYKEY");
+	swprintf(output2, L"");
 	m_font.Begin();
 	m_font.Draw(output, m_pos, { m_color,m_color,m_color, m_color },0.0f,m_scale);
 	m_font.End();

@@ -29,7 +29,7 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
 //テクスチャカラーをそのまま返す。
-	float4 color = colorTexture.Sample(Sampler, In.uv)*mulColor;
+	float4 color = colorTexture.Sample(Sampler, In.uv) * mulColor;
 //セピア調(最後に割って調整)
 	/*float4 R = 0.393f * color.r + 0.769f * color.b + 0.189f * color.b;
 	float4 G = 0.349f * color.r + 0.686f * color.b + 0.168f * color.b;

@@ -14,6 +14,7 @@
 #include "RaceTimer.h"
 Game::Game()
 {	
+	Fade().FadeIn();
 	m_gamedata = &GameData::GetInstance();
 	m_gamedata->Init();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)

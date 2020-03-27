@@ -13,6 +13,7 @@ public:
 		return instance;
 	}
 	void Update();
+	void Render();
 	void PostRender();
 	//™X‚É–¾‚é‚­‚È‚éB
 	void FadeIn()

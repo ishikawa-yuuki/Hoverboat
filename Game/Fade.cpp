@@ -12,7 +12,7 @@ CFade::~CFade()
 
 void CFade::Start()
 {
-	m_sprite.Init(L"Assets/sprite/fade.dds", g_graphicsEngine->Get2DSpaceScreenWidth(), g_graphicsEngine->Get2DSpaceScreenHeight());
+	/*m_sprite.Init(L"Assets/sprite/fade.dds", g_graphicsEngine->Get2DSpaceScreenWidth(), g_graphicsEngine->Get2DSpaceScreenHeight());*/
 	m_start = true;
 }
 
@@ -23,14 +23,14 @@ void CFade::Update()
 	}
 	switch (m_state) {
 	case enState_FadeIn:
-		m_currentAlpha -= GameTime().GetFrameDeltaTime();
+		m_currentAlpha -= 1.0f*GameTime().GetFrameDeltaTime();
 		if (m_currentAlpha <= 0.0f) {
 			m_currentAlpha = 0.0f;
 			m_state = enState_Idle;
 		}
 		break;
 	case enState_FideOut:
-		m_currentAlpha += GameTime().GetFrameDeltaTime();
+		m_currentAlpha += 1.0f*GameTime().GetFrameDeltaTime();
 		if (m_currentAlpha >= 1.0f) {
 			m_currentAlpha = 1.0f;
 			m_state = enState_Idle;
@@ -39,15 +39,16 @@ void CFade::Update()
 	case enState_Idle:
 		break;
 	}
-	if (m_currentAlpha > 0.0f) {
-		m_sprite.SetMulColor({ 1.0f, 1.0f, 1.0f, m_currentAlpha });
-		m_sprite.Draw();
-	}
+	
+}
+void CFade::Render()
+{
+
 }
 void CFade::PostRender()
 {
-	/*if (m_currentAlpha > 0.0f) {
-		m_sprite.SetMulColor({ 1.0f, 1.0f, 1.0f, m_currentAlpha });
-		m_sprite.Draw();
-	}*/
+	/*if (m_currentAlpha > 0.0f) {*/
+	/*	m_sprite.SetMulColor({ 1.0f, 1.0f, 1.0f, m_currentAlpha });
+		m_sprite.Draw();*/
+	//}
 }
