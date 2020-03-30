@@ -411,12 +411,13 @@
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\all_pc.jpg">
+    <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\Title.png" />
-    <ImageContentTask Include="Assets\sprite\test.png" />
-    <ImageContentTask Include="Assets\sprite\fade.png">
+    <ImageContentTask Include="Assets\sprite\Title.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\test.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
