@@ -8,6 +8,7 @@
 #include "CoursePass.h"
 #include "WeekBackPass.h"
 #include "BackGround.h"
+#include "Back.h"
 #include "RenderTarget.h"
 #include "ShadowMap.h"
 #include "Result.h"
@@ -21,6 +22,10 @@ Game::Game()
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
 			m_bg = g_goMgr->NewGameObject<BackGround>();
+			return true;
+		}
+		else if (objdata.EqualObjectName(L"Back")) {
+			m_back = g_goMgr->NewGameObject<Back>();
 			return true;
 		}
 		else if (objdata.EqualObjectName(L"coursePass")) {
@@ -194,6 +199,7 @@ void Game::Update()
 		g_goMgr->DeleteGameObject(m_raceTime);
 		g_goMgr->DeleteGameObject(m_bg);
 		g_goMgr->DeleteGameObject(m_gc);
+		g_goMgr->DeleteGameObject(m_back);
 		g_goMgr->DeleteGameObject(this);
 		g_goMgr->NewGameObject<Result>();
 	}

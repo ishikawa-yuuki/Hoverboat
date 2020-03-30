@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Back.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CFont.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="WeekBackPass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Back.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CFont.h" />
@@ -250,10 +252,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\Player\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stage\Back.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\Stage\%(Filename).cmo</ContentOutput>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\Stage\%(Filename).cmo</ContentOutput>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Stage\Stage_Defult.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\Stage\%(Filename).cmo</ContentOutput>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\Stage\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Stage\stage_test.fbx">

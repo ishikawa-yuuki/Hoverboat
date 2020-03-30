@@ -223,6 +223,7 @@
       <Filter>Font</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="Back.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -387,6 +388,7 @@
       <Filter>Font</Filter>
     </ClInclude>
     <ClInclude Include="Fade.h" />
+    <ClInclude Include="Back.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">
@@ -404,19 +406,18 @@
     <MeshContentTask Include="Assets\modelData\hover\Hope.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stage\Back.fbx">
+      <Filter>Assets\modelData\Stage</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\all_pc.jpg">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\fade.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\Title.png">
+    <ImageContentTask Include="Assets\sprite\Title.png" />
+    <ImageContentTask Include="Assets\sprite\test.png" />
+    <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
-    </Image>
-    <Image Include="Assets\sprite\test.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

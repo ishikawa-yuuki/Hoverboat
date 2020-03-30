@@ -6,6 +6,7 @@
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 #include "CFont.h"
+class Back;
 class RaceTimer;
 class GameData;
 class StartRacePos;
@@ -26,6 +27,7 @@ public:
 private:
 	static const int gamePadSize = 4;
 	Player* m_player[gamePadSize] = { nullptr };
+	Back* m_back = nullptr;
 	BackGround* m_bg = nullptr;
 	GameCamera* m_gc = nullptr;
 	GameData* m_gamedata = nullptr;
