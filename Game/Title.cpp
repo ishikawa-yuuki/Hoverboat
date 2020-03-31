@@ -69,10 +69,8 @@ void Title::Render()
 void Title::PostRender()
 {
 	
-	wchar_t output[13];
-	wchar_t output2[256];
+	wchar_t output[13];	
 	swprintf(output, L"PRESS ANYKEY");
-	swprintf(output2, L"");
 	m_font.Begin();
 	m_font.Draw(output, m_pos, { m_color,m_color,m_color, m_color },0.0f,m_scale);
 	m_font.End();

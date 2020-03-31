@@ -28,11 +28,18 @@ void Result::Render()
 }
 void Result::PostRender()
 {
-	wchar_t output[9];
+	wchar_t output[12];
 	wchar_t output2[15];
 	wchar_t output3[7];
 	for (int i = 0; i < m_gamedata->GetListSize(); i++) {
-		swprintf_s(output, L"NUM: %d ", m_gamedata->GetNum(i));
+		if (m_gamedata->GetNum(i) == 0)
+		{
+			swprintf_s(output, L"Player: %d ", m_gamedata->GetNum(i));
+		}
+		else {
+			swprintf_s(output, L"    AI: %d ", m_gamedata->GetNum(i));
+		}
+
 		swprintf_s(output2, L"%d:%002d:%0.0f", m_gamedata->GetMinute(i), m_gamedata->GetSeond(i), m_gamedata->GetComma(i));
 		swprintf_s(output3, L"Result");
 		m_font.Begin();

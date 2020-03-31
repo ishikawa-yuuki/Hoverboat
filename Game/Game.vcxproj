@@ -295,6 +295,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ImageContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\gure.png">
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
+    </ImageContentTask>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

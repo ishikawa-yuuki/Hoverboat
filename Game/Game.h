@@ -6,6 +6,7 @@
 #include "PlayerPad.h"
 #include "ComputerPad.h"
 #include "CFont.h"
+#include "Sprite.h"
 class Back;
 class RaceTimer;
 class GameData;
@@ -34,6 +35,7 @@ private:
 	RaceTimer* m_raceTime = nullptr;
 	CSoundSource* m_bgm = nullptr;
 	CFont m_font;
+	Sprite m_sprite;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。

@@ -77,6 +77,7 @@ Game::Game()
 	});
 	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
+	m_sprite.Init(L"Assets/sprite/gure.dds", 150, 40);
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/StageBGM.wav");
 	m_bgm->Play(true);
@@ -203,11 +204,13 @@ void Game::Update()
 		g_goMgr->DeleteGameObject(this);
 		g_goMgr->NewGameObject<Result>();
 	}
-
+	m_sprite.Update(CVector3{-535.0f,-10.0f,0.0f}, CQuaternion::Identity(), CVector3::One());
 	
 }
 void Game::Render()
 {
+	m_sprite.SetMulColor(CVector4{1.0f,1.0f,1.0f,0.5f});
+	m_sprite.Draw();
 }
 void Game::PostRender()
 {
@@ -215,10 +218,10 @@ void Game::PostRender()
 	wchar_t output[256];
 	wchar_t output2[256];
 	swprintf_s(output, L"LAP  ");
-	swprintf_s(output2, L" %d / %d",m_player[0]->GetWeekBack(), 3);
+	swprintf_s(output2, L" %X / %X",m_player[0]->GetWeekBack(), 3);
 	m_font.Begin();
-	m_font.Draw(output, { -600.0f,0.0f }, CVector4::Yellow(),  0.0f, 1.2f );
-	m_font.Draw(output2, { -550.0f,0.0f }, CVector4::White(),  0.0f, 1.2f );
+	m_font.Draw(output, { -600.0f,0.0f }, CVector4::Yellow(),  0.0f, 1.5f );
+	m_font.Draw(output2, { -550.0f,0.0f }, CVector4::White(),  0.0f, 1.5f );
 	m_font.End();
 
 }
