@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "SoundSource.h"
 #include "CFont.h"
+#include "Sprite.h"
 class GameData;
 
 class Result : public IGameObject
@@ -17,7 +18,14 @@ private:
 	CSoundSource* m_said = nullptr;						//ï\é¶âπÅB
 	GameData* m_gamedata = nullptr;
 	CFont m_font;
-	float m_fontY = 150.0f;
-	float m_row = -50.0f;
+	Sprite m_sprite;
+	bool m_open = false;
+	bool m_spriteX = false;
+	int m_rank = 1;
+	const float m_fontY = 150.0f;
+	float m_row = -70.0f;
+	float m_count = 0.0f;
+	float m_scaleX = 0.01f;
+	float m_scaleY = 0.01f;
 };
 

@@ -77,7 +77,8 @@ Game::Game()
 	});
 	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
-	m_sprite.Init(L"Assets/sprite/gure.dds", 150, 40);
+	m_sprite.Init(L"Assets/sprite/gure_Frame.dds", 150, 40);
+	m_sprite.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.5f });
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/StageBGM.wav");
 	m_bgm->Play(true);
@@ -209,7 +210,7 @@ void Game::Update()
 }
 void Game::Render()
 {
-	m_sprite.SetMulColor(CVector4{1.0f,1.0f,1.0f,0.5f});
+	
 	m_sprite.Draw();
 }
 void Game::PostRender()
