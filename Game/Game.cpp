@@ -78,7 +78,16 @@ Game::Game()
 	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
 	m_sprite.Init(L"Assets/sprite/gure_Frame.dds", 150, 40);
+	m_spriteButton.Init(L"Assets/sprite/batu.dds", 25,25);
+	m_spriteButtonRB.Init(L"Assets/sprite/R1.dds", 30, 25);
+	m_spriteTime.Init(L"Assets/sprite/Time.dds", 30, 30);
+	m_spriteStart.Init(L"Assets/sprite/TimeCount.dds", 200, 100);
+
 	m_sprite.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.5f });
+	m_spriteButton.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.9f });
+	m_spriteButtonRB.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.9f });
+	m_spriteStart.SetMulColor(CVector4{1.0f,1.0f,1.0f,0.89f});
+
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/StageBGM.wav");
 	m_bgm->Play(true);
@@ -206,23 +215,44 @@ void Game::Update()
 		g_goMgr->NewGameObject<Result>();
 	}
 	m_sprite.Update(CVector3{-535.0f,-10.0f,0.0f}, CQuaternion::Identity(), CVector3::One());
+	m_spriteButton.Update(CVector3{ -570.0f,-110.0f,0.0f }, CQuaternion::Identity(), CVector3::One());
+	m_spriteButtonRB.Update(CVector3{ -570.0f,-60.0f,0.0f }, CQuaternion::Identity(), CVector3::One());
+	m_spriteTime.Update(CVector3{-90.0f,340.0f,0.0f}, CQuaternion::Identity(), CVector3::One());
+	if (!m_raceTime->GetRaceStart())
+	{
+		m_spriteStart.Update(CVector3{ -10.0f,30.0f,0.0f }, CQuaternion::Identity(), CVector3::One());
+	}
 	
+
 }
 void Game::Render()
 {
 	
 	m_sprite.Draw();
+	m_spriteButton.Draw();
+	m_spriteButtonRB.Draw();
+	m_spriteTime.Draw();
+	if (!m_raceTime->GetRaceStart())
+	{
+		m_spriteStart.Draw();
+	}
 }
 void Game::PostRender()
 {
 	//レース中計測用
-	wchar_t output[256];
-	wchar_t output2[256];
+	wchar_t output[6];
+	wchar_t output2[9];
+	wchar_t output3[12];
+	wchar_t output4[5];
 	swprintf_s(output, L"LAP  ");
 	swprintf_s(output2, L" %X / %X",m_player[0]->GetWeekBack(), 3);
+	swprintf_s(output3, L"Accelerator");
+	swprintf_s(output4, L"Jump");
 	m_font.Begin();
 	m_font.Draw(output, { -600.0f,0.0f }, CVector4::Yellow(),  0.0f, 1.5f );
 	m_font.Draw(output2, { -550.0f,0.0f }, CVector4::White(),  0.0f, 1.5f );
+	m_font.Draw(output3, { -550.0f,-50.0f }, CVector4::White(), 0.0f, 1.2f);
+	m_font.Draw(output4, { -550.0f,-100.0f }, CVector4::White(), 0.0f, 1.2f);
 	m_font.End();
 
 }

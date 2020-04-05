@@ -36,6 +36,10 @@ private:
 	CSoundSource* m_bgm = nullptr;
 	CFont m_font;
 	Sprite m_sprite;
+	Sprite m_spriteButton;
+	Sprite m_spriteButtonRB;
+	Sprite m_spriteTime;
+	Sprite m_spriteStart;
 	Level m_level;
 	PlayerPad m_playerPad;							//プレイヤー用のゲームパッド。
 	ComputerPad m_comPad[3];						//AI用のゲームパッド。
