@@ -86,9 +86,6 @@ void GameObjectManager::ForwordRender() {
 }
 void GameObjectManager::PostRender() {
 
-	
-	//DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
-	//g_graphicsEngine->GetSpriteBatchPMA()->Begin(DirectX::SpriteSortMode_BackToFront, state.NonPremultiplied());
 
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 	ChangeRenderTarget(
@@ -100,18 +97,17 @@ void GameObjectManager::PostRender() {
 	m_copyMainRtToFrameBufferSprite.Draw();
 	m_frameBufferRenderTargetView->Release();
 	m_frameBufferDepthStencilView->Release();
-
+	Fade().PostRender();
 	GameTime().Draw();
-
+	
 	//登録されているゲームオブジェクトのポストレンダー呼ぶ。
 	for (auto go : m_goList)
 	{
 		go->PostRender();
 		
 	}
-	Fade().PostRender();
-	//g_graphicsEngine->GetSpriteBatchPMA()->End();
-	/*g_graphicsEngine->ResetLayerDepthCnt();*/
+	
+
 	
 }
 void GameObjectManager::Update()
@@ -158,7 +154,7 @@ void GameObjectManager::Update()
 		d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
 
 	
-
+	
 //プリレンダリング。
 		PreRender();
 /// フォワードレンダリング(通常の描画だと考えてOK)
@@ -167,13 +163,16 @@ void GameObjectManager::Update()
 		for (auto go : m_goList) {
 			go->Render();
 		}
+		
 		//エフェクトは不透明オブジェクトを描画した後で描画する。
 		m_effekseerRenderer->BeginRendering();
 		m_effekseerManager->Draw();
 		m_effekseerRenderer->EndRendering();
+		
 // ポストレンダリング
 		PostRender();
 	}
+	
 	for (auto it = m_goList.begin();
 		it != m_goList.end();)
 	{

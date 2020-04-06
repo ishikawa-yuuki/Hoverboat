@@ -15,7 +15,7 @@
 #include "RaceTimer.h"
 Game::Game()
 {	
-	Fade().FadeIn();
+	
 	m_gamedata = &GameData::GetInstance();
 	m_gamedata->Init();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
@@ -128,6 +128,7 @@ Game::Game()
 	g_camera2D.SetPosition({ 0.0f, 0.0f, -10.0f });
 	g_camera2D.SetTarget(CVector3::Zero());
 	g_camera2D.Update();
+	Fade().FadeIn();
 }
 
 
@@ -140,10 +141,11 @@ void Game::Update()
 {
 	if (!m_raceTime->GetRaceStart())
 	{
-
+		
 		m_gamedata->SetPose();
 	}
 	else {
+		
 		m_gamedata->SetCanselPose();
 	}
 	for (int i = 0; i < 3; i++) {
@@ -167,13 +169,16 @@ void Game::Update()
 										m_raceTime->GetSeond(),
 										m_raceTime->GetComma(),
 										i);
-			if(i ==0)
-			m_gamedata->SetGoal();
+			if (i == 0) {
+				m_gamedata->SetGoal();
+			}
+			
 		}
 	}
 	if (m_gamedata->GetGoal()) {
 		//リザルトへ
-		
+	
+		Fade().SetAlpha(1.0f);
 		for (auto& pl : m_player) {	
 			pl->Release();
 				g_goMgr->DeleteGameObject(pl);
@@ -227,32 +232,36 @@ void Game::Update()
 }
 void Game::Render()
 {
-	
-	m_sprite.Draw();
-	m_spriteButton.Draw();
-	m_spriteButtonRB.Draw();
-	m_spriteTime.Draw();
-	if (!m_raceTime->GetRaceStart())
+	if (!Fade().IsFade())
 	{
-		m_spriteStart.Draw();
+		m_sprite.Draw();
+		m_spriteButton.Draw();
+		m_spriteButtonRB.Draw();
+		m_spriteTime.Draw();
+		if (!m_raceTime->GetRaceStart())
+		{
+			m_spriteStart.Draw();
+		}
 	}
 }
 void Game::PostRender()
 {
-	//レース中計測用
-	wchar_t output[6];
-	wchar_t output2[9];
-	wchar_t output3[12];
-	wchar_t output4[5];
-	swprintf_s(output, L"LAP  ");
-	swprintf_s(output2, L" %X / %X",m_player[0]->GetWeekBack(), 3);
-	swprintf_s(output3, L"Accelerator");
-	swprintf_s(output4, L"Jump");
-	m_font.Begin();
-	m_font.Draw(output, { -600.0f,0.0f }, CVector4::Yellow(),  0.0f, 1.5f );
-	m_font.Draw(output2, { -550.0f,0.0f }, CVector4::White(),  0.0f, 1.5f );
-	m_font.Draw(output3, { -550.0f,-50.0f }, CVector4::White(), 0.0f, 1.2f);
-	m_font.Draw(output4, { -550.0f,-100.0f }, CVector4::White(), 0.0f, 1.2f);
-	m_font.End();
-
+	if (!Fade().IsFade())
+	{
+		//レース中計測用
+		wchar_t output[6];
+		wchar_t output2[9];
+		wchar_t output3[12];
+		wchar_t output4[5];
+		swprintf_s(output, L"LAP  ");
+		swprintf_s(output2, L" %X / %X", m_player[0]->GetWeekBack(), 3);
+		swprintf_s(output3, L"Accelerator");
+		swprintf_s(output4, L"Jump");
+		m_font.Begin();
+		m_font.Draw(output, { -600.0f,0.0f }, CVector4::Yellow(), 0.0f, 1.5f);
+		m_font.Draw(output2, { -550.0f,0.0f }, CVector4::White(), 0.0f, 1.5f);
+		m_font.Draw(output3, { -550.0f,-50.0f }, CVector4::White(), 0.0f, 1.2f);
+		m_font.Draw(output4, { -550.0f,-100.0f }, CVector4::White(), 0.0f, 1.2f);
+		m_font.End();
+	}
 }

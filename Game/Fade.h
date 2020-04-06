@@ -32,6 +32,10 @@ public:
 	float GetCurrentAlpha() const {
 		return m_currentAlpha;
 	}
+	void SetAlpha(float alpha)
+	{
+		m_currentAlpha = alpha;
+	}
 private:
 	enum enState_Fade {
 		enState_FadeIn,
@@ -43,6 +47,7 @@ private:
 	bool m_start = false;
 	//ƒ¿’l
 	float m_currentAlpha = 1.0f;
+	float m_a = 0.0f;
 };
 static inline CFade& Fade()
 {

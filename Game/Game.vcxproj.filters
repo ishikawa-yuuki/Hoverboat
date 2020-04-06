@@ -160,7 +160,6 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp" />
-    <ClCompile Include="Title.cpp" />
     <ClCompile Include="ConstantBufferGPU.cpp">
       <Filter>PostEffect</Filter>
     </ClCompile>
@@ -224,6 +223,7 @@
     </ClCompile>
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Back.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -420,19 +420,21 @@
     <ImageContentTask Include="Assets\sprite\test.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\batu.png" />
-    <ImageContentTask Include="Assets\sprite\R1.png" />
-    <ImageContentTask Include="Assets\sprite\Time.png" />
     <ImageContentTask Include="Assets\sprite\gure_Frame.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\gure.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\TimeCount.png">
+    <ImageContentTask Include="Assets\sprite\TimeCount.png" />
+    <ImageContentTask Include="Assets\sprite\batu.png">
       <Filter>Assets\sprite</Filter>
-    </Image>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\R1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Time.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

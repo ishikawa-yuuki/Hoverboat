@@ -28,7 +28,7 @@ void Title::Update()
 	if (g_pad->IsTrigger(enButtonA)) {
 		m_trigger = true;
 		m_decided->Play(false);
-		Fade().FadeOut();
+		
 		
 		
 	}
@@ -52,7 +52,6 @@ void Title::Update()
 		delete(m_decided);
 	}
 	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
-	
 }
 void Title::Render()
 {
@@ -72,6 +71,7 @@ void Title::PostRender()
 	wchar_t output[13];	
 	swprintf(output, L"PRESS ANYKEY");
 	m_font.Begin();
+	
 	m_font.Draw(output, m_pos, { m_color,m_color,m_color, m_color },0.0f,m_scale);
 	m_font.End();
 	
