@@ -105,6 +105,7 @@
     <ClCompile Include="CFont.cpp" />
     <ClCompile Include="CFontRender.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
+    <ClCompile Include="Character_Select.cpp" />
     <ClCompile Include="ConstantBufferGPU.cpp" />
     <ClCompile Include="CPSwitchG.cpp" />
     <ClCompile Include="DebugWireframe.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="CFont.h" />
     <ClInclude Include="CFontRender.h" />
     <ClInclude Include="character\CharacterController.h" />
+    <ClInclude Include="Character_Select.h" />
     <ClInclude Include="ConstantBufferGPU.h" />
     <ClInclude Include="CPSwitchG.h" />
     <ClInclude Include="DebugWireframe.h" />

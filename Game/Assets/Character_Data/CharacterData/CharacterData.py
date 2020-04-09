@@ -1,7 +1,7 @@
 from openpyxl import load_workbook
 import struct
 
-workbook = load_workbook(filename = "C:/Users/CG1801/Desktop/Hover/Hoverboat/Game/Assets/Character_Data/Character_Data.xlsx",
+workbook = load_workbook(filename = "C:/Users/sisim/Documents/Hoverboard/Hoverboat/Game/Assets/Character_Data/Character_Data.xlsx",
                          read_only = True)
 sheet = workbook["CharaData"]
 accel=0.0

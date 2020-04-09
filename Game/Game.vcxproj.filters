@@ -224,6 +224,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Back.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Character_Select.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -389,6 +390,7 @@
     </ClInclude>
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Back.h" />
+    <ClInclude Include="Character_Select.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">
@@ -426,7 +428,6 @@
     <ImageContentTask Include="Assets\sprite\gure.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\TimeCount.png" />
     <ImageContentTask Include="Assets\sprite\batu.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
@@ -434,6 +435,9 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Time.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\TimeCount.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
