@@ -25,6 +25,17 @@ public:
 	{
 		m_state = enState_FideOut;
 	}
+	//早く明るくなる。
+	void FadeInS()
+	{
+		m_state = enState_FadeInS;
+	}
+	//早く暗くなる。
+	void FadeOutS()
+	{
+		m_state = enState_FideOutS;
+	}
+	//Fade状態
 	bool IsFade() const {
 		return m_state != enState_Idle;
 	}
@@ -32,6 +43,7 @@ public:
 	float GetCurrentAlpha() const {
 		return m_currentAlpha;
 	}
+	//α値設定
 	void SetAlpha(float alpha)
 	{
 		m_currentAlpha = alpha;
@@ -40,6 +52,8 @@ private:
 	enum enState_Fade {
 		enState_FadeIn,
 		enState_FideOut,
+		enState_FadeInS,
+		enState_FideOutS,
 		enState_Idle
 	};
 	Sprite m_sprite;
@@ -47,7 +61,6 @@ private:
 	bool m_start = false;
 	//α値
 	float m_currentAlpha = 1.0f;
-	float m_a = 0.0f;
 };
 static inline CFade& Fade()
 {

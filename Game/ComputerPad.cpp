@@ -55,17 +55,6 @@ void ComputerPad::Move()
 		m_passNum++;
 	}
 }
-void ComputerPad::Jump()
-{
-	/*if (m_charaCon.IsOnGround()) {
-		m_moveSpeed.y = 0.0f;
-	}
-	else
-	{
-		m_moveSpeed.y -= 100.0f;
-	}*/
-	
-}
 void ComputerPad::HitGhost()
 {
 	//Ÿ‚ÌPass‚Ì•ûŒü‚ğ”»’è‚·‚éêŠ

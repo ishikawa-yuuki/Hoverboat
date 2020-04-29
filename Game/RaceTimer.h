@@ -5,12 +5,35 @@
 class RaceTimer:public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
 	RaceTimer();
+
+	/// <summary>
+    ///　デストラクタ
+    /// </summary>
 	~RaceTimer();
+
+	/// <summary>
+	/// 更新。
+	/// </summary>
 	void Update();
-	void Render();
-	void RaceStart();
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Render() {};
+
+	/// <summary>
+	/// ポストレンダリング
+	/// </summary>
 	void PostRender() override;
+
+	/// <summary>
+	/// スタートしたか知る関数
+	/// </summary>
+	/// <returns></returns>
 	bool GetRaceStart()
 	{
 		return m_raceStart;
@@ -33,14 +56,15 @@ public:
 	}
 
 private:
-	CSoundSource* m_countSound = nullptr;
+	CSoundSource* m_countSound = nullptr; //カウントダウンの音
 	CFont m_font;
-	float m_count	= 3.0f;
-	float m_timer	= 0.0f;
-	float m_comma	= 0.0f; 
-	int m_second	= 0;
-	int m_minute	= 0;
-	int m_integer	= 0;
 	bool m_raceStart = false;
+	float m_count	 = 3.0f;
+	float m_timer	 = 0.0f;
+	float m_comma	 = 0.0f; 
+	int m_second	 = 0;
+	int m_minute	 = 0;
+	int m_integer	 = 0;
+	
 };
 

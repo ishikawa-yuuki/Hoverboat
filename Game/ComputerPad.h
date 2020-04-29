@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// ジャンプ処理
 	/// </summary>
-	void Jump();
+	void Jump() {};
 	/// <summary>
 	/// ゴースト(当たり判定)
 	/// </summary>
@@ -56,12 +56,13 @@ private:
 	bool m_pressAccel		   = true;
 	bool m_pressJump		   = false;
 	bool m_first			   = false;
-	bool m_hit = false;
+	bool m_hit				   = false;
 	float m_stickL			   = 0.0f;
-	CQuaternion m_rot = CQuaternion::Identity();
+	int	  m_passNum		       = 0;
+	CQuaternion m_rot		   = CQuaternion::Identity();
 	CVector3 m_position		   = CVector3::Zero();
 	CVector3 m_passDirection   = CVector3::Zero();//Passの奥方向
 	CVector3 m_cpDirection     = CVector3::Zero();//Computerの奥方向
-	int		 m_passNum = 0;
+	
 };
 

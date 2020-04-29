@@ -17,7 +17,6 @@ Game::Game()
 {	
 	
 	m_gamedata = &GameData::GetInstance();
-	m_gamedata->Init();
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
@@ -104,17 +103,11 @@ Game::Game()
 		m_player[i]->SetDeadZonePassObjectList(m_deadZoneList);
 	}
 	m_player[0]->SetPad(&m_playerPad);
-	m_gc->GetInfoPlayer(m_player[0]);
-	m_player[0]->SetChara(0);
+	m_gc->SetInfoPlayer(m_player[0]);
 	//1,2,3番目はコンピューターが操作するプレイヤー
 	m_player[1]->SetPad(&m_comPad[0]);
-	m_player[1]->SetChara(0);
-
 	m_player[2]->SetPad(&m_comPad[1]);
-	m_player[2]->SetChara(1);
-
 	m_player[3]->SetPad(&m_comPad[2]);
-	m_player[3]->SetChara(2);
 //////////////////////////////////////////////////////////
 	//ここで無理に渡してる。↓
 //////////////////////////////////////////////////////////

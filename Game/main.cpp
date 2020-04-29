@@ -3,7 +3,6 @@
 #include "GameObjectManager.h"
 #include "GameData.h"
 #include "Title.h"
-//#include "SoundEngine.h"
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -34,8 +33,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_soundEngine->Update();
 		
 		//物理エンジンの更新。
-
 		g_physics.Update();
+
 		//毎フレーム呼び出す。
 		g_goMgr->Update();
 		

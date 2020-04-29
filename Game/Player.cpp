@@ -8,12 +8,13 @@
 #include "ComputerPad.h"
 Player::Player()
 {
+	m_gamedata = &GameData::GetInstance();
+	Data();
 	m_animClip[enAnimationClip_test].Load(L"Assets/animData/test.tka");
 	m_animClip[enAnimationClip_test].SetLoopFlag(true);
-	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/hover/Hope.cmo");
+	m_model.Init(m_name);
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
-	m_animation.Play(0,0.4f);
+	m_animation.Play(0, 0.4f);
 }
 Player::~Player()
 {
@@ -39,6 +40,20 @@ void Player::Data()
 	m_playerData = new PlayerData[charaNoKazu];
 	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
 	fclose(fp);
+	switch (m_gamedata->GetCharaNum())
+	{
+	case 0:
+
+		wcscpy(m_name,m_charaPass.hope);
+		break;
+	case 1:
+		wcscpy(m_name, m_charaPass.rennga);
+		break;
+	case 2:
+		wcscpy(m_name, m_charaPass.wood);
+
+		break;
+	}
 }
 void Player::CheckGhost()
 {
@@ -139,15 +154,15 @@ void Player::HitDead()
 /// <summary>
 /// キャラの動き
 /// </summary>
-bool Player::Start()
+void Player::Start()
 {
-	m_gamedata = &GameData::GetInstance();
-	Data();
+	
 	m_charaCon.Init(
 		30.0f,
 		20.0f,
 		m_position
 	);
+	
 	//サンプルのエフェクトをロードする。
 
 	m_sampleEffect = Effekseer::Effect::Create(g_goMgr->GetEffectManeger(), (const EFK_CHAR*)L"Assets/effect/fire.efk");
@@ -160,7 +175,6 @@ bool Player::Start()
 	m_reStartOver.resize(m_reStartPassList.size());
 
 	m_first = true;
-	return true;
 }
 void Player::Rotation()
 {

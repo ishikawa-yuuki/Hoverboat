@@ -9,5 +9,6 @@ void GameData::Init()
 {
 	//メモリ開放したい用（強制的にデストラクタ）
 	std::vector<RankResult>().swap(m_rankingList);
-	m_goal = false;
+	m_CharaNum = 0;
+	m_goal     = false;
 }

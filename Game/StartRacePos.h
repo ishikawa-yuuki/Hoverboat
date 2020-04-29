@@ -1,9 +1,18 @@
 #pragma once
 #include "GameObjectManager.h"
+/// <summary>
+/// レーススタート地点クラス
+/// </summary>
 class StartRacePos : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
 	StartRacePos();
+	/// <summary>
+	///　デストラクタ
+	/// </summary>
 	~StartRacePos();
 	void Update() {};
 	void Render() {};

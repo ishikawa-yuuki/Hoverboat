@@ -12,14 +12,9 @@ RaceTimer::RaceTimer()
 RaceTimer::~RaceTimer()
 {
 }
-void RaceTimer::RaceStart()
-{
-
-}
 void RaceTimer::Update()
 {
 	
-
 		if (GetRaceStart()) {
 			m_timer += GameTime().GetFrameDeltaTime();
 			m_second = m_timer;
@@ -38,7 +33,6 @@ void RaceTimer::Update()
 			if (!Fade().IsFade())
 			{
 
-
 				m_countSound->Play(false);
 				m_count -= GameTime().GetFrameDeltaTime();
 				if (m_count <= 0)
@@ -47,10 +41,6 @@ void RaceTimer::Update()
 				}
 			}
 		}
-}
-
-void RaceTimer::Render()
-{
 }
 
 void RaceTimer::PostRender()

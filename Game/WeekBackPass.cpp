@@ -1,13 +1,9 @@
 #include "stdafx.h"
 #include "WeekBackPass.h"
 
-
 WeekBackPass::WeekBackPass()
 {
-
 }
-
-
 WeekBackPass::~WeekBackPass()
 {
 }
@@ -15,7 +11,8 @@ void WeekBackPass::Release()
 {
 	m_ghost.Release();
 }
-void WeekBackPass::Start() {
+void WeekBackPass::Start() 
+{
 	m_ghost.CreateBox(
 		m_position,
 		m_rot,

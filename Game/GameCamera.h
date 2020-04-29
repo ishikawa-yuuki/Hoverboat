@@ -5,14 +5,32 @@ class GameData;
 class GameCamera : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
 	GameCamera();
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
 	~GameCamera();
+
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Render() {};
-	Player* GetInfoPlayer(Player* pl)
+
+	/// <summary>
+	/// player情報コピー
+	/// </summary>
+	void SetInfoPlayer(Player* pl)
 	{
 		m_player = pl;
-		return m_player;
 	}
 private:
 	Player* m_player =nullptr;

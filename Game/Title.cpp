@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Title.h"
-#include "Game.h"
+#include "Character_Select.h"
 
 Title::Title()
 {
@@ -17,10 +17,8 @@ Title::Title()
 	
 }
 
-
 Title::~Title()
 {
-	
 }
 void Title::Update() 
 {
@@ -32,6 +30,8 @@ void Title::Update()
 		
 		
 	}
+
+	//フォント点滅
 	if (m_trigger)
 	{
 		m_timer += GameTime().GetFrameDeltaTime();
@@ -42,27 +42,21 @@ void Title::Update()
 	{
 		m_fontTimer += m_add * GameTime().GetFrameDeltaTime();
 	}
+	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
 
 	if (m_timer >= 1.0f)
 	{
-		//ゲームへ
-		g_goMgr->NewGameObject<Game>();
-		g_goMgr->DeleteGameObject(this);
+		//キャラ選択へ
+		g_goMgr->NewGameObject<Character_Select>();
 		delete(m_bgm);
 		delete(m_decided);
+		g_goMgr->DeleteGameObject(this);
+		
 	}
-	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
+	
 }
 void Title::Render()
 {
-	/*CMatrix mView;
-	CMatrix mProj;
-	mView.MakeLookAt(
-		{ 0, 0, 1 },
-		{ 0, 0, 0 },
-		{ 0,1,0 }
-	);
-	mProj.MakeOrthoProjectionMatrix(1280, 720, 0.1, 100);*/
 	m_sprite.Draw();
 }
 void Title::PostRender()

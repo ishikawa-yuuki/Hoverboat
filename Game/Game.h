@@ -48,7 +48,7 @@ private:
 	std::vector<CPSwitchG*> m_CPGhostList;			//AI用の当たり判定
 	std::vector<StartRacePos*> m_startRacePosList;	//スタートポジション
 	std::vector<CoursePass*> m_reStartPassList;     //落下した後復活するポジション
-	std::vector<CoursePass*> m_deadZoneList;
+	std::vector<CoursePass*> m_deadZoneList;        //落下死判定用
 	RenderTarget m_renderTarget;					//レンダリングターゲット。
 	
 };

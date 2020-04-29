@@ -3,22 +3,36 @@
 class PlayerPad : public GamePad
 {
 public:
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
 	PlayerPad();
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
 	~PlayerPad();
-	bool Start();
+
+	/// <summary>
+	/// Updateの直前で呼ぶ開始処理
+	/// </summary>
+	void Start();
+
 	/// <summary>
    /// 回転処理
    /// </summary>
 	void Rotation();
+
 	/// <summary>
 	/// 移動処理
 	/// </summary>
 	void Move();
+
 	/// <summary>
 	/// ジャンプ処理
 	/// </summary>
-	void Jump();
-	void HitCourcePass();
+	void Jump() {};
+	void HitCourcePass() {};
 	void HitReStartPos();
 	void isDead();
 	void PlayerPad::NotHitPass() {}

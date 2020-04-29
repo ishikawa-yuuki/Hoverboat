@@ -20,8 +20,10 @@ void Result::Update()
 	if (g_pad->IsTrigger(enButtonA)&&m_open)
 	{	//ƒ^ƒCƒgƒ‹‚Ö
 		g_goMgr->NewGameObject<Title>();
+		delete(m_said);
 		g_goMgr->DeleteGameObject(this);
 	}
+
 	if (!m_spriteX)
 	{
 		m_scaleY = sin(m_count) * 0.5f + 0.5f;
@@ -34,7 +36,6 @@ void Result::Update()
 			m_spriteX = true;
 		}
 		
-
 	}
 	else if(!m_open)
 	{
@@ -48,7 +49,6 @@ void Result::Update()
 			m_open = true;
 		}
 		
-
 	}
 	
 	m_sprite.Update(CVector3::Zero(), CQuaternion::Identity(), { m_scaleX,m_scaleY,1.0f });
@@ -63,7 +63,7 @@ void Result::PostRender()
 	{
 
 		wchar_t output[7];
-		wchar_t output2[256];
+		wchar_t output2[3];
 		wchar_t output3[12];
 		wchar_t output4[15];
 		

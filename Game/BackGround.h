@@ -11,7 +11,6 @@ public:
 	void Release();
 private:
 	SkinModel m_model;									//スキンモデル。
-	SkinModel m_model2;									//スキンモデル。
 	PhysicsStaticObject m_static;
 };
 
