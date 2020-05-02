@@ -55,6 +55,27 @@ void Player::Data()
 		break;
 	}
 }
+void Player::EffectFollowing()
+{
+	CQuaternion effectrot;
+	CQuaternion rot;
+	CVector3 pos;
+	CVector3 po1 = { 0.0f,0.0f,50.0f };
+	effectrot = m_rot;
+	pos = m_position;
+	pos.y += 20.0f;
+	rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
+	effectrot.Multiply(rot);
+	effectrot.Multiply(po1);
+	pos += po1;
+	CMatrix mTrans, mRot, mScale, mBase;
+	mTrans.MakeTranslation(pos);
+	mRot.MakeRotationFromQuaternion(effectrot);
+	mScale.MakeScaling(CVector3::One());
+	mBase.Mul(mScale, mRot);
+	mBase.Mul(mBase, mTrans);
+	g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+}
 void Player::CheckGhost()
 {
 	PhysicsGhostObject* ghostObj = nullptr;
@@ -64,22 +85,6 @@ void Player::CheckGhost()
 			if (ghostObj->IsSelf(contactObject)) {//== true
 				//
 				m_gamePad->HitGhost();
-			}
-			});
-	}
-}
-void Player::CheckCourcePass()
-{
-	PhysicsGhostObject* ghostObj = nullptr;
-	for (int j = 0; j < m_courcePassList.size(); j++) {
-		ghostObj = m_courcePassList[j]->GetGhost();
-		g_physics.ContactTest(m_charaCon, [&](const btCollisionObject & contactObject) {
-			if (ghostObj->IsSelf(contactObject)) {//== true
-				//
-				m_gamePad->HitCourcePass();
-			}
-			else {
-				m_gamePad->NotHitPass();
 			}
 			});
 	}
@@ -264,24 +269,7 @@ void Player::Update()
 			if (m_gamedata->GetPose())
 			{
 				{
-					CQuaternion effectrot;
-					CQuaternion rot;
-					CVector3 pos;
-					CVector3 po1 = { 0.0f,0.0f,50.0f };
-					effectrot = m_rot;
-					pos = m_position;
-					pos.y += 20.0f;
-					rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
-					effectrot.Multiply(rot);
-					effectrot.Multiply(po1);
-					pos += po1;
-					CMatrix mTrans, mRot, mScale, mBase;
-					mTrans.MakeTranslation(pos);
-					mRot.MakeRotationFromQuaternion(effectrot);
-					mScale.MakeScaling(CVector3::One());
-					mBase.Mul(mScale, mRot);
-					mBase.Mul(mBase, mTrans);
-					g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+					EffectFollowing();
 				}
 				m_rot = m_gamePad->GetRotation();
 				m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
@@ -325,7 +313,6 @@ void Player::Update()
 			CheckGhost();
 			CheckPass();
 			ReStartPass();
-			//CheckCourcePass();
 			HitDead();
 			
 			
@@ -336,24 +323,8 @@ void Player::Update()
 		}
 
 		{
-			CQuaternion effectrot;
-			CQuaternion rot;
-			CVector3 pos;
-			CVector3 po1 = {0.0f,0.0f,50.0f};
-			effectrot = m_rot;
-			pos = m_position;
-			pos.y += 20.0f;
-			rot.SetRotationDeg(CVector3::AxisY(), 180.0f);
-			effectrot.Multiply(rot);
-			effectrot.Multiply(po1);
-			pos += po1;
-			CMatrix mTrans, mRot, mScale, mBase;
-			mTrans.MakeTranslation(pos);
-			mRot.MakeRotationFromQuaternion(effectrot);
-			mScale.MakeScaling(CVector3::One());
-			mBase.Mul(mScale, mRot);
-			mBase.Mul(mBase, mTrans);
-			g_goMgr->GetEffectManeger()->SetBaseMatrix(m_playEffectHandle, mBase);
+			//エフェクト追従
+			EffectFollowing();
 		}
 		//ワールド行列の更新。
 		m_model.UpdateWorldMatrix(m_position, m_rot, CVector3::One());
@@ -365,8 +336,6 @@ void Player::Update()
 }
 void Player::Render()
 {
-	//テスト(ライトを回す）
-	//m_model.Update();
 	//シルエット描画
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(), 

@@ -67,15 +67,31 @@ public:
 	/// </summary>
 	void CheckPass();
 
-	void CheckCourcePass();
+	/// <summary>
+	/// リスタート地点通過判定
+	/// </summary>
 	void ReStartPass();
+
+	/// <summary>
+	/// 周回カウント時処理
+	/// </summary>
 	void WeekBack();
+
+	/// <summary>
+	/// 落下判定
+	/// </summary>
 	void HitDead();
 
 	/// <summary>
 	/// キャラのデータ、当たり判定
 	/// </summary>
 	void Data();
+
+	/// <summary>
+	/// エフェクト追従
+	/// </summary>
+	void EffectFollowing();
+
 	void SetChara(const int& num)
 	{
 		m_charaNum = num;

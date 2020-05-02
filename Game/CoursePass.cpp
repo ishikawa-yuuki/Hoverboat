@@ -15,6 +15,7 @@ void CoursePass::Release()
 	m_ghost.Release();
 }
 void CoursePass::Start() {
+	//“–‚½‚è”»’è¶¬(” )
 	m_ghost.CreateBox(
 		m_position,
 		m_rot,

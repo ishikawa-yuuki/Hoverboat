@@ -17,6 +17,7 @@ Game::Game()
 {	
 	
 	m_gamedata = &GameData::GetInstance();
+	//レベルで設置した情報読み込み
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
@@ -76,6 +77,7 @@ Game::Game()
 	});
 	m_raceTime = g_goMgr->NewGameObject<RaceTimer>();
 	m_gc = g_goMgr->NewGameObject<GameCamera>();
+	//スプライト初期化
 	m_sprite.Init(L"Assets/sprite/gure_Frame.dds", 150, 40);
 	m_spriteButton.Init(L"Assets/sprite/batu.dds", 25,25);
 	m_spriteButtonRB.Init(L"Assets/sprite/R1.dds", 30, 25);
@@ -108,9 +110,7 @@ Game::Game()
 	m_player[1]->SetPad(&m_comPad[0]);
 	m_player[2]->SetPad(&m_comPad[1]);
 	m_player[3]->SetPad(&m_comPad[2]);
-//////////////////////////////////////////////////////////
-	//ここで無理に渡してる。↓
-//////////////////////////////////////////////////////////
+
 	for (int i = 0; i < 3; i++) {
 		m_comPad[i].SetPassObjectList(m_coursePassList);
 	}
@@ -151,10 +151,6 @@ void Game::Update()
 
 	}
 
-	//テスト用
-	/*if (g_pad->IsPressAnyKey()) {
-		m_gamedata->SetGoal();
-	}*/
 	//ゴール順にリストに入れてる
 	for (int i = 0; i < gamePadSize; i++) {
 		if (m_player[i]->GetPlayerGoal()) {

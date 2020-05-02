@@ -12,11 +12,13 @@ Character_Select::Character_Select()
 	g_camera3D.Update();
 	m_gamedata = &GameData::GetInstance();
 	m_gamedata->Init();
+	//スプライト初期化
 	m_frame.Init(L"Assets/sprite/Frame_Y.dds", 200, 110);
 	m_metal.Init(L"Assets/sprite/METAL.dds", 160, 80);
 	m_brick.Init(L"Assets/sprite/BRICK.dds", 160, 80);
 	m_wood.Init(L"Assets/sprite/WOOD.dds", 160, 80);
 
+	//モデル初期化
 	m_model.Init(L"Assets/modelData/Select/back.cmo");
 	m_modeldai.Init(L"Assets/modelData/Select/dai.cmo");
 	m_level.Init(L"Assets/level/select.tkl", [&](LevelObjectData& objdata)
@@ -100,6 +102,7 @@ void Character_Select::Update()
 	//決定
 	if (g_pad->IsTrigger(enButtonA))
 	{
+		//ゲームへ
 		m_gamedata->SetCharaNum(m_selctChara-1);
 		Fade().SetAlpha(1.0f);
 		m_player->Release();
@@ -115,7 +118,7 @@ void Character_Select::Update()
 }
 void Character_Select::Render()
 {
-	
+	//通常描画
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
@@ -126,6 +129,7 @@ void Character_Select::Render()
 		g_camera3D.GetProjectionMatrix(),
 		enRenderMode_Normal
 	);
+	//スプライト描画
 	m_metal.Draw();
 	m_brick.Draw();
 	m_wood.Draw();

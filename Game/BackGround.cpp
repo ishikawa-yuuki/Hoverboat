@@ -24,7 +24,6 @@ void BackGround::Update()
 }
 void BackGround::Render()
 {
-	//m_model.Update();
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
