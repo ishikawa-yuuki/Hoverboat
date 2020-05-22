@@ -23,7 +23,7 @@ Title::~Title()
 void Title::Update() 
 {
 	
-	if (g_pad->IsTrigger(enButtonA)) {
+	if (g_pad->IsPressAnyKey()) {
 		m_trigger = true;
 		m_decided->Play(false);
 		
@@ -61,7 +61,7 @@ void Title::Render()
 }
 void Title::PostRender()
 {
-	
+	//フォント表示
 	wchar_t output[13];	
 	swprintf(output, L"PRESS ANYKEY");
 	m_font.Begin();
