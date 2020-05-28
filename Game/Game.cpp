@@ -15,19 +15,20 @@
 #include "RaceTimer.h"
 Game::Game()
 {	
-	
+	//ゲームデータ取得
 	m_gamedata = &GameData::GetInstance();
 	//レベルで設置した情報読み込み
 	m_level.Init(L"Assets/level/Stage_defult.tkl", [&](LevelObjectData & objdata)
 	{
+		//ステージ
 		if (objdata.EqualObjectName(L"Stage_Defult")) {
 			m_bg = g_goMgr->NewGameObject<BackGround>();
 			return true;
-		}
+		}//背景
 		else if (objdata.EqualObjectName(L"Back")) {
 			m_back = g_goMgr->NewGameObject<Back>();
 			return true;
-		}
+		}//コースパス
 		else if (objdata.EqualObjectName(L"coursePass")) {
 			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
 			coursePass->SetPosition(objdata.position);
@@ -35,7 +36,7 @@ Game::Game()
 			coursePass->SetScale(objdata.scale);
 			m_coursePassList.push_back(coursePass);
 			return true;
-		}
+		}//リスタート用
 		else if (objdata.EqualObjectName(L"ReStartPass")) {
 			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
 			coursePass->SetPosition(objdata.position);
@@ -43,7 +44,7 @@ Game::Game()
 			coursePass->SetScale(objdata.scale);
 			m_reStartPassList.push_back(coursePass);
 			return true;
-		}
+		}//落下死用
 		else if (objdata.EqualObjectName(L"DeadZone")) {
 			CoursePass* coursePass = g_goMgr->NewGameObject<CoursePass>();
 			coursePass->SetPosition(objdata.position);
@@ -51,14 +52,14 @@ Game::Game()
 			coursePass->SetScale(objdata.scale);
 			m_deadZoneList.push_back(coursePass);
 			return true;
-		}
+		}//周回用
 		else if (objdata.EqualObjectName(L"WeekBackPass")) {
 			WeekBackPass* weekbackPass = g_goMgr->NewGameObject<WeekBackPass>();
 			weekbackPass->SetPosition(objdata.position);
 			weekbackPass->SetScale(objdata.scale);
 			m_weekbackPassList.push_back(weekbackPass);
 			return true;
-		}
+		}//当たり判定
 		else if (objdata.EqualObjectName(L"Ghost")) {
 			CPSwitchG* cpGhost = g_goMgr->NewGameObject<CPSwitchG>();
 			cpGhost->SetPosition(objdata.position);
@@ -66,7 +67,7 @@ Game::Game()
 			cpGhost->SetScale(objdata.scale);
 			m_CPGhostList.push_back(cpGhost);
 			return true;
-		}
+		}//スタート地点
 		else if (objdata.EqualObjectName(L"StartRacePos")) {
 			StartRacePos* startRacePos= g_goMgr->NewGameObject<StartRacePos>();
 			startRacePos->SetPosition(objdata.position);
@@ -84,11 +85,13 @@ Game::Game()
 	m_spriteTime.Init(L"Assets/sprite/Time.dds", 30, 30);
 	m_spriteStart.Init(L"Assets/sprite/TimeCount.dds", 200, 100);
 
+	//スプライトカラー
 	m_sprite.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.5f });
 	m_spriteButton.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.9f });
 	m_spriteButtonRB.SetMulColor(CVector4{ 1.0f,1.0f,1.0f,0.9f });
 	m_spriteStart.SetMulColor(CVector4{1.0f,1.0f,1.0f,0.89f});
 
+	//BGM設定
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/StageBGM.wav");
 	m_bgm->Play(true);
@@ -105,6 +108,8 @@ Game::Game()
 		m_player[i]->SetDeadZonePassObjectList(m_deadZoneList);
 	}
 	m_player[0]->SetPad(&m_playerPad);
+
+	//カメラにプレイヤー情報を送る。
 	m_gc->SetInfoPlayer(m_player[0]);
 	//1,2,3番目はコンピューターが操作するプレイヤー
 	m_player[1]->SetPad(&m_comPad[0]);
@@ -115,12 +120,14 @@ Game::Game()
 		m_comPad[i].SetPassObjectList(m_coursePassList);
 	}
 	
+	//カメラ更新
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	g_camera2D.SetWidth(FRAME_BUFFER_W);
 	g_camera2D.SetHeight(FRAME_BUFFER_H);
 	g_camera2D.SetPosition({ 0.0f, 0.0f, -10.0f });
 	g_camera2D.SetTarget(CVector3::Zero());
 	g_camera2D.Update();
+	//フェイドイン
 	Fade().FadeIn();
 }
 
@@ -132,6 +139,7 @@ Game::~Game()
 }
 void Game::Update()
 {
+	//レーススタート前
 	if (!m_raceTime->GetRaceStart())
 	{
 		
@@ -146,6 +154,7 @@ void Game::Update()
 	}
 
 	{
+		//影更新
 		g_goMgr->SetShadowTarget( m_player[0]->GetPosition());
 		g_goMgr->SetShadowPos();
 
@@ -206,8 +215,11 @@ void Game::Update()
 		g_goMgr->DeleteGameObject(m_gc);
 		g_goMgr->DeleteGameObject(m_back);
 		g_goMgr->DeleteGameObject(this);
+		//リザルトへ
 		g_goMgr->NewGameObject<Result>();
 	}
+
+	//スプライト更新
 	m_sprite.Update(CVector3{-535.0f,-10.0f,0.0f}, CQuaternion::Identity(), CVector3::One());
 	m_spriteButton.Update(CVector3{ -570.0f,-110.0f,0.0f }, CQuaternion::Identity(), CVector3::One());
 	m_spriteButtonRB.Update(CVector3{ -570.0f,-60.0f,0.0f }, CQuaternion::Identity(), CVector3::One());
@@ -221,6 +233,7 @@ void Game::Update()
 }
 void Game::Render()
 {
+	//スプライト描画
 	if (!Fade().IsFade())
 	{
 		m_sprite.Draw();
@@ -235,6 +248,8 @@ void Game::Render()
 }
 void Game::PostRender()
 {
+	
+	//フォント表示
 	if (!Fade().IsFade())
 	{
 		//レース中計測用

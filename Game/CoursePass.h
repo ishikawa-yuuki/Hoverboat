@@ -60,30 +60,50 @@ public:
 	{
 		return m_position;
 	}
+
+	/// <summary>
+	/// パス初期化
+	/// </summary>
+	/// <returns></returns>
 	bool InitPass()
 	{
 		over = false;
 		return over;
 	}
+
+	/// <summary>
+	/// パス接触
+	/// </summary>
+	/// <returns></returns>
 	bool HitPass()
 	{
 		over = true;
 		return over;
 	}
+
+	/// <summary>
+	/// パス取得
+	/// </summary>
+	/// <returns></returns>
 	bool GetPass()const
 	{
 		return over;
 	}
+
+	/// <summary>
+	/// 当たり判定取得
+	/// </summary>
+	/// <returns></returns>
 	PhysicsGhostObject* GetGhost()
 	{
 		return &m_ghost;
 	}
 private:
-	CVector3 m_position = CVector3::Zero();
-	CQuaternion m_rot = CQuaternion::Identity();
-	CVector3 m_scale = CVector3::One();
-	PhysicsGhostObject m_ghost;  //ゴースト(当たり判定)
-	bool over = false;
-	bool m_start = false;
+	CVector3 m_position = CVector3::Zero();     //ポジション
+	CQuaternion m_rot = CQuaternion::Identity();//向き
+	CVector3 m_scale = CVector3::One();			//大きさ
+	PhysicsGhostObject m_ghost;					//ゴースト(当たり判定)
+	bool over = false;							//パスを通過したかどうか
+	bool m_start = false;						//Updateで一度だけ実行
 };
 

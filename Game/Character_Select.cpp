@@ -21,15 +21,18 @@ Character_Select::Character_Select()
 	//モデル初期化
 	m_model.Init(L"Assets/modelData/Select/back.cmo");
 	m_modeldai.Init(L"Assets/modelData/Select/dai.cmo");
+
+	//レベル初期化
 	m_level.Init(L"Assets/level/select.tkl", [&](LevelObjectData& objdata)
 	{
+			//背景
 			if (objdata.EqualObjectName(L"back")) {
 				
 				m_position = objdata.position;
 				m_scale = objdata.scale;
 				m_rot = objdata.rotation;
 				return true;
-			}
+			}//プレイヤーの台
 			else if (objdata.EqualObjectName(L"dai")) {
 				m_posDai = objdata.position;
 				m_scaledai = objdata.scale;
@@ -39,12 +42,17 @@ Character_Select::Character_Select()
 		return false;
 	});
 	m_player = g_goMgr->NewGameObject<Player>();
+	//台の高さ分プレイヤーのポジションを変える。
 	CVector3 pos = m_posDai;
 	pos.y += 20.0f;
 	m_player->SetPosition(pos);
+
+	//更新
 	m_metal.Update(m_metalPos, CQuaternion::Identity(), CVector3::One());
 	m_brick.Update(m_brickPos, CQuaternion::Identity(), CVector3::One());
 	m_wood.Update(m_woodPos, CQuaternion::Identity(), CVector3::One());
+
+	//フェイドイン
 	Fade().FadeInS();
 }
 Character_Select::~Character_Select()
@@ -54,6 +62,8 @@ Character_Select::~Character_Select()
 void Character_Select::Update()
 {
 	m_time += GameTime().GetFrameDeltaTime();
+
+	//キャラ選択
 	if (g_pad->GetLStickYF() >=0.6f && m_time >=0.2f)
 	{
 		m_time = 0.0f;
@@ -87,6 +97,7 @@ void Character_Select::Update()
 		pos.y += 20.0f;
 		m_player->SetPosition(pos);
 	}
+	//スプライトポジション
 	switch (m_selctChara)
 	{
 	case Metal:
@@ -112,6 +123,7 @@ void Character_Select::Update()
 		return;
 	}
 	
+	//更新
 	m_frame.Update(m_framePos, CQuaternion::Identity(), CVector3::One());
 	m_model.UpdateWorldMatrix(m_position, m_rot, m_scale);
 	m_modeldai.UpdateWorldMatrix(m_posDai, CQuaternion::Identity(), m_scaledai);
@@ -124,6 +136,7 @@ void Character_Select::Render()
 		g_camera3D.GetProjectionMatrix(),
 		enRenderMode_Normal
 	);
+	//通常描画
 	m_modeldai.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),

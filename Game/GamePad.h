@@ -5,7 +5,7 @@ public:
 	virtual bool		IsPressAccel()	= 0;
 	virtual bool		IsPressJump()   = 0;
 	virtual void		HitReStartPos() = 0;
-	virtual void		isDead() =0 ;
+	virtual void		isDead()		= 0;
 	virtual void		HitGhost()		= 0;
 	virtual void		HitCourcePass()	= 0;
 	virtual void		NotHitPass()	= 0;

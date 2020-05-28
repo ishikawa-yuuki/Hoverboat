@@ -4,7 +4,7 @@
 
 Title::Title()
 {
-
+	//初期化
 	m_sprite.Init(L"Assets/sprite/test.dds",280,86);
 	m_bgm = new CSoundSource();
 	m_bgm->Init(L"Assets/sound/Title.wav");
@@ -27,8 +27,6 @@ void Title::Update()
 		m_trigger = true;
 		m_decided->Play(false);
 		
-		
-		
 	}
 
 	//フォント点滅
@@ -38,7 +36,7 @@ void Title::Update()
 		m_fontTimer += m_addPress * GameTime().GetFrameDeltaTime();
 		
 	}
-	else 
+	else //通常表示
 	{
 		m_fontTimer += m_add * GameTime().GetFrameDeltaTime();
 	}
@@ -57,6 +55,7 @@ void Title::Update()
 }
 void Title::Render()
 {
+	//スプライト表示
 	m_sprite.Draw();
 }
 void Title::PostRender()

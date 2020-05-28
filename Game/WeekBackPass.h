@@ -51,11 +51,17 @@ public:
 		return &m_ghost;
 	}
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void InitPass()
 	{
 		m_over = false;
 	}
 
+	/// <summary>
+	/// 接触時
+	/// </summary>
 	void  HitPass()
 	{
 		m_over = true;
@@ -69,11 +75,11 @@ public:
 		return m_over;
 	}
 private:
-	bool m_over	 = false;
-	bool m_start = false;
-	PhysicsGhostObject m_ghost;
-	CVector3 m_position	= CVector3::Zero();
-	CQuaternion m_rot	= CQuaternion::Identity();
-	CVector3 m_scale	= CVector3::One();
+	bool m_over	 = false;							//パスを通過したかどうか
+	bool m_start = false;							//Updateで一度だけ実行
+	PhysicsGhostObject m_ghost;						//ゴースト(当たり判定)
+	CVector3 m_position	= CVector3::Zero();			//ポジション
+	CQuaternion m_rot	= CQuaternion::Identity();	//向き
+	CVector3 m_scale	= CVector3::One();			//大きさ
 };
 

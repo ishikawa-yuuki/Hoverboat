@@ -97,6 +97,8 @@ void GameObjectManager::PostRender() {
 	m_copyMainRtToFrameBufferSprite.Draw();
 	m_frameBufferRenderTargetView->Release();
 	m_frameBufferDepthStencilView->Release();
+
+
 	Fade().PostRender();
 	GameTime().Draw();
 	
@@ -128,7 +130,6 @@ void GameObjectManager::Update()
 		//Effekseerを更新。
 		m_effekseerManager->Update();
 
-		//ごり押し↓
 //シャドウマップを更新。
 		m_shadowMap.UpdateFromLightTarget(
 			m_shadowMapPos,

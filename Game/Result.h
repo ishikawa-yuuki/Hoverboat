@@ -30,17 +30,17 @@ public:
 	void PostRender()override;
 
 private:
-	CSoundSource* m_said = nullptr;						//表示音。
-	GameData* m_gamedata = nullptr;
-	CFont m_font;
-	Sprite m_sprite;
-	bool m_open		= false;
-	bool m_spriteX  = false;
-	const float m_fontY = 150.0f;
-	float m_row			= -70.0f;
-	float m_count		= 0.0f;
-	float m_scaleX		= 0.01f;
-	float m_scaleY		= 0.01f;
-	int m_rank			= 1;
+	CSoundSource* m_said = nullptr;		//表示音。
+	GameData* m_gamedata = nullptr;		//ゲームデータ				
+	CFont m_font;						//リザルトフォント
+	Sprite m_sprite;					//スプライト
+	bool m_open		= false;			//リザルト表示時
+	bool m_spriteX  = false;			//スプライト表示の際の表現用
+	const float m_fontY = 150.0f;		//フォントpos
+	float m_row			= -70.0f;		//フォントpos
+	float m_count		= 0.0f;			//サインカーブ
+	float m_scaleX		= 0.01f;		//Xのスケール
+	float m_scaleY		= 0.01f;		//Yのスケール
+	int m_rank			= 1;			//ランク
 };
 

@@ -13,6 +13,7 @@ void WeekBackPass::Release()
 }
 void WeekBackPass::Start() 
 {
+	//“–‚½‚è”»’è¶¬(” )
 	m_ghost.CreateBox(
 		m_position,
 		m_rot,

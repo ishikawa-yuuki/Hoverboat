@@ -25,36 +25,61 @@ public:
 	/// </summary>
 	void Init();
 
+	/// <summary>
+	/// ポーズ設定
+	/// </summary>
 	void SetPose()
 	{
 		m_pose = true;
 	}
 
+	/// <summary>
+	/// ポーズキャンセル
+	/// </summary>
 	void SetCanselPose()
 	{
 		m_pose = false;
 	}
 
+	/// <summary>
+	/// ポーズを取得
+	/// </summary>
+	/// <returns></returns>
 	bool GetPose()
 	{
 		return m_pose;
 	}
 
+	/// <summary>
+	/// ゴール設定
+	/// </summary>
 	void SetGoal()
 	{
 		m_goal = true;
 	}
 
+	/// <summary>
+	/// キャラ選択設定
+	/// </summary>
+	/// <param name="num">キャラ番号</param>
 	void SetCharaNum(int num)
 	{
 		m_CharaNum = num;
 	}
 
+	/// <summary>
+	/// キャラの番号取得
+	/// </summary>
+	/// <returns></returns>
 	int GetCharaNum()
 	{
 		return m_CharaNum;
 	}
 
+	/// <summary>
+	/// ゴール情報取得
+	/// </summary>
+	/// <returns></returns>
 	bool GetGoal()
 	{
 		return m_goal;
@@ -69,38 +94,66 @@ public:
 	/// <param name="PlayerNo">キャラナンバー</param>
 	void List_push_buck(int minute, int second, float comma, int PlayerNo);
 
+	/// <summary>
+	/// ゴール時の分取得
+	/// </summary>
+	/// <param name="i">キャラ番号</param>
+	/// <returns></returns>
 	int GetMinute(int i)
 	{
 		return m_rankingList[i].m_minute;
 	}
+
+	/// <summary>
+	/// ゴール時の秒取得
+	/// </summary>
+	/// <param name="i">キャラ番号</param>
+	/// <returns></returns>
 	int GetSeond(int i)
 	{
 		return m_rankingList[i].m_second;
 	}
+
+	/// <summary>
+	/// ゴール時のコンマ4取得
+	/// </summary>
+	/// <param name="i">キャラ番号</param>
+	/// <returns></returns>
 	float GetComma(int i)
 	{
 		return m_rankingList[i].m_comma;
 	}
+
+	/// <summary>
+	/// 順位
+	/// </summary>
+	/// <param name="i">キャラ番号</param>
+	/// <returns></returns>
 	int GetNum(int i)
 	{
 		return m_rankingList[i].PlayerNo;
 	}
+
+	/// <summary>
+	/// リストサイズ取得
+	/// </summary>
+	/// <returns></returns>
 	int GetListSize()
 	{
 		return m_rankingList.size();
 	}
 	struct RankResult
 	{
-		int   m_minute = 0;
-		int	  m_second = 0;
-		float m_comma  = 0.0f;
-		int PlayerNo   = 0;
+		int   m_minute = 0;		//分
+		int	  m_second = 0;		//秒
+		float m_comma  = 0.0f;	//コンマ
+		int PlayerNo   = 0;		//プレイヤー番号
 
 	};
 private:
-	std::vector<RankResult> m_rankingList;
-	bool m_goal    = false;
-	bool m_pose	   = false;
-	int m_CharaNum = 0;
+	std::vector<RankResult> m_rankingList;	//ランキングリスト
+	bool m_goal    = false;					//ゴール判定
+	bool m_pose	   = false;					//ポーズ状態
+	int m_CharaNum = 0;						//キャラ番号
 };
 

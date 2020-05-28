@@ -42,29 +42,31 @@ public:
 	{
 		m_raceStart = true;
 	}
+	//分取得
 	int GetMinute()
 	{
 		return m_minute;
 	}
+	//秒取得
 	int GetSeond()
 	{
 		return m_second;
 	}
+	//コンマ取得
 	float GetComma()
 	{
 		return m_comma;
 	}
 
 private:
-	CSoundSource* m_countSound = nullptr; //カウントダウンの音
-	CFont m_font;
-	bool m_raceStart = false;
-	float m_count	 = 3.0f;
-	float m_timer	 = 0.0f;
-	float m_comma	 = 0.0f; 
-	int m_second	 = 0;
-	int m_minute	 = 0;
-	int m_integer	 = 0;
+	CSoundSource* m_countSound = nullptr;   //カウントダウンの音
+	CFont m_font;							//フォント
+	bool m_raceStart = false;				//レーススタートの判断用
+	float m_count	 = 3.0f;				//カウント時間(秒)
+	float m_timer	 = 0.0f;				//タイム
+	float m_comma	 = 0.0f;				//コンマ
+	int m_second	 = 0;					//秒
+	int m_minute	 = 0;					//分
 	
 };
 

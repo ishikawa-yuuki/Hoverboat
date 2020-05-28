@@ -4,7 +4,9 @@
 #include "Title.h"
 Result::Result()
 {
+	//ゲームデータ取得
 	m_gamedata = &GameData::GetInstance();
+	//初期化
 	m_sprite.Init(L"Assets/sprite/gure.dds", 800, 540);
 	m_sprite.SetMulColor(CVector4{ 0.5f,0.5f,0.5f,1.0f });
 	m_said = new CSoundSource;
@@ -26,6 +28,7 @@ void Result::Update()
 
 	if (!m_spriteX)
 	{
+		//Y側を表示する
 		m_scaleY = sin(m_count) * 0.5f + 0.5f;
 		if (m_count <= 1.0f)
 		{
@@ -39,6 +42,7 @@ void Result::Update()
 	}
 	else if(!m_open)
 	{
+		//X側を表示する
 		m_scaleX = sin(m_count) * 0.5f + 0.5f;
 		if (m_count <= 1.0f)
 		{
@@ -55,10 +59,12 @@ void Result::Update()
 }
 void Result::Render()
 {
+	//スプライト表示
 	m_sprite.Draw();
 }
 void Result::PostRender()
 {
+	//フォント表示
 	if (m_open)
 	{
 

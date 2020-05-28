@@ -4,9 +4,24 @@
 class BackGround : public IGameObject
 {
 public:
+	/// <summary>
+	///	コンストラクタ
+	/// </summary>
 	BackGround();
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
 	~BackGround();
+
+	/// <summary>
+	///	更新処理
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Render();
 	void Release();
 private:
