@@ -15,6 +15,7 @@ void CPSwitchG::Release()
 	m_ghost.Release();
 }
 void CPSwitchG::Start() {
+	//“–‚½‚è”»’èì¬
 	m_ghost.CreateBox(
 		m_position,
 		m_rot,

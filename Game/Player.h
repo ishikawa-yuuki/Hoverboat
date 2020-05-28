@@ -119,18 +119,30 @@ public:
 	{
 		return m_rot;
 	}
+	/*!
+	 *@breif Playerの死んでいるかの取得。
+	*/
 	bool GetDead()
 	{
 		return m_isDead;
 	}
+	/*!
+	 *@breif　Playerのリスタート時の情報取得用。
+	*/
 	bool GetReStart()
 	{
 		return m_reStart;
 	}
+	/*!
+	 *@breif周回数取得
+	*/
 	int GetWeekBack()
 	{
 		return m_weekbackNum;
 	}
+	/*!
+	 *@breifリスタート時の情報取得終了
+	*/
 	void SetReStart() {
 		m_reStart = false;
 	}
@@ -142,7 +154,10 @@ public:
 	{
 		return m_goal;
 	}
-
+	/// <summary>
+	/// パッド取得
+	/// </summary>
+	/// <param name="gamePad"></param>
 	void SetPad(GamePad* gamePad)
 	{
 		m_gamePad = gamePad;
@@ -186,46 +201,48 @@ private:
 		const wchar_t wood[256] = L"Assets/modelData/hover/wood.cmo";
 	};
 	
-	wchar_t m_name[256] = L"Assets/modelData/hover/Hope.cmo";
-	AnimationClip m_animClip[enAnimationClip_num];
-	Animation m_animation;
-	SkinModel m_model;	//スキンモデル。
-	CharacterController m_charaCon;
-	CharaPass m_charaPass;
-	std::vector<CoursePass*> m_courcePassList;
-	std::vector<CoursePass*> m_reStartPassList;     //落下した後復活するポジション
+	wchar_t m_name[256] ;								//パスネーム
+	AnimationClip m_animClip[enAnimationClip_num];		//アニメーションクリップ
+	Animation m_animation;								//アニメーション
+	SkinModel m_model;									//スキンモデル。
+	CharacterController m_charaCon;						//キャラクターコントローラー（コリジョン）
+	CharaPass m_charaPass;								//パス置き場
+	std::vector<CoursePass*> m_courcePassList;			//コース通過判定用
+	std::vector<CoursePass*> m_reStartPassList;			//落下した後復活するポジション
 	std::vector<CPSwitchG*> m_cpGhostList;
-	std::vector<WeekBackPass*> m_weekbackPassList;
-	std::vector<CoursePass*> m_deadZoneList;
-	std::vector<bool> m_weekBackOver;
-	std::vector<bool> m_reStartOver;
-	Effekseer::Effect* m_sampleEffect = nullptr;
+	std::vector<WeekBackPass*> m_weekbackPassList;		//周回判定用
+	std::vector<CoursePass*> m_deadZoneList;			//落下死用
+	std::vector<bool> m_weekBackOver;					//判定に通過したかどうか
+	std::vector<bool> m_reStartOver;					//判定に通過したかどうか
+	Effekseer::Effect* m_sampleEffect = nullptr;		//エフェクト用
 	Effekseer::Handle m_playEffectHandle = -1;
-	PlayerData* m_playerData		  = nullptr;//キャラ事のパラメータ
+	PlayerData* m_playerData		  = nullptr;		//キャラ事のパラメータ
 	GamePad* m_gamePad	              = nullptr;			
 	GameData* m_gamedata			  = nullptr;
-	CVector3 m_position		 = CVector3::Zero();
-	CVector3 m_moveSpeed	 = CVector3::Zero();
-	CVector3 m_accel		 = CVector3::Zero();	//加速度
-	CVector3 m_jump			 = CVector3::Zero();     //ジャンプの加速度
-	CVector3 m_reStartPos	 = CVector3::Zero();
-	CQuaternion m_reStartRot = CQuaternion::Identity();
-	CQuaternion m_rot	     = CQuaternion::Identity();
-	CQuaternion m_effectRot  = {0.0f,0.0f,90.0f,1.0f};
+	CVector3 m_position		 = CVector3::Zero();		//ポジション
+	CVector3 m_moveSpeed	 = CVector3::Zero();		//スピード
+	CVector3 m_accel		 = CVector3::Zero();		//加速度
+	CVector3 m_jump			 = CVector3::Zero();		//ジャンプの加速度
+	CVector3 m_reStartPos	 = CVector3::Zero();		//リスタートポジション
+	CQuaternion m_reStartRot = CQuaternion::Identity(); //リスタートの向き
+	CQuaternion m_rot	     = CQuaternion::Identity(); //向き
+	CQuaternion m_effectRot  = {0.0f,0.0f,90.0f,1.0f};  //エフェクトの向き
+	const float m_radius = 30.0f;	//当たり判定の半径
+	const float m_height = 20.0f;	//当たり判定の高さ
 	float m_friction	 = 0.98f;   //摩擦度
 	float m_movePower	 = 100.0f;	// 移動速度
-	float m_jumpPower	 = 0.0f;
-	float m_cooltime     = 0.0f;
-	int m_passNum		 = 0;
-	int m_weekbackNum	 = 0;
-	int m_charaNum		 = 0;
-	bool m_first		 = false;
-	bool m_goal			 = false;
-	bool m_one			 = false;
-	bool m_isDead        = false;
-	bool m_reStart		 = false;
-	bool m_isJump		 = false;
-	bool m_isTime		 = false;
+	float m_jumpPower	 = 0.0f;	//ジャンプ力
+	float m_cooltime     = 0.0f;	//復活クールタイム
+	int m_passNum		 = 0;		//通過したパスの数
+	int m_weekbackNum	 = 0;		//周回数
+	int m_charaNum		 = 0;		//キャラ番号
+	bool m_first		 = false;	//Updateで一度だけ実行
+	bool m_goal			 = false;	//ゴール用
+	bool m_one			 = false;	//一度だけ通す用
+	bool m_isDead        = false;	//死通知用
+	bool m_reStart		 = false;	//リスタート用
+	bool m_isJump		 = false;	//ジャンプ用
+	bool m_isTime		 = false;	//復活中
 	
 };
 

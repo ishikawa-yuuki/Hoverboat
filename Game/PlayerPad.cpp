@@ -22,10 +22,12 @@ void PlayerPad::Rotation()
 }
 void PlayerPad::Move()
 {
+	//一度だけ実行する
 	if (!m_first)
 	{
 		Start();
 	}
+	//カメラの前情報を取得。
 	m_cameraForward = g_camera3D.GetForward();
 	//XZ平面での前方方向に変換する。
 	m_cameraForward.y = 0.0f;
