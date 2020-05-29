@@ -14,7 +14,7 @@ Player::Player()
 	m_animClip[enAnimationClip_test].SetLoopFlag(true);
 	m_model.Init(m_name);
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
-	m_animation.Play(0, 0.4f);
+	m_animation.Play(0);
 }
 Player::~Player()
 {
@@ -44,20 +44,15 @@ void Player::Data()
 	m_playerData = new PlayerData[charaNoKazu];
 	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
 	fclose(fp);
-	switch (m_gamedata->GetCharaNum())
-	{
-	case 0:
-
-		wcscpy(m_name,m_charaPass.hope);
-		break;
-	case 1:
-		wcscpy(m_name, m_charaPass.rennga);
-		break;
-	case 2:
-		wcscpy(m_name, m_charaPass.wood);
-
-		break;
-	}
+	size_t convSize;
+	//utf-8‚©‚çƒƒCƒh•¶Žš—ñ‚É•ÏŠ·B
+	mbstowcs_s(
+		&convSize, 
+		m_name, 
+		256, 
+		m_playerData[m_gamedata->GetCharaNum()].name, 
+		255
+	);
 }
 void Player::EffectFollowing()
 {
@@ -208,9 +203,9 @@ void Player::Rotation()
 		m_friction *= m_playerData[m_charaNum].friction;
 	}
 	else {
-		m_friction *= 1.01f;
-		if (m_friction >= 0.98f) {
-			m_friction = 0.98f;
+		m_friction *= m_frictionAdd;
+		if (m_friction >= m_frictionOver) {
+			m_friction = m_frictionOver;
 		}
 	}
 
@@ -249,7 +244,7 @@ void Player::Jump()
 		}
 		else
 		{
-			m_moveSpeed.y -= 100.0f;
+			m_moveSpeed.y -= m_gravity;
 		}
 	}
 	

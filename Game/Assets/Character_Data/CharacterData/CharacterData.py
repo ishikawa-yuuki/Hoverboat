@@ -42,7 +42,12 @@ while True:
  fp.write(struct.pack("f", sutearing))
 
 #モデルパスを抽出()
- #modelfbx = sheet.cell(column = 6, row = rowNo).value
- #fp.write(modelfbx.encode())
+ modelfbx = sheet.cell(column = 6, row = rowNo).value
+ fp.write(modelfbx.encode())
+ #文字列のバイト数を取得
+ strByte = len(modelfbx.encode())
+ #残りのバイト数にダミー(0)を入れる。
+ dummyData = 0
+ fp.write(dummyData.to_bytes(256 - strByte, "little"))
  rowNo +=1
 

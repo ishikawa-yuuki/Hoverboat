@@ -23,37 +23,37 @@ void CFade::Update()
 	}
 	switch (m_state) {
 	case enState_FadeIn:
-		m_currentAlpha -= 0.03f*GameTime().GetFrameDeltaTime();
+		m_currentAlpha -= m_loose *GameTime().GetFrameDeltaTime();
 		if (m_currentAlpha <= 0.0f) {
 			m_currentAlpha = 0.0f;
 			m_state = enState_Idle;
 		}
 		break;
 	case enState_FideOut:
-		m_currentAlpha += 0.03f*GameTime().GetFrameDeltaTime();
-		if (m_currentAlpha >= 1.0f) {
-			m_currentAlpha = 1.0f;
+		m_currentAlpha += m_loose *GameTime().GetFrameDeltaTime();
+		if (m_currentAlpha >= m_One) {
+			m_currentAlpha = m_One;
 			m_state = enState_Idle;
 		}
 		break;
 	case enState_FadeInS:
-		m_currentAlpha -= 1.0f * GameTime().GetFrameDeltaTime();
+		m_currentAlpha -= m_One * GameTime().GetFrameDeltaTime();
 		if (m_currentAlpha <= 0.0f) {
 			m_currentAlpha = 0.0f;
 			m_state = enState_Idle;
 		}
 		break;
 	case enState_FideOutS:
-		m_currentAlpha += 1.0f * GameTime().GetFrameDeltaTime();
-		if (m_currentAlpha >= 1.0f) {
-			m_currentAlpha = 1.0f;
+		m_currentAlpha += m_One * GameTime().GetFrameDeltaTime();
+		if (m_currentAlpha >= m_One) {
+			m_currentAlpha = m_One;
 			m_state = enState_Idle;
 		}
 		break;
 	case enState_Idle:
 		break;
 	}
-	m_sprite.SetMulColor({ 1.0f,1.0f, 1.0f, m_currentAlpha });
+	m_sprite.SetMulColor({ m_One,m_One, m_One, m_currentAlpha });
 }
 void CFade::Render()
 {

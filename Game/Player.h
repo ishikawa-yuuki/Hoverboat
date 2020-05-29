@@ -8,10 +8,11 @@ class CPSwitchG;
 class CoursePass;
 class WeekBackPass;
 struct PlayerData {
-	float accel;//加速度
-	float friction;//摩擦度
-	float sutearing;
-};
+	float accel;//加速度       4byte
+	float friction;//摩擦度    4byte
+	float sutearing;           //4byte
+    char name[256];           //256byte
+};//268byte
 class Player : public IGameObject
 {
 public:
@@ -193,20 +194,11 @@ private:
 		enAnimationClip_test,
 		enAnimationClip_num
 	};
-	//cmoファイルの読み込み。
-	struct CharaPass {
-		
-		const wchar_t hope[256] = L"Assets/modelData/hover/Hope.cmo";
-		const wchar_t rennga[256] = L"Assets/modelData/hover/rennga.cmo";
-		const wchar_t wood[256] = L"Assets/modelData/hover/wood.cmo";
-	};
-	
 	wchar_t m_name[256] ;								//パスネーム
 	AnimationClip m_animClip[enAnimationClip_num];		//アニメーションクリップ
 	Animation m_animation;								//アニメーション
 	SkinModel m_model;									//スキンモデル。
 	CharacterController m_charaCon;						//キャラクターコントローラー（コリジョン）
-	CharaPass m_charaPass;								//パス置き場
 	std::vector<CoursePass*> m_courcePassList;			//コース通過判定用
 	std::vector<CoursePass*> m_reStartPassList;			//落下した後復活するポジション
 	std::vector<CPSwitchG*> m_cpGhostList;
@@ -227,22 +219,25 @@ private:
 	CQuaternion m_reStartRot = CQuaternion::Identity(); //リスタートの向き
 	CQuaternion m_rot	     = CQuaternion::Identity(); //向き
 	CQuaternion m_effectRot  = {0.0f,0.0f,90.0f,1.0f};  //エフェクトの向き
-	const float m_radius = 30.0f;	//当たり判定の半径
-	const float m_height = 20.0f;	//当たり判定の高さ
-	float m_friction	 = 0.98f;   //摩擦度
-	float m_movePower	 = 100.0f;	// 移動速度
-	float m_jumpPower	 = 0.0f;	//ジャンプ力
-	float m_cooltime     = 0.0f;	//復活クールタイム
-	int m_passNum		 = 0;		//通過したパスの数
-	int m_weekbackNum	 = 0;		//周回数
-	int m_charaNum		 = 0;		//キャラ番号
-	bool m_first		 = false;	//Updateで一度だけ実行
-	bool m_goal			 = false;	//ゴール用
-	bool m_one			 = false;	//一度だけ通す用
-	bool m_isDead        = false;	//死通知用
-	bool m_reStart		 = false;	//リスタート用
-	bool m_isJump		 = false;	//ジャンプ用
-	bool m_isTime		 = false;	//復活中
+	const float m_radius       = 30.0f;			//当たり判定の半径
+	const float m_height       = 20.0f;			//当たり判定の高さ
+	const float m_gravity	   = 100.0f;		//重力
+	const float m_frictionOver = 0.98f;			//摩擦最大
+	const float m_frictionAdd  = 1.01f;			//緩やかな摩擦
+	float m_friction	 = 0.98f;				//摩擦度
+	float m_movePower	 = 100.0f;				// 移動速度
+	float m_jumpPower	 = 0.0f;				//ジャンプ力
+	float m_cooltime     = 0.0f;				//復活クールタイム
+	int m_passNum		 = 0;					//通過したパスの数
+	int m_weekbackNum	 = 0;					//周回数
+	int m_charaNum		 = 0;					//キャラ番号
+	bool m_first		 = false;				//Updateで一度だけ実行
+	bool m_goal			 = false;				//ゴール用
+	bool m_one			 = false;				//一度だけ通す用
+	bool m_isDead        = false;				//死通知用
+	bool m_reStart		 = false;				//リスタート用
+	bool m_isJump		 = false;				//ジャンプ用
+	bool m_isTime		 = false;				//復活中
 	
 };
 

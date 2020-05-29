@@ -91,6 +91,8 @@ private:
 	Sprite m_sprite;						//フェイド用スプライト
 	enState_Fade m_state = enState_Idle;	//フェイド状態
 	bool m_start = false;					//Updateで一度だけ実行
+	const float m_One   = 1.0f;			    //1
+	const float m_loose = 0.03f;			//緩やかに
 	float m_currentAlpha = 1.0f;			//α値
 };
 static inline CFade& Fade()
