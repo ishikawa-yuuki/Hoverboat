@@ -59,6 +59,15 @@ public:
 	}
 
 	/// <summary>
+	/// Playerの状態を設定
+	/// </summary>
+	/// <param name="state">trueならPC,falseならNPC</param>
+	void SetPlayerState(bool state)
+	{
+		m_playerState = state;
+	}
+
+	/// <summary>
 	/// キャラ選択設定
 	/// </summary>
 	/// <param name="num">キャラ番号</param>
@@ -70,9 +79,16 @@ public:
 	/// <summary>
 	/// キャラの番号取得
 	/// </summary>
-	/// <returns></returns>
-	int GetCharaNum()
+	/// <param name="charaNum">キャラの最大数</param>
+	/// <returns>選択キャラ番号</returns>
+	int GetCharaNum(int charaNum_MAX)
 	{
+		if (!m_playerState)
+		{
+			int charaRandam;
+			charaRandam = rand() % charaNum_MAX;
+			return charaRandam;
+		}
 		return m_CharaNum;
 	}
 
@@ -152,8 +168,9 @@ public:
 	};
 private:
 	std::vector<RankResult> m_rankingList;	//ランキングリスト
-	bool m_goal    = false;					//ゴール判定
-	bool m_pose	   = false;					//ポーズ状態
-	int m_CharaNum = 0;						//キャラ番号
+	bool m_goal		    = false;					//ゴール判定
+	bool m_pose			= false;					//ポーズ状態
+	bool m_playerState  = true;					    //NPCかPCか(trueがPC)
+	int m_CharaNum		= 0;						//キャラ番号
 };
 

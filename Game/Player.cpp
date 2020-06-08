@@ -50,7 +50,7 @@ void Player::Data()
 		&convSize, 
 		m_name, 
 		256, 
-		m_playerData[m_gamedata->GetCharaNum()].name, 
+		m_playerData[m_gamedata->GetCharaNum(charaNoKazu)].name,
 		255
 	);
 }

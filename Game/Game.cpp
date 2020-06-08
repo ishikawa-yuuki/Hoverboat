@@ -99,6 +99,13 @@ Game::Game()
 
 	//0番目はユーザーが操作するプレイヤー
 	for (int i = 0; i < gamePadSize; i++) {
+		if (i ==0)
+		{
+			m_gamedata->SetPlayerState(true);
+		}
+		else {
+			m_gamedata->SetPlayerState(false);
+		}
 		m_player[i] = g_goMgr->NewGameObject<Player>();
 		m_player[i]->SetPosition(m_startRacePosList[i]->GetPosition());
 		m_player[i]->SetPassObjectList(m_coursePassList);

@@ -11,4 +11,5 @@ void GameData::Init()
 	std::vector<RankResult>().swap(m_rankingList);
 	m_CharaNum = 0;
 	m_goal     = false;
+	m_playerState = true;
 }
