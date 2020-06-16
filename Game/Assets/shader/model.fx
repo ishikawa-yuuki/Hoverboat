@@ -8,14 +8,15 @@
 /////////////////////////////////////////////////////////////
 //アルベドテクスチャ。
 Texture2D<float4> albedoTexture : register(t0);	
-Texture2D<float4> g_ShadowMap : register(t2);		//todo シャドウマップ。
+Texture2D<float4> g_shadowMap : register(t2);		//todo シャドウマップ。
+Texture2D<float4> g_specularMap : register(t3);		//スペキュラマップ。
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 
 /////////////////////////////////////////////////////////////
 // SamplerState
 /////////////////////////////////////////////////////////////
-sampler Sampler : register(s0);
+sampler g_sampler : register(s0);
 
 /////////////////////////////////////////////////////////////
 // 定数バッファ。
@@ -31,6 +32,7 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mLightView;	//ライトビュー行列。
 	float4x4 mLightProj;	//ライトプロジェクション行列。
 	int isShadowReciever;	//シャドウレシーバーフラグ。
+	int isHasSpecularMap;	//スペキュラマップある？
 };
 /*!
 *@brief ディレクションライト
@@ -116,6 +118,81 @@ float4x4 CalcSkinMatrix(VSInputNmTxWeights In)
     skinning += boneMatrix[In.Indices[3]] * (1.0f - w);
     return skinning;
 }
+/// <summary>
+/// ラインバート拡散反射を計算する。
+/// </summary>
+float3 CalcDiffuseLight(float3 normal)
+{
+	float3 lig = 0.0f;
+	for (int i = 0; i < LIGHT; i++) {
+		//ランバート拡散反射。(少し暗く)
+		lig += max(0.0f, dot(normal * -0.7f, dirLight.direction[i])) * dirLight.color[i];
+	}
+	return lig;
+}
+/// <summary>
+/// スペキュラライトを計算する。
+/// </summary>
+float3 CalcSpecularLight(float3 normal, float3 worldPos, float2 uv)
+{
+	float3 lig = 0.0f;
+	
+	for (int i = 0; i < LIGHT; i++) {
+		
+		//ライトを当てる面から視点に伸びるベクトルtoEyeDirを求める。
+		//	 視点の座標は定数バッファで渡されている。LightCbを参照するように。
+		float3 toEyeDir = normalize(eyePos - worldPos);
+		// toEyeDirの反射ベクトルを求める。
+		float3 reflectEyeDir = -toEyeDir + 2 * dot(normal, toEyeDir) * normal;
+		// 反射ベクトルとディレクションライトの方向との内積を取って、スペキュラの強さを計算する。
+		float t = max(0.0f, dot(-dirLight.direction[i], reflectEyeDir));
+		// pow関数を使って、スペキュラを絞る。絞りの強さは定数バッファで渡されている。
+		//	 LightCbを参照するように。
+		float specPower = 1.0f;
+		if (isHasSpecularMap) {
+			//スペキュラマップがある。
+			specPower = g_specularMap.Sample(g_sampler, uv).r;
+		}
+		else {
+			specPower = 0.08f;
+		}
+		float3 specLig = pow(t, specPow) * dirLight.color[i] * specPower * 7.0f;
+		// スペキュラ反射が求まったら、ligに加算する。
+		//鏡面反射を反射光に加算する。
+		lig += specLig;
+	}
+	return lig;
+}
+/// <summary>
+/// デプスシャドウマップ法を使って、影を計算する。。
+/// </summary>
+//引数にinoutをつけると参照渡しになる。
+void CalcShadow(inout float3 lig, float4 posInLvp)
+{
+	if (isShadowReciever == 1) {	//シャドウレシーバー。
+		//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する。
+		float2 shadowMapUV = posInLvp.xy / posInLvp.w;
+		shadowMapUV *= float2(0.5f, -0.5f);
+		shadowMapUV += 0.5f;
+		//シャドウマップの範囲内かどうかを判定する。
+		if (shadowMapUV.x < 1.0f
+			&& shadowMapUV.x > 0.0f
+			&& shadowMapUV.y < 1.0f
+			&& shadowMapUV.y > 0.0f
+			) {
+
+			///LVP空間での深度値を計算。
+			float zInLVP = posInLvp.z / posInLvp.w;
+			//シャドウマップに書き込まれている深度値を取得。
+			float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV);
+
+			if (zInLVP > zInShadowMap + 0.01f) {
+				//影が落ちているので、光を弱くする
+				lig *= 0.7f;
+			}
+		}
+	}
+}
 /*!--------------------------------------------------------------------------------------
  * @brief	シャドウマップ生成用の頂点シェーダー。
 -------------------------------------------------------------------------------------- */
@@ -197,52 +274,6 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	psInput.TexCoord = In.TexCoord;
     return psInput;
 }
-//--------------------------------------------------------------------------------------
-// ピクセルシェーダーのエントリ関数。
-//--------------------------------------------------------------------------------------
-float4 PSMain( PSInput In ) : SV_Target0
-{
-	float4 albedoColor = albedoTexture.Sample(Sampler, In.TexCoord);
-	float3 lig = { 0.0f,0.0f,0.0f };
-	float3 toEyeDir = normalize(eyePos - In.worldPos);                              //視点ベクトル
-	float3 reflectEyeDir = -toEyeDir + 2.0f * dot(In.Normal, toEyeDir) * In.Normal;//反射ベクトル
-	float3 spec;       //スペキュラの強さ 
-	for (int i = 0; i < LIGHT; i++) {
-		lig += max(0.0f, dot(In.Normal * -1.0f, dirLight.direction[i])) * dirLight.color[i];
-		spec = max(0.0f, dot(reflectEyeDir, -dirLight.direction[i]));
-		
-	}
-	
-	spec = pow(spec, specPow);
-	lig += spec;
-	lig += ambientLight;
-	if (isShadowReciever == 1) {	//シャドウレシーバー。
-		//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する。
-		float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
-		shadowMapUV *= float2(0.5f, -0.5f);
-		shadowMapUV += 0.5f;
-		//シャドウマップの範囲内かどうかを判定する。
-		if (
-			shadowMapUV.x > 0.0f
-			&& shadowMapUV.x < 1.0f
-			&& shadowMapUV.y > 0.0f
-			&& shadowMapUV.y < 1.0f
-			) {
-			///LVP空間での深度値を計算。
-			float zInLVP = In.posInLVP.z / In.posInLVP.w;
-			//シャドウマップに書き込まれている深度値を取得。
-			float zInShadowMap = g_ShadowMap.Sample(Sampler, shadowMapUV);
-
-			if (zInLVP > zInShadowMap + 0.0001f) {
-				//影が落ちているので、光を弱くする
-				lig *= 0.5f;
-			}
-		}
-	}
-	float4 finalColor = { 0.0f, 0.0f, 0.0f, 1.0f };
-	finalColor.xyz = albedoColor.xyz * lig;
-	return finalColor;
-}
 float4 PSMain_Silhouette(PSInput In) : SV_Target0
 {
 	return float4(0.5f, 0.5f, 0.5f, 1.0f);
@@ -255,3 +286,26 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 	//射影空間でのZ値を返す。
 	return In.Position.z / In.Position.w;
 }
+//--------------------------------------------------------------------------------------
+// ピクセルシェーダーのエントリ関数。
+//--------------------------------------------------------------------------------------
+float4 PSMain( PSInput In ) : SV_Target0
+{
+	float4 albedoColor = albedoTexture.Sample(g_sampler, In.TexCoord);
+	float3 lig = 0.0f;
+
+	//ディフューズライトを加算。
+	lig += CalcDiffuseLight(In.Normal);
+	//スペキュラライトを加算。
+	lig += CalcSpecularLight(In.Normal, In.worldPos, In.TexCoord);
+
+	lig += ambientLight;
+
+	//デプスシャドウマップを使って影を落とす。。
+	CalcShadow(lig, In.posInLVP);
+
+	float4 finalColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	finalColor.xyz = albedoColor.xyz * lig;
+	return finalColor;
+}
+

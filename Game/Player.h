@@ -12,7 +12,8 @@ struct PlayerData {
 	float friction;//摩擦度    4byte
 	float sutearing;           //4byte
     char name[256];           //256byte
-};//268byte
+	char specpass[256];		 //256byte
+};
 class Player : public IGameObject
 {
 public:
@@ -195,6 +196,7 @@ private:
 		enAnimationClip_num
 	};
 	wchar_t m_name[256] ;								//パスネーム
+	wchar_t m_specName[256];							//スペキュラマップパス
 	AnimationClip m_animClip[enAnimationClip_num];		//アニメーションクリップ
 	Animation m_animation;								//アニメーション
 	SkinModel m_model;									//スキンモデル。
@@ -239,6 +241,8 @@ private:
 	bool m_isJump		 = false;				//ジャンプ用
 	bool m_isTime		 = false;				//復活中
 	
+	//todo  スペキュラマップ
+	ID3D11ShaderResourceView* m_specMapSRV = nullptr;
 };
 
 

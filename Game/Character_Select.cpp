@@ -118,8 +118,10 @@ void Character_Select::Update()
 		Fade().SetAlpha(1.0f);
 		m_player->Release();
 		g_goMgr->DeleteGameObject(m_player);
-		g_goMgr->NewGameObject<Game>();
 		g_goMgr->DeleteGameObject(this);
+		g_goMgr->NewGameObject<Game>();
+		
+		
 		return;
 	}
 	

@@ -464,5 +464,7 @@
     <ImageContentTask Include="Assets\sprite\BRICK.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\hover\metal_specMap.png" />
+    <ImageContentTask Include="Assets\modelData\hover\test.png" />
   </ItemGroup>
 </Project>

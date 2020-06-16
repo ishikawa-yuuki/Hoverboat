@@ -27,6 +27,7 @@ public:
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*@param[in] enFbxUpAxis		fbxの上軸。デフォルトはenFbxUpAxisZ。
 	*/
+
 	void Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ);
 	/*!
 	*@brief	モデルをワールド座標系に変換するためのワールド行列を更新する。
@@ -35,6 +36,7 @@ public:
 	*@param[in]	scale		モデルの拡大率。
 	*/
 	void UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale);
+
 	/*!
 	*@brief	ボーンを検索。
 	*@param[in]		boneName	ボーンの名前。
@@ -45,6 +47,7 @@ public:
 		int boneId = m_skeleton.FindBoneID(boneName);
 		return m_skeleton.GetBone(boneId);
 	}
+
 	/*!
 	*@brief	モデルを描画。
 	*@param[in]	viewMatrix		カメラ行列。
@@ -53,8 +56,10 @@ public:
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix ,EnRenderMode renderMode);
+
 	//テスト
 	void Update();
+
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -62,6 +67,7 @@ public:
 	{
 		return m_skeleton;
 	}
+
 	/*!
 	*@brief	メッシュを検索する。
 	*@param[in] onFindMesh		メッシュが見つかったときのコールバック関数
@@ -74,6 +80,7 @@ public:
 			}
 		}
 	}
+
 	/*!
 	*@brief	SRVのレジスタ番号。
 	*/
@@ -81,6 +88,7 @@ public:
 		enSkinModelSRVReg_DiffuseTexture = 0,		//!<ディフューズテクスチャ。
 		enSkinModelSRVReg_BoneMatrix,				//!<ボーン行列。
 	};
+
 	/// <summary>
 /// シャドウレシーバーのフラグを設定する。
 /// </summary>
@@ -95,6 +103,15 @@ public:
 	void SetShadowReciever(bool flag)
 	{
 		m_isShadowReciever = flag;
+	}
+
+	/// <summary>
+	/// スペキュラマップを設定。
+	/// </summary>
+	/// <param name="srv"></param>
+	void SetSpecularMap(ID3D11ShaderResourceView* srv)
+	{
+		m_specularMapSRV = srv;
 	}
 private:
 	/*!
@@ -126,6 +143,7 @@ private:
 		CMatrix mLightView;		//todo ライトビュー行列。
 		CMatrix mLightProj;		//todo ライトプロジェクション行列。
 		int isShadowReciever;	//todo シャドウレシーバーのフラグ。
+		int isHasSpecularMap;	//スペキュラマップある？
 	};
 	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
 /*!
@@ -153,6 +171,6 @@ private:
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	LightCb				m_light;						//!<ライト構造体
-	SVSConstantBuffer  m_vsCb;
-
+	SVSConstantBuffer  m_vsCb;							//!<定数バッファ。
+	ID3D11ShaderResourceView* m_specularMapSRV = nullptr;	//スペキュラマップのSRV
 };

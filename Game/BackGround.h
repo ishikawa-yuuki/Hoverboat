@@ -27,5 +27,8 @@ public:
 private:
 	SkinModel m_model;									//スキンモデル。
 	PhysicsStaticObject m_static;
+
+	//todo  スペキュラマップ
+	ID3D11ShaderResourceView* m_specMapSRV = nullptr;
 };
 

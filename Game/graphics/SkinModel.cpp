@@ -161,6 +161,13 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 	else {
 		m_vsCb.isShadowReciever = 0;
 	}
+	//スペキュラマップを使用するかどうかのフラグを送る。
+	if (m_specularMapSRV != nullptr) {
+		m_vsCb.isHasSpecularMap = true;
+	}
+	else {
+		m_vsCb.isHasSpecularMap = false;
+	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &m_vsCb, 0, 0);
 	m_light.eyePos = g_camera3D.GetPosition();
 	m_light.ambientLight = CVector3{ 0.4f,0.4f,0.4f };
@@ -179,6 +186,12 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 		auto modelMaterial = reinterpret_cast<SkinModelEffect*>(material);
 		modelMaterial->SetRenderMode(renderMode);
 	});
+
+	if (m_specularMapSRV != nullptr) {
+		//スペキュラマップが設定されていたらレジスタt3に設定する。
+		d3dDeviceContext->PSSetShaderResources(3, 1, &m_specularMapSRV);
+	}
+
 	//描画。
 	m_modelDx->Draw(
 		d3dDeviceContext,

@@ -49,5 +49,14 @@ while True:
  #残りのバイト数にダミー(0)を入れる。
  dummyData = 0
  fp.write(dummyData.to_bytes(256 - strByte, "little"))
+
+ #スペキュラマップを抽出()
+ specMap = sheet.cell(column = 7, row = rowNo).value
+ fp.write(specMap.encode())
+ #文字列のバイト数を取得
+ strByte = len(specMap.encode())
+ #残りのバイト数にダミー(0)を入れる。
+ dummyData = 0
+ fp.write(dummyData.to_bytes(256 - strByte, "little"))
  rowNo +=1
 

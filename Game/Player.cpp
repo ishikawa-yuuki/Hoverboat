@@ -6,6 +6,7 @@
 #include "CoursePass.h"
 #include "PlayerPad.h"
 #include "ComputerPad.h"
+
 Player::Player()
 {
 	m_gamedata = &GameData::GetInstance();
@@ -15,6 +16,8 @@ Player::Player()
 	m_model.Init(m_name);
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
 	m_animation.Play(0);
+	
+	
 }
 Player::~Player()
 {
@@ -40,19 +43,37 @@ void Player::Data()
 	//バイナリデータからキャラ情報取得
 	FILE* fp = fopen("Assets/Character_Data/CharacterData/data.ai", "rb");
 	int charaNoKazu;
+	int charaNum = 0;
 	fread(&charaNoKazu, sizeof(int), 1, fp);
 	m_playerData = new PlayerData[charaNoKazu];
 	fread(m_playerData, sizeof(PlayerData) * charaNoKazu, 1, fp);
 	fclose(fp);
+
+	charaNum = m_gamedata->GetCharaNum(charaNoKazu);
+
 	size_t convSize;
 	//utf-8からワイド文字列に変換。
 	mbstowcs_s(
 		&convSize, 
 		m_name, 
 		256, 
-		m_playerData[m_gamedata->GetCharaNum(charaNoKazu)].name,
+		m_playerData[charaNum].name,
 		255
 	);
+	mbstowcs_s(
+		&convSize,
+		m_specName,
+		256,
+		m_playerData[charaNum].specpass,
+		255
+	);
+	//ファイル名を使って、テクスチャをロードして、ShaderResourceViewを作成する。
+	DirectX::CreateDDSTextureFromFileEx(
+		g_graphicsEngine->GetD3DDevice(), m_specName, 0,
+		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
+		false, nullptr, &m_specMapSRV);
+	//スペキュラマップ設定
+	m_model.SetSpecularMap(m_specMapSRV);
 }
 void Player::EffectFollowing()
 {
