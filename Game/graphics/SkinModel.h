@@ -57,9 +57,6 @@ public:
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix ,EnRenderMode renderMode);
 
-	//テスト
-	void Update();
-
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -106,6 +103,14 @@ public:
 	}
 
 	/// <summary>
+	/// 法線マップの設定。
+	/// </summary>
+	void SetNormalMap(ID3D11ShaderResourceView* srv)
+	{
+		m_normalMapSRV = srv;
+	}
+
+	/// <summary>
 	/// スペキュラマップを設定。
 	/// </summary>
 	/// <param name="srv"></param>
@@ -144,6 +149,7 @@ private:
 		CMatrix mLightProj;		//todo ライトプロジェクション行列。
 		int isShadowReciever;	//todo シャドウレシーバーのフラグ。
 		int isHasSpecularMap;	//スペキュラマップある？
+		int isHasNormalMap;		//法線マップを保持している？
 	};
 	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
 /*!
@@ -173,4 +179,5 @@ private:
 	LightCb				m_light;						//!<ライト構造体
 	SVSConstantBuffer  m_vsCb;							//!<定数バッファ。
 	ID3D11ShaderResourceView* m_specularMapSRV = nullptr;	//スペキュラマップのSRV
+	ID3D11ShaderResourceView* m_normalMapSRV = nullptr;		//法線マップのSRV
 };

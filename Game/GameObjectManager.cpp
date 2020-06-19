@@ -8,7 +8,7 @@ bool GameObjectManager::Start() {
 	m_mainRenderTarget.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
-		DXGI_FORMAT_R8G8B8A8_UNORM
+		DXGI_FORMAT_R16G16B16A16_FLOAT
 	);
 	m_copyMainRtToFrameBufferSprite.Init(
 		m_mainRenderTarget.GetRenderTargetSRV(),

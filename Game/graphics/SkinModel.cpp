@@ -127,23 +127,6 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	//スケルトンの更新。
 	m_skeleton.Update(m_worldMatrix);
 }
-//テスト
-void SkinModel::Update()
-{
-	////ライトを回す。
-	//CQuaternion qRot;
-	//CQuaternion r;
-	//CQuaternion rx;
-	//qRot.SetRotationDeg(CVector3::AxisY(), 2.0f);
-	//r.SetRotationDeg(CVector3::AxisZ(), 2.0f);
-	//rx.SetRotationDeg(CVector3::AxisX(), 2.0f);
-	//rx.Multiply(r);
-	//qRot.Multiply(rx);
-	//for (int i = 0; i < LIGHT; i++) {
-	//	
-	//	qRot.Multiply(m_dirLight.direction[i]);
-	//}
-}
 void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode renderMode)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
@@ -155,18 +138,28 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 	m_vsCb.mView = viewMatrix;
 	m_vsCb.mLightProj = g_goMgr->GetShadowMap()->GetLightProjMatrix();
 	m_vsCb.mLightView = g_goMgr->GetShadowMap()->GetLighViewMatrix();
+
 	if (m_isShadowReciever == true) {
 		m_vsCb.isShadowReciever = 1;
 	}
 	else {
 		m_vsCb.isShadowReciever = 0;
 	}
+
 	//スペキュラマップを使用するかどうかのフラグを送る。
 	if (m_specularMapSRV != nullptr) {
 		m_vsCb.isHasSpecularMap = true;
 	}
 	else {
 		m_vsCb.isHasSpecularMap = false;
+	}
+
+	//todo 法線マップを使用するかどうかのフラグを送る。
+	if (m_normalMapSRV != nullptr) {
+		m_vsCb.isHasNormalMap = true;
+	}
+	else {
+		m_vsCb.isHasNormalMap = false;
 	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &m_vsCb, 0, 0);
 	m_light.eyePos = g_camera3D.GetPosition();
@@ -191,7 +184,10 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 		//スペキュラマップが設定されていたらレジスタt3に設定する。
 		d3dDeviceContext->PSSetShaderResources(3, 1, &m_specularMapSRV);
 	}
-
+	if (m_normalMapSRV != nullptr) {
+		//法線マップが設定されていたらをレジスタt4に設定する。
+		d3dDeviceContext->PSSetShaderResources(4, 1, &m_normalMapSRV);
+	}
 	//描画。
 	m_modelDx->Draw(
 		d3dDeviceContext,

@@ -67,11 +67,21 @@ void Player::Data()
 		m_playerData[charaNum].specpass,
 		255
 	);
+
+    //ファイル名を使って、テクスチャをロードして、ShaderResrouceViewを作成する。
+	DirectX::CreateDDSTextureFromFileEx(
+		g_graphicsEngine->GetD3DDevice(), L"Assets/modelData/hover/TX_tile_square_05_NRM.dds", 0,
+		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
+		false, nullptr, &m_normalMapSRV);
+
 	//ファイル名を使って、テクスチャをロードして、ShaderResourceViewを作成する。
 	DirectX::CreateDDSTextureFromFileEx(
 		g_graphicsEngine->GetD3DDevice(), m_specName, 0,
 		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
 		false, nullptr, &m_specMapSRV);
+
+	//法線マップ設定
+	m_model.SetNormalMap(m_normalMapSRV);
 	//スペキュラマップ設定
 	m_model.SetSpecularMap(m_specMapSRV);
 }

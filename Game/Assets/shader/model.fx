@@ -7,9 +7,10 @@
 // Shader Resource View
 /////////////////////////////////////////////////////////////
 //アルベドテクスチャ。
-Texture2D<float4> albedoTexture : register(t0);	
-Texture2D<float4> g_shadowMap : register(t2);		//todo シャドウマップ。
+Texture2D<float4> albedoTexture : register(t0);		//アルベドテクスチャ
+Texture2D<float4> g_shadowMap   : register(t2);		//シャドウマップ。
 Texture2D<float4> g_specularMap : register(t3);		//スペキュラマップ。
+Texture2D<float4> g_normalMap   : register(t4);		//法線マップ。
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 
@@ -33,6 +34,7 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mLightProj;	//ライトプロジェクション行列。
 	int isShadowReciever;	//シャドウレシーバーフラグ。
 	int isHasSpecularMap;	//スペキュラマップある？
+	int isHasNormalMap;		//法線マップある？
 };
 /*!
 *@brief ディレクションライト
@@ -164,6 +166,29 @@ float3 CalcSpecularLight(float3 normal, float3 worldPos, float2 uv)
 	return lig;
 }
 /// <summary>
+/// 法線を計算する。
+/// </summary>
+float3 CalcNormal(float3 normal, float3 tangent, float2 uv)
+{
+	float3 worldSpaceNormal;
+	if (isHasNormalMap == 1) {
+		//法線マップがある。
+		//法線と接ベクトルの外積を計算して、従ベクトルを計算する。
+		float3 biNormal = cross(normal, tangent);
+		float3 tangentSpaceNormal = g_normalMap.Sample(g_sampler, uv);
+		//0.0～1.0の範囲になっているタンジェントスペース法線を
+		//-1.0～1.0の範囲に変換する。
+		tangentSpaceNormal = (tangentSpaceNormal * 2.0f) - 1.0f;
+		//法線をタンジェントスペースから、ワールドスペースに変換する。
+		worldSpaceNormal = tangent * tangentSpaceNormal.x + biNormal * tangentSpaceNormal.y + normal * tangentSpaceNormal.z;
+	}
+	else {
+		//ない。
+		worldSpaceNormal = normal;
+	}
+	return worldSpaceNormal;
+}
+/// <summary>
 /// デプスシャドウマップ法を使って、影を計算する。。
 /// </summary>
 //引数にinoutをつけると参照渡しになる。
@@ -292,12 +317,16 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 float4 PSMain( PSInput In ) : SV_Target0
 {
 	float4 albedoColor = albedoTexture.Sample(g_sampler, In.TexCoord);
+
+	//法線を計算する。
+	float3 normal = CalcNormal(In.Normal, In.Tangent, In.TexCoord);
+	
 	float3 lig = 0.0f;
 
 	//ディフューズライトを加算。
-	lig += CalcDiffuseLight(In.Normal);
+	lig += CalcDiffuseLight(normal);
 	//スペキュラライトを加算。
-	lig += CalcSpecularLight(In.Normal, In.worldPos, In.TexCoord);
+	lig += CalcSpecularLight(normal, In.worldPos, In.TexCoord);
 
 	lig += ambientLight;
 
