@@ -45,28 +45,7 @@ void GameObjectManager::InitEffekseer()
 	m_effekseerManager->SetModelLoader(m_effekseerRenderer->CreateModelLoader());
 
 }
-void GameObjectManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
-{
-	ChangeRenderTarget(
-		d3dDeviceContext,
-		renderTarget->GetRenderTargetView(),
-		renderTarget->GetDepthStensilView(),
-		viewport
-	);
 
-}
-void GameObjectManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport)
-{
-	ID3D11RenderTargetView* rtTbl[] = {
-		renderTarget
-	};
-	//レンダリングターゲットの切り替え。
-	d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
-	if (viewport != nullptr) {
-		//ビューポートが指定されていたら、ビューポートも変更する。
-		d3dDeviceContext->RSSetViewports(1, viewport);
-	}
-}
 void GameObjectManager::PreRender() {
 	
 
@@ -77,7 +56,7 @@ void GameObjectManager::PreRender() {
 void GameObjectManager::ForwordRender() {
 	//レンダリングターゲットをメインに変更する。
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	ChangeRenderTarget(d3dDeviceContext, &m_mainRenderTarget, &m_frameBufferViewports);
+	g_graphicsEngine->ChangeRenderTarget(d3dDeviceContext, &m_mainRenderTarget, &m_frameBufferViewports);
 	//メインレンダリングターゲットをクリアする。
 	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	m_mainRenderTarget.ClearRenderTarget(clearColor);
@@ -86,9 +65,12 @@ void GameObjectManager::ForwordRender() {
 }
 void GameObjectManager::PostRender() {
 
+	Fade().PostRender();
+	//ポストエフェクトの描画。
+	m_postEffect.Draw();
 
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	ChangeRenderTarget(
+	g_graphicsEngine->ChangeRenderTarget(
 		d3dDeviceContext,
 		m_frameBufferRenderTargetView,
 		m_frameBufferDepthStencilView,
@@ -99,7 +81,7 @@ void GameObjectManager::PostRender() {
 	m_frameBufferDepthStencilView->Release();
 
 
-	Fade().PostRender();
+	
 	GameTime().Draw();
 	
 	//登録されているゲームオブジェクトのポストレンダー呼ぶ。
@@ -142,8 +124,11 @@ void GameObjectManager::Update()
 			go->Update();
 			Fade().Update();
 		}
-		
-	
+		//ポストエフェクトの更新。
+		m_postEffect.Update();
+
+//描画
+		//フレームバッファののレンダリングターゲットをバックアップしておく。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		d3dDeviceContext->OMGetRenderTargets(
 			1,

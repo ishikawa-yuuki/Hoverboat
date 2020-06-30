@@ -225,6 +225,9 @@
     <ClCompile Include="Back.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Character_Select.cpp" />
+    <ClCompile Include="Bloom.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -391,6 +394,9 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Back.h" />
     <ClInclude Include="Character_Select.h" />
+    <ClInclude Include="Bloom.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Player\Player_defult.fbx">

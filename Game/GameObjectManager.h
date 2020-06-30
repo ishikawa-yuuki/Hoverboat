@@ -5,6 +5,7 @@
 #include "RenderTarget.h"
 #include "Sprite.h"
 #include "SoundEngine.h"
+#include "PostEffect.h"
 class GameObjectManager
 {
 public:
@@ -42,6 +43,14 @@ public:
 			}
 		}
 	}
+	/// <summary>
+	/// メインレンダリングターゲットを取得。
+	/// </summary>
+	/// <returns></returns>
+	RenderTarget* GetMainRenderTarget()
+	{
+		return &m_mainRenderTarget;
+	}
 	void SetShadowPos()
 	{
 		m_shadowMapPos = m_shadowMapTarget + m_shadow;
@@ -78,19 +87,12 @@ public:
    /// Effekseerの初期化。
    /// </summary>
 	void InitEffekseer();
-	/// <summary>
-	/// レンダリングターゲットの切り替え。
-	/// </summary>
-	/// <param name="d3dDeviceContext">D3Dデバイスコンテキスト</param>
-	/// <param name="renderTarget">レンダリングターゲット</param>
-	/// <param name="viewport">ビューポート</param>
-	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
-	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
+	
 private:
 	//Effekseerマネージャ管理。
 	Effekseer::Manager* m_effekseerManager				= nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer	= nullptr;
-
+	PostEffect m_postEffect;						//ポストエフェクト。
 	CSoundEngine m_soundEngine;						//サウンドエンジン。
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	RenderTarget m_mainRenderTarget;			    //メインレンダリングターゲット

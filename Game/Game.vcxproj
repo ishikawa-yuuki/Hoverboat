@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="Back.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Bloom.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CFont.cpp" />
     <ClCompile Include="CFontRender.cpp" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="Back.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Bloom.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CFont.h" />
     <ClInclude Include="CFontRender.h" />

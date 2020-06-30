@@ -24,7 +24,7 @@ void PostEffect::Update()
 
 void PostEffect::Draw()
 {
-	
+	m_bloom.Draw(*this);
 }
 
 struct SVertex {

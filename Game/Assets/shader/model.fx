@@ -325,9 +325,11 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 	//ディフューズライトを加算。
 	lig += CalcDiffuseLight(normal);
+
 	//スペキュラライトを加算。
 	lig += CalcSpecularLight(normal, In.worldPos, In.TexCoord);
 
+	//アンビエントライトを加算。
 	lig += ambientLight;
 
 	//デプスシャドウマップを使って影を落とす。。

@@ -1,5 +1,6 @@
 #pragma once
 #include <stack>
+
 /// <summary>
 /// レンダリングモード。
 /// </summary>
@@ -10,7 +11,7 @@ enum EnRenderMode {
 	enRenderMode_Normal,			//通常レンダリング。
 	enRenderMode_Num,				//レンダリングモードの数。
 };
-
+class RenderTarget;
 /*!
  *@brief	グラフィックスエンジン。
  */
@@ -115,7 +116,16 @@ public:
 	{
 		return m_spriteFont.get();
 	}
-
+	/// <summary>
+	/// レンダリングターゲットの切り替え。
+	/// </summary>
+	/// <param name="d3dDeviceContext">D3Dデバイスコンテキスト</param>
+	/// <param name="renderTarget">レンダリングターゲット</param>
+	/// <param name="viewport">ビューポート</param>
+	void ChangeRenderTarget(RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 private:
 	/// <summary>
 		/// 各種レンダリングステート。
