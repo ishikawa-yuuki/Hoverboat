@@ -89,18 +89,18 @@ private:
 		CMatrix WVP;		//ワールドビュープロジェクション行列。
 		CVector4 mulColor;	//乗算カラー。
 	};
-	ID3D11Buffer* m_vertexBuffer = NULL;					//頂点バッファ。
-	ID3D11Buffer* m_indexBuffer = NULL;					//インデックスバッファ。
+	ID3D11Buffer* m_vertexBuffer = NULL;								//頂点バッファ。
+	ID3D11Buffer* m_indexBuffer = NULL;									//インデックスバッファ。
 	Shader						m_vs;									//頂点シェーダー。
 	Shader						m_ps;									//ピクセルシェーダー。
-	ID3D11ShaderResourceView* m_texture = NULL;						//テクスチャ。
-	ID3D11SamplerState* m_samplerState = NULL;					//サンプラステート。
+	ID3D11ShaderResourceView* m_texture = NULL;							//テクスチャ。
+	ID3D11SamplerState* m_samplerState = NULL;							//サンプラステート。
 	CVector3					m_position = CVector3::Zero();			//座標。
 	CQuaternion					m_rotation = CQuaternion::Identity();	//回転
-	CVector3					m_scale = CVector3::One();
+	CVector3					m_scale = CVector3::One();				//サイズ
 	CMatrix						m_world = CMatrix::Identity();			//ワールド行列。
 	CVector2					m_size = CVector2::Zero();				//画像のサイズ。
-	ID3D11Buffer* m_cb = nullptr;							//定数バッファ。
-	CVector4					m_mulColor = CVector4::White();	//乗算カラー。
+	ID3D11Buffer* m_cb = nullptr;										//定数バッファ。
+	CVector4					m_mulColor = CVector4::White();			//乗算カラー。
 
 };

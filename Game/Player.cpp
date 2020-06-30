@@ -9,6 +9,7 @@
 
 Player::Player()
 {
+	//データの取得、初期化
 	m_gamedata = &GameData::GetInstance();
 	Data();
 	m_animClip[enAnimationClip_test].Load(L"Assets/animData/test.tka");
@@ -51,6 +52,7 @@ void Player::Data()
 
 	charaNum = m_gamedata->GetCharaNum(charaNoKazu);
 
+	//パス名(.cmo)
 	size_t convSize;
 	//utf-8からワイド文字列に変換。
 	mbstowcs_s(
@@ -60,6 +62,7 @@ void Player::Data()
 		m_playerData[charaNum].name,
 		255
 	);
+	//パス名(.dds)
 	mbstowcs_s(
 		&convSize,
 		m_specName,
@@ -204,9 +207,9 @@ void Player::Start()
 {
 	//キャラコンを初期化
 	m_charaCon.Init(
-		m_radius,
-		m_height,
-		m_position
+		m_radius,	//半径
+		m_height,	//高さ
+		m_position	//初期位置
 	);
 	
 	//サンプルのエフェクトをロードする。
@@ -260,7 +263,7 @@ void Player::Jump()
 	if (m_gamePad->IsPressJump() && m_jumpPower <= 0.2f&&!m_isJump)
 	{
 		m_jumpPower += GameTime().GetFrameDeltaTime();
-		m_jump.y = 400.0f * m_jumpPower;
+		m_jump.y = m_Addjump * m_jumpPower;
 	}
 	else {
 		if (m_charaCon.IsJump())

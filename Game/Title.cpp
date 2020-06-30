@@ -23,11 +23,7 @@ Title::~Title()
 void Title::Update() 
 {
 	
-	if (g_pad->IsPressAnyKey()) {
-		m_trigger = true;
-		m_decided->Play(false);
-		
-	}
+	
 
 	//フォント点滅
 	if (m_trigger)
@@ -38,11 +34,19 @@ void Title::Update()
 	}
 	else //通常表示
 	{
+		
+		if (g_pad->IsPressAnyKey()&&m_timer > m_ragu) {
+			m_trigger = true;
+			m_decided->Play(false);
+			m_timer = 0.0f;
+			return;
+		}
+		m_timer += GameTime().GetFrameDeltaTime();
 		m_fontTimer += m_add * GameTime().GetFrameDeltaTime();
 	}
 	m_color = sin(m_fontTimer) * m_sinWave + m_sinWave;
 
-	if (m_timer >= 1.0f)
+	if (m_trigger && m_timer >= 1.0f)
 	{
 		//キャラ選択へ
 		g_goMgr->NewGameObject<Character_Select>();

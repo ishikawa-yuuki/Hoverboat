@@ -35,6 +35,7 @@ private:
 	const int m_add			= 3;						//サインカーブ(緩やか)
 	const int m_addPress	= 20;						//サインカーブ(早く)	
 	const float m_sinWave	= 0.5;						//サインの波の指定
+	const float m_ragu		= 1.0f;						//ラグ
 	float  m_color			= 1.0f;						//カラー
 	float m_timer			= 0.0f;						//タイム
 	float m_fontTimer		= 0.0f;						//フォントタイム

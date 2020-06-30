@@ -12,6 +12,7 @@ CFade::~CFade()
 
 void CFade::Start()
 {
+	//初期化
 	m_sprite.Init(L"Assets/sprite/fade.dds", g_graphicsEngine->Get2DSpaceScreenWidth(), g_graphicsEngine->Get2DSpaceScreenHeight());
 	m_start = true;
 }
@@ -21,6 +22,7 @@ void CFade::Update()
 	if (!m_start) {
 		Start();
 	}
+	//フェイド状態
 	switch (m_state) {
 	case enState_FadeIn:
 		m_currentAlpha -= m_loose *GameTime().GetFrameDeltaTime();

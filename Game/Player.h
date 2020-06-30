@@ -226,6 +226,7 @@ private:
 	const float m_gravity	   = 100.0f;		//重力
 	const float m_frictionOver = 0.98f;			//摩擦最大
 	const float m_frictionAdd  = 1.01f;			//緩やかな摩擦
+	const float m_Addjump	   = 400.0f;		//ジャンプ力に乗算する値
 	float m_friction	 = 0.98f;				//摩擦度
 	float m_movePower	 = 100.0f;				// 移動速度
 	float m_jumpPower	 = 0.0f;				//ジャンプ力
