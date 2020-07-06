@@ -30,7 +30,7 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	//サンプラステートの初期化。
 	InitSamplerState();
 
-    InitDirectionLight();
+	InitDirectionLight();
 
 	//SkinModelDataManagerを使用してCMOファイルのロード。
 	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
@@ -66,10 +66,11 @@ void SkinModel::InitDirectionLight()
 	m_light.dirLight.direction[2] = {  0.0f, 0.0f,-1.0f,1.0f };
 	m_light.dirLight.direction[3] = {  0.0f, 0.0f, 1.0f,1.0f };
 	for (int i = 0; i < LIGHT; i++) {
-		m_light.dirLight.color[i] = { 1.0f,1.0f,1.0f,1.0f };
+		m_light.dirLight.color[i] = { 1.0f,1.0f,1.0f,0.5f };
 	}
 	m_light.specPow = 10.0f;
 }
+
 void SkinModel::InitConstantBuffer()
 {
 	//作成するバッファのサイズをsizeof演算子で求める。
@@ -162,6 +163,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix, EnRenderMode render
 		m_vsCb.isHasNormalMap = false;
 	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &m_vsCb, 0, 0);
+	//ライト
 	m_light.eyePos = g_camera3D.GetPosition();
 	m_light.ambientLight = CVector3{ 0.4f,0.4f,0.4f };
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);

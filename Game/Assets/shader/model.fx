@@ -158,7 +158,7 @@ float3 CalcSpecularLight(float3 normal, float3 worldPos, float2 uv)
 		else {
 			specPower = 0.08f;
 		}
-		float3 specLig = pow(t, specPow) * dirLight.color[i] * specPower * 7.0f;
+		float3 specLig = pow(t, specPow) * dirLight.color[i] * specPower * dirLight.color[i].w;
 		// スペキュラ反射が求まったら、ligに加算する。
 		//鏡面反射を反射光に加算する。
 		lig += specLig;
@@ -187,6 +187,12 @@ float3 CalcNormal(float3 normal, float3 tangent, float2 uv)
 		worldSpaceNormal = normal;
 	}
 	return worldSpaceNormal;
+}
+float3 CalcAmbientLight(float4 albedoColor)
+{
+	float3 lig = 0.0f;
+	lig += albedoColor.xyz * ambientLight;
+	return lig;
 }
 /// <summary>
 /// デプスシャドウマップ法を使って、影を計算する。。
@@ -330,7 +336,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 	lig += CalcSpecularLight(normal, In.worldPos, In.TexCoord);
 
 	//アンビエントライトを加算。
-	lig += ambientLight;
+	lig += CalcAmbientLight(albedoColor);
 
 	//デプスシャドウマップを使って影を落とす。。
 	CalcShadow(lig, In.posInLVP);

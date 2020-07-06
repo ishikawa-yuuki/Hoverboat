@@ -118,6 +118,13 @@ public:
 	{
 		m_specularMapSRV = srv;
 	}
+	/// <summary>
+	/// モデル事のライトの設定
+	/// </summary>
+	void SetLight(int i,CVector4 color)
+	{
+		m_light.dirLight.color[i] = color;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -131,6 +138,7 @@ private:
 	*@brief	ディレクションライトの作成。
 	*/
 	void InitDirectionLight();
+
 	/*!
 	*@brief	スケルトンの初期化。
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
@@ -169,6 +177,8 @@ private:
 		float		    specPow;            //スペキュラライトの絞り。
 		CVector3        ambientLight;       //アンビエントライト
 	};
+	float m_specPow = 0.5f;
+	CVector4 m_color = { 1.0f,1.0f,1.0f,0.5f };
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
 	ID3D11Buffer*       m_lightCb = nullptr;            //!<ライト用の定数バッファ。

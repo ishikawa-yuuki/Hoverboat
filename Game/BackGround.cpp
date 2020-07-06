@@ -10,11 +10,22 @@ BackGround::BackGround()
 	m_model.SetShadowReciever(true);
 	//ファイル名を使って、テクスチャをロードして、ShaderResourceViewを作成する。
 	DirectX::CreateDDSTextureFromFileEx(
-		g_graphicsEngine->GetD3DDevice(), L"Assets/modelData/Stage/Black.dds", 0,
+		g_graphicsEngine->GetD3DDevice(), L"Assets/modelData/Stage/road_spec.dds", 0,
 		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
 		false, nullptr, &m_specMapSRV);
+	//ファイル名を使って、テクスチャをロードして、ShaderResrouceViewを作成する。
+	DirectX::CreateDDSTextureFromFileEx(
+		g_graphicsEngine->GetD3DDevice(), L"Assets/modelData/Stage/Ground_010_Normal.dds", 0,
+		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
+		false, nullptr, &m_normalMapSRV);
 	//スペキュラマップ設定
 	m_model.SetSpecularMap(m_specMapSRV);
+	//法線マップ設定
+	m_model.SetNormalMap(m_normalMapSRV);
+	m_model.SetLight(0, { 1.0f,1.0f,1.0f,0.2f });
+	m_model.SetLight(1, { 1.0f,1.0f,1.0f,0.2f });
+	m_model.SetLight(2, { 1.0f,1.0f,1.0f,0.2f });
+	m_model.SetLight(3, { 1.0f,1.0f,1.0f,0.2f });
 }
 
 

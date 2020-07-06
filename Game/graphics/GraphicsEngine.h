@@ -145,7 +145,6 @@ private:
 	IDXGISwapChain*			m_pSwapChain = NULL;		//スワップチェイン。
 	ID3D11DeviceContext*	m_pd3dDeviceContext = NULL;	//D3D11デバイスコンテキスト。
 	ID3D11RenderTargetView* m_backBuffer = NULL;		//バックバッファ。
-	//ID3D11RasterizerState*	m_rasterizerState = NULL;	//ラスタライザステート。
 	ID3D11Texture2D*		m_depthStencil = NULL;		//デプスステンシル。
 	ID3D11DepthStencilView* m_depthStencilView = NULL;	//デプスステンシルビュー。
 

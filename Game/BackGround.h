@@ -30,5 +30,7 @@ private:
 
 	//todo  スペキュラマップ
 	ID3D11ShaderResourceView* m_specMapSRV = nullptr;
+	//todo 法線マップ
+	ID3D11ShaderResourceView* m_normalMapSRV = nullptr;
 };
 

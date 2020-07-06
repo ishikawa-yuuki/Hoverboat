@@ -471,4 +471,12 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\modelData\Stage\Ground_010_Normal.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\modelData\Stage\road_spec.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

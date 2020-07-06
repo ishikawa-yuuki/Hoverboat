@@ -15,6 +15,10 @@ Player::Player()
 	m_animClip[enAnimationClip_test].Load(L"Assets/animData/test.tka");
 	m_animClip[enAnimationClip_test].SetLoopFlag(true);
 	m_model.Init(m_name);
+	m_model.SetLight(0, { 1.0f,1.0f,1.0f,4.0f });
+	m_model.SetLight(1, { 1.0f,1.0f,1.0f,2.0f });
+	m_model.SetLight(2, { 1.0f,1.0f,1.0f,4.0f });
+	m_model.SetLight(3, { 1.0f,1.0f,1.0f,2.0f });
 	m_animation.Init(m_model, m_animClip, enAnimationClip_num);
 	m_animation.Play(0);
 	
